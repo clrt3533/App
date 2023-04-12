@@ -19,9 +19,7 @@ class Product extends BaseModel
 
     protected $fillable = [
         'name',
-        'code',
         'category_id',
-        'unit_price',
         'description'
     ];
 

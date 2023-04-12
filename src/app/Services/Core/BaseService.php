@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class BaseService
 {
     use HasAttrs;
-    protected $model;
+    public $model;
 
     public function setModel(Model $model): BaseService
     {

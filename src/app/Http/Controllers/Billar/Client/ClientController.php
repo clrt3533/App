@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Billar\Client;
 use App\Exceptions\GeneralException;
 use App\Filters\Billar\Client\ClientFilter;
 use App\Http\Controllers\Controller;
+use App\Jobs\SendMessageJob;
 use App\Models\Billar\Client\Client;
 use App\Models\Billar\Invoice\Invoice;
 use App\Services\Billar\Client\ClientService;
@@ -42,8 +43,9 @@ class ClientController extends Controller
             ->clientStore()
             ->profileStore()
             ->clientInvitationMail($password);
-
+        SendMessageJob::dispatch('onboard-message',$this->service->user->profile->contact);
         return created_responses('clients');
+
     }
 
     public function show($id)

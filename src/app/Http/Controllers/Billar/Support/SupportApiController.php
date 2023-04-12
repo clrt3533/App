@@ -166,7 +166,7 @@ class SupportApiController extends Controller
     {
         return Product::query()
             ->filters(new ProductFilter())
-            ->select('id', 'name', 'unit_price')
+            ->select('id', 'name')
             ->orderByDesc('id')
             ->paginate(request('per_page', 10));
     }

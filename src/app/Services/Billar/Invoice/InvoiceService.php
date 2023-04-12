@@ -10,6 +10,7 @@ use App\Models\Billar\Invoice\InvoiceDetail;
 use App\Repositories\Core\Setting\SettingRepository;
 use App\Services\Billar\ApplicationBaseService;
 use Illuminate\Support\Facades\Storage;
+Use Illuminate\Validation\Rule;
 use PDF;
 
 class InvoiceService extends ApplicationBaseService
@@ -45,8 +46,12 @@ class InvoiceService extends ApplicationBaseService
             'products.*.quantity' => 'required',
             'products.*.price' => 'required',
             'products.*.amount' => 'required',
+            'product.*.packages' => ['nullable','sometimes','required','integer' ,'gt:0',Rule::in([1,2,3,4])],
             'sub_total' => 'required',
             'total' => 'required',
+            'from_address' => ['required','string'],
+            'to_address'   => ['required','string'],
+            'is_breakdown' => ['required','boolean']
         ], [
             'client_id.required' => 'The client field is required.',
             'status_id.required' => 'The status field is required.',
@@ -85,14 +90,16 @@ class InvoiceService extends ApplicationBaseService
                         'quantity' => $item['quantity'],
                         'price' => $item['price'],
                         'tax_id' => $item['tax_id'],
+                        'packages'    => $item['packages']
                     ]);
                 } else {
                     InvoiceDetail::create([
                         'invoice_id' => $this->model->id,
                         'product_id' => $item['product_id'],
-                        'quantity' => $item['quantity'],
-                        'price' => $item['price'],
-                        'tax_id' => $item['tax_id'],
+                        'quantity'   => $item['quantity'],
+                        'price'       => $item['price'],
+                        'tax_id'      => $item['tax_id'],
+                        'packages'    => $item['packages']
                     ]);
                 }
             }

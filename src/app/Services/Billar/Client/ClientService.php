@@ -19,7 +19,7 @@ class ClientService extends ApplicationBaseService
 {
     use HasWhen;
 
-    protected User $user;
+    public User $user;
 
     public function __construct(Client $client)
     {

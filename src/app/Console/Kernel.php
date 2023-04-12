@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Console\Commands\Billar\InvoiceRecurringCommand;
 use App\Console\Commands\Billar\PaymentReminder;
+use App\Jobs\SendReminderMessage;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -39,7 +40,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('invoice:recurring')
             ->daily();
 
-
+        $schedule->job(SendReminderMessage::class)->hourly();
     }
 
     /**

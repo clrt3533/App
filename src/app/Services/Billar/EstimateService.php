@@ -107,7 +107,7 @@ class EstimateService extends BaseService
     {
         $estimateInfo = $invoice->load(['estimateDetails' => function ($query) {
             $query->with('product:id,name', 'tax:id,name,value');
-        }, 'client:id,first_name,last_name,email', 'createdBy:id,first_name,last_name']);
+        }, 'client:id,first_name,last_name,email','createdBy:id,first_name,last_name']);
 
         $estimateInfo->totalTax = $estimateInfo->estimateDetails->map(function ($item) {
             $tax = $item->load('tax')->tax ? $item->load('tax')->tax->value : 0;

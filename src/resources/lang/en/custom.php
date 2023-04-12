@@ -666,7 +666,7 @@ return array_merge([
     'payment' => 'Payment',
     'invoice_no' => 'Invoice No',
     'action_invoice_download' => 'Download',
-    'issue_date' => 'Issue date',
+    'issue_date' => 'Move date',
     'recurring_invoices' => 'Recurring invoices',
     'stop_recurring' => 'Stop recurring',
 
@@ -864,7 +864,21 @@ return array_merge([
     'other_information' => 'Other information',
     'payment_summary' => 'Payment summary',
     'discount_will_be_applicable_on_subtotal_amount' => 'Discount will be applicable on subtotal amount',
-    'update_invoice' => 'Update invoice'
+    'update_invoice' => 'Update invoice',
 
+    'bubble'     => 'Bubble',
+    'corrugated' => 'Corrugated',
+    'foam'       => 'Foam',
+    'packing'    => 'Packing',
+    'packages'   => 'Packages',
+
+    //address
+    'from_address'      => 'From Address',
+    'to_address'        => 'To Address',
+    'from_address_place_holder' => 'enter from address',
+    'to_address_place_holder'   => 'enter to address',
+
+    'hide_break_down'=>'hide Break-down',
+    'text_hide_break_down' => 'hide Break down',
 ], include 'setup.php');
 

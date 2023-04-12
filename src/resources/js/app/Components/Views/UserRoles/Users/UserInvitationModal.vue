@@ -49,7 +49,7 @@ import {ModalMixin} from '../../../../Mixins/ModalMixin';
 import {UserAndRoleMixin} from '../Mixins/UserAndRoleMixin';
 import * as actions from '../../../../Config/ApiUrl';
 import {SYSTEMROLES} from "../../../../Config/ApiUrl";
-import {optional} from "../../../../../../../package/installer/src/resources/js/Helpers/Helpers";
+import {optional} from "../../../../../../../../package/installer/src/resources/js/Helpers/Helpers";
 
 
 export default {

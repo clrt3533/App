@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Billar\Estimate;
 use App\Filters\Billar\Estimate\EstimateFilter;
 use App\Http\Controllers\Controller;
 use App\Jobs\EstimateAttachmentJob;
+use App\Jobs\SendMessageJob;
 use App\Models\Billar\Estimates\Estimate;
 use App\Models\Billar\Estimates\EstimateDetails;
 use App\Repositories\Core\Status\StatusRepository;
@@ -47,6 +48,7 @@ class EstimateController extends Controller
             ->pdfGenerate($estimateInfo);
 
         EstimateAttachmentJob::dispatch($estimateInfo)->onQueue('high');
+        SendMessageJob::dispatch('estimate-generation-message',$estimate->client->profile->contact);
         return created_responses('estimates');
     }
 

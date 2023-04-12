@@ -18,6 +18,7 @@ class AuthenticateUserController extends Controller
      */
     public function registerView()
     {
+
         return view('frontend.user.invitation_confirm');
     }
 

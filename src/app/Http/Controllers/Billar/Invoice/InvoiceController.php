@@ -6,9 +6,11 @@ use App\Exports\Billar\InvoiceExport;
 use App\Filters\Billar\Invoice\InvoiceFilter;
 use App\Http\Controllers\Controller;
 use App\Jobs\InvoiceAttachmentJob;
+use App\Jobs\SendMessageJob;
 use App\Models\Billar\Invoice\Invoice;
 use App\Models\Billar\Invoice\InvoiceDetail;
 use App\Services\Billar\Invoice\InvoiceService;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -51,7 +53,6 @@ class InvoiceController extends Controller
             ->save();
 
         $this->service->when($request->has('products'), fn(InvoiceService $service) => $service->invoiceDetails());
-
         $invoiceInfo = $this->service->loadInvoiceInfo($invoice);
 
         $this->service
@@ -59,6 +60,8 @@ class InvoiceController extends Controller
             ->pdfGenerate($invoiceInfo);
 
         InvoiceAttachmentJob::dispatch($invoiceInfo)->onQueue('high');
+
+        SendMessageJob::dispatch('book-confirmation-message',$this->service->model->client->profile->contact,$this->service->model->date);
         return created_responses('invoices');
     }
 
