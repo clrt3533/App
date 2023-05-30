@@ -20,85 +20,128 @@
             <div class="row justify-content-center">
                 <div v-if="dataLoaded" class="invoice_preview primary-card-color">
                     <div id="print-invoice" class="cus-invoice_container">
+                        <!-- Company logo -->
                         <div class="cus-invoice_container__item cus-px-5 cus-mt-5">
-                            <div class="cus-w-25 cus-f-left cus-p-2">
+                            <div class="cus-w-100">
                                 <div>
-                                    <img class="cus-logo" :src="AppFunction.getAppUrl(configData.invoice_logo)" alt="NF">
+                                    <img style="width: 100%;"
+                                        src="http://sh004.hostgator.tempwebhost.net/~saipaob3/images/card.jpeg"
+                                        alt="Sai Packers and Movers">
                                 </div>
                             </div>
-                            <div class="cus-w-50 cus-f-right cus-text-right">
-                                <h1 class="cus-text-capital cus-bold">Invoice</h1>
-                                <table class="cus-f-right cus-w-75 cus-font-xm cus-mt-3">
-                                    <tr>
+                        </div>
+
+                        <!-- Invoice details -->
+                        <div class="cus-invoice_container__item cus-px-5">
+                            <table class="cus-w-100 cus-font-xm cus-table-strip" border="0" cellspacing="0" cellpadding="0">
+                                <thead>
+                                    <tr class="cus-bg-dark cus-text-light">
+                                        <!-- Client name -->
+                                        <th class="cus-w-25 cus-p-1 cus-text-left">
+                                            <p v-if="formData.client" class="cus-bold">{{ $t('Name') }}: {{
+                                                formData.client.full_name }}</p>
+                                        </th>
+
+                                        <!-- Client contact -->
+                                        <th class="cus-w-25 cus-p-1 cus-text-center">
+                                            <p v-if="formData.client.profile.contact">{{ $t('contact') }}: {{
+                                                formData.client.profile.contact }}</p>
+                                        </th>
+
+                                        <!-- Invoice number -->
+                                        <th class="cus-w-25 cus-p-1 cus-text-center">
                                         <td class="cus-bold">{{ $t('invoice_no') }}</td>
                                         <td>:</td>
                                         <td class="cus-text-right">{{ formData.is_from_estimate ? 'EST-' : '' }}{{
                                             formData.invoice_number }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="cus-bold">{{ $t('date') }}</td>
+                                        </th>
+
+                                        <!-- Invoice date -->
+                                        <th class="cus-w-25 cus-p-1 cus-text-right">
+                                        <td class="cus-bold cus-text-right">{{ $t('date') }}</td>
                                         <td>:</td>
                                         <td class="cus-text-right">{{ formatDateToLocal(formData.date) }}</td>
+                                        </th>
                                     </tr>
-                                    <tr>
-                                        <td class="cus-bold">{{ $t('due_date') }}</td>
-                                        <td>:</td>
-                                        <td class="cus-text-right">{{ formatDateToLocal(formData.due_date) }}</td>
+                                </thead>
+                            </table>
+
+                            <!-- Address details -->
+                            <table class="cus-w-100 cus-font-xm cus-table-strip" border="0" cellspacing="1" cellpadding="0">
+
+                                <template v-if="formData.from_address && formData.to_address">
+                                    <tr class="cus-bg-transparent">
+                                        <!-- From Address Column -->
+                                        <td class="cus-p-1 cus-text-left colspan=2">
+                                            <p class="cus-mt-3 cus-bold">{{ $t('from_address') }}:</p>
+                                            <p v-html="formData.from_address"></p>
+                                            <p class="cus-mt-3 cus-bold">{{ $t('Lift') }}</p>
+                                            <p v-if="formData.lift_from_address === true">Available</p>
+                                            <p v-else-if="formData.lift_from_address === false">N/A</p>
+                                            <p class="cus-mt-3 cus-bold">{{ $t('Floor') }}</p>
+                                            <p v-html="formData.floor_from_address"></p>
+                                        </td>
+
+                                        <!-- To Address Column -->
+
+                                        <td class="cus-p-1 cus-text-right colspan=2">
+                                            <p class="cus-mt-4 cus-bold">{{ $t('to_address') }}</p>
+                                            <p v-html="formData.to_address"></p>
+                                            <p class="cus-mt-4 cus-bold ">{{ $t('Lift') }}</p>
+                                            <p v-if="formData.lift_to_address === true">Available</p>
+                                            <p v-else-if="formData.lift_to_address === false">N/A</p>
+                                            <p class="cus-mt-4 cus-bold">{{ $t('Floor') }}</p>
+                                            <p v-html="formData.floor_to_address"></p>
+                                        </td>
+
                                     </tr>
-                                    <tr>
-                                        <td class="cus-bold">{{ $t('vat') }}</td>
-                                        <td>:</td>
-                                        <td class="cus-text-right">{{ configData.vat_number }}</td>
-                                    </tr>
-                                </table>
-                                <div class="cus-f-clear"></div>
-                            </div>
+
+                                </template>
+
+                            </table>
+
                             <div class="cus-f-clear"></div>
                         </div>
+                        <div class="cus-f-clear"></div>
 
+                        <!-- Invoice message -->
                         <div class="cus-invoice_container__item cus-p-5">
-                            <div class="cus-w-50 cus-f-left cus-font-xm">
-                                <p v-if="formData.created_by" class="cus-bold">{{ $t('from') }}</p>
-                                <p>{{ formData.created_by.full_name }}</p>
-                                <template v-if="formData.created_by.profile">
-                                    <small v-if="formData.created_by.profile.contact">{{ $t('contact') }}:
-                                        {{ formData.created_by.profile.contact }}</small>
-                                    <br>
-                                    <small v-if="formData.created_by.profile.address">{{ $t('address') }}:
-                                        {{ formData.created_by.profile.address }}</small>
-                                </template>
-                            </div>
-                            <div class="cus-w-50 cus-f-right cus-font-xm">
-                                <div class="cus-w-75 cus-f-right">
-                                    <p v-if="formData.client" class="cus-bold">{{ $t('to') }}</p>
-                                    <p>{{ formData.client.full_name }}</p>
-                                    <template v-if="formData.client.profile">
-                                        <small v-if="formData.client.profile.contact">{{ $t('contact') }}:
-                                            {{ formData.client.profile.contact }}</small>
-                                        <br>
-                                        <small v-if="formData.client.profile.address">{{ $t('address') }}:
-                                            {{ formData.client.profile.address }}</small><br>
-                                        <small v-if="formData.client.profile.address">{{ $t('vat') }}:
-                                            {{ formData.client.profile.vat_number }}</small>
-
-                                    </template>
+                            <div class="cus-w-100 cus-f-left">
+                                <div class="cus-w-100 cus-f-left">
+                                    <p v-if="formData.client" class="cus-bold">{{ $t('Dear ') }}{{ formData.client.full_name
+                                    }},</p>
+                                    <p>Thank you for choosing our services. We greatly appreciate your business and the
+                                        trust you have placed in us. We are committed to providing you with exceptional
+                                        services.</p>
+                                    <p><br></p>
+                                    <p class="cus-bold"> Please find the details of your invoice below:</p>
                                 </div>
                                 <div class="cus-f-clear"></div>
                             </div>
                             <div class="cus-f-clear"></div>
                         </div>
 
-
+                        <!-- Invoice table -->
                         <div class="cus-invoice_container__item cus-px-5">
                             <table class="cus-w-100 cus-font-xm cus-table-strip" border="0" cellspacing="0" cellpadding="0">
                                 <thead>
-<<<<<<< HEAD
                                     <tr class="cus-bg-dark cus-text-light">
-                                        <th class="cus-w-45 cus-p-1 cus-text-left">{{ $t('product') }}</th>
+                                        <th class="cus-w-25 cus-p-1 cus-text-left">{{ $t('product') }}</th>
                                         <th class="cus-w-10 cus-p-1 cus-text-right">{{ $t('quantity') }}</th>
-                                        <th class="cus-w-15 cus-p-1 cus-text-right">{{ $t('unit_price') }}</th>
-                                        <th class="cus-w-15 cus-p-1 cus-text-right">{{ $t('tax') }}</th>
-                                        <th class="cus-w-15 cus-p-1 cus-text-right">{{ $t('total') }}</th>
+                                        <th class="cus-w-10 cus-p-1 cus-text-right">{{ $t('packages') }}</th>
+
+                                        <!-- Hide invoice details header -->
+                                        <th class="cus-w-15 cus-p-1 cus-text-right" v-if="formData.is_breakdown"></th>
+                                        <th class="cus-w-15 cus-p-1 cus-text-right" v-if="formData.is_breakdown"></th>
+                                        <th class="cus-w-15 cus-p-1 cus-text-right" v-if="formData.is_breakdown"></th>
+
+                                        <!-- Show in-detail invoice header -->
+                                        <th class="cus-w-15 cus-p-1 cus-text-right" v-if="!formData.is_breakdown">{{
+                                            $t('unit_price') }}</th>
+                                        <th class="cus-w-15 cus-p-1 cus-text-right" v-if="!formData.is_breakdown">{{
+                                            $t('tax') }}</th>
+                                        <th class="cus-w-15 cus-p-1 cus-text-right" v-if="!formData.is_breakdown">{{
+                                            $t('total') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -106,165 +149,95 @@
                                         :key="`invoice-item-${index}`">
                                         <td class="cus-p-1">{{ invoiceProduct.product.name }}</td>
                                         <td class="cus-p-1 cus-text-right">{{ invoiceProduct.quantity }}</td>
-                                        <td class="cus-p-1 cus-text-right">{{
-                                            numberWithCurrencySymbol(invoiceProduct.price)
-                                        }}
+                                        <td class="cus-p-1 cus-text-right">{{ invoicePackages(invoiceProduct.packages) }}
                                         </td>
-                                        <td class="cus-p-1 cus-text-right">
-                                            {{ invoiceProduct.tax ? (invoiceProduct.tax.value) + ('%') : 'N/A' }}
-                                        </td>
-                                        <td class="cus-p-1 cus-text-right">
-                                            {{
-                                                numberWithCurrencySymbol(
-                                                    calculateProductTax(
-                                                        invoiceProduct.tax
-                                                            ? invoiceProduct.tax.value
-                                                            : 0, invoiceProduct.quantity * invoiceProduct.price) + (invoiceProduct.quantity
-                                                                * invoiceProduct.price))
-                                            }}
-                                        </td>
+
+                                        <!-- Hide invoice details data -->
+                                        <td class="cus-p-1 cus-text-right" v-if="formData.is_breakdown"></td>
+                                        <td class="cus-p-1 cus-text-right" v-if="formData.is_breakdown"></td>
+                                        <td class="cus-p-1 cus-text-right" v-if="formData.is_breakdown"></td>
+
+                                        <!-- Show in-detail invoice data-->
+                                        <td class="cus-p-1 cus-text-right" v-if="!formData.is_breakdown">{{
+                                            numberWithCurrencySymbol(invoiceProduct.price) }}</td>
+                                        <td class="cus-p-1 cus-text-right" v-if="!formData.is_breakdown">{{
+                                            invoiceProduct.tax ? (invoiceProduct.tax.value) + ('%') : 'N/A' }}</td>
+                                        <td class="cus-p-1 cus-text-right" v-if="!formData.is_breakdown">{{
+                                            numberWithCurrencySymbol(calculateProductTax(invoiceProduct.tax ?
+                                                invoiceProduct.tax.value : 0, invoiceProduct.quantity * invoiceProduct.price) +
+                                                (invoiceProduct.quantity * invoiceProduct.price)) }}</td>
                                     </tr>
                                     <tr class="cus-bg-transparent">
-                                        <td colspan="5">
+                                        <td colspan="6">
                                             <div class="cus-hr cus-mt-2"></div>
                                         </td>
                                     </tr>
-                                    <tr class="cus-bg-transparent">
-                                        <td colspan="2"></td>
+                                    <tr class="cus-bg-transparent" v-if="!formData.is_breakdown">
+                                        <td colspan="3"></td>
                                         <td colspan="2" class="cus-bold cus-p-1">{{ $t('sub_total') }} :</td>
-                                        <td class="cus-text-right cus-p-1">{{
-                                            numberWithCurrencySymbol(formData.sub_total)
-                                        }}
-                                        </td>
+                                        <td class="cus-text-right cus-p-1">{{ numberWithCurrencySymbol(formData.sub_total)
+                                        }}</td>
                                     </tr>
-                                    <tr class="cus-bg-transparent">
-                                        <td colspan="2"></td>
+                                    <tr class="cus-bg-transparent" v-if="!formData.is_breakdown">
+                                        <td colspan="3"></td>
                                         <td colspan="2" class="cus-bold p-1">{{ $t('tax') }} :</td>
                                         <td class="cus-text-right cus-p-1">{{ numberWithCurrencySymbol(totalTax) }}</td>
                                     </tr>
-                                    <tr class="cus-bg-transparent">
-                                        <td colspan="2"></td>
+                                    <tr class="cus-bg-transparent" v-if="!formData.is_breakdown">
+                                        <td colspan="3"></td>
                                         <td colspan="2" class="cus-bold cus-p-1">{{ $t('discount') }} :
                                             <template v-if="formData.discount_type === 'percentage'">
                                                 {{ formData.discount }} %
                                             </template>
                                         </td>
-                                        <td class="cus-text-right cus-p-1">
-                                            {{ numberWithCurrencySymbol(formData.discount_amount) }}
-                                        </td>
-                                    </tr>
-                                    <tr class="cus-bg-transparent">
-                                        <td colspan="2"></td>
-                                        <td colspan="2" class="cus-bold p-1">{{ $t('total') }} :</td>
                                         <td class="cus-text-right cus-p-1">{{
-=======
-                                <tr class="cus-bg-dark cus-text-light">
-                                    <th class="cus-w-45 cus-p-1 cus-text-left">{{ $t('product') }}</th>
-                                    <th class="cus-w-10 cus-p-1 cus-text-right">{{ $t('quantity') }}</th>
-                                   <th class="cus-w-15 cus-p-1 cus-text-right"></th>
-                                   <th class="cus-w-15 cus-p-1 cus-text-right"></th>
-                                  <th class="cus-w-15 cus-p-1 cus-text-right"></th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr v-for="(invoiceProduct, index) in formData.invoice_details"
-                                    :key="`invoice-item-${index}`">
-                                    <td class="cus-p-1">{{ invoiceProduct.product.name }}</td>
-                                    <td class="cus-p-1 cus-text-right">{{ invoiceProduct.quantity }}</td>
-                                    <td class="cus-p-1 cus-text-right"></td>
-                                  <td class="cus-p-1 cus-text-right"></td>
-                                  <td class="cus-p-1 cus-text-right"></td>
-
-
-                                </tr>
-                                <tr class="cus-bg-transparent">
-                                    <td colspan="5">
-                                        <div class="cus-hr cus-mt-2"></div>
-                                    </td>
-                                </tr>
-                                <tr class="cus-bg-transparent" v-if="!formData.is_breakdown">
-                                    <td colspan="2"></td>
-                                    <td colspan="2" class="cus-bold cus-p-1">{{ $t('sub_total') }} :</td>
-                                    <td class="cus-text-right cus-p-1">{{
-                                            numberWithCurrencySymbol(formData.sub_total)
-                                        }}
-                                    </td>
-                                </tr>
-                                <tr class="cus-bg-transparent" v-if="!formData.is_breakdown">
-                                    <td colspan="2"></td>
-                                    <td colspan="2" class="cus-bold p-1">{{ $t('tax') }} :</td>
-                                    <td class="cus-text-right cus-p-1">{{ numberWithCurrencySymbol(totalTax) }}</td>
-                                </tr>
-                                <tr class="cus-bg-transparent" v-if="!formData.is_breakdown">
-                                    <td colspan="2"></td>
-                                    <td colspan="2" class="cus-bold cus-p-1">{{ $t('discount') }} :
-                                        <template v-if="formData.discount_type === 'percentage'">
-                                            {{ formData.discount }} %
-                                        </template>
-                                    </td>
-                                    <td class="cus-text-right cus-p-1">
-                                        {{ numberWithCurrencySymbol(formData.discount_amount) }}
-                                    </td>
-                                </tr>
-                                <tr class="cus-bg-transparent">
-                                    <td colspan="2"></td>
-                                    <td colspan="2" class="cus-bold p-1">{{ $t('total') }} :</td>
-                                    <td class="cus-text-right cus-p-1">{{
->>>>>>> e8ad10d521d407304057bda4ea2b30273979a7d0
-                                            numberWithCurrencySymbol(formData.total)
-                                        }}
+                                            numberWithCurrencySymbol(formData.discount_amount) }}</td>
+                                    </tr>
+                                    <tr class="cus-bg-transparent">
+                                        <td colspan="3"></td>
+                                        <td colspan="2" class="cus-bold p-1">{{ $t('total') }} :</td>
+                                        <td class="cus-text-right cus-p-1">{{ numberWithCurrencySymbol(formData.total) }}
                                         </td>
                                     </tr>
                                     <tr class="cus-bg-transparent">
-                                        <td colspan="2"></td>
+                                        <td colspan="3"></td>
                                         <td colspan="2" class="cus-bold p-1">{{ $t('paid') }} :</td>
-                                        <td colspan="2" class="cus-text-right p-1">
-                                            {{ numberWithCurrencySymbol(formData.received_amount) }}
-                                        </td>
+                                        <td class="cus-text-right cus-p-1">{{
+                                            numberWithCurrencySymbol(formData.received_amount) }}</td>
                                     </tr>
                                     <tr class="cus-bg-transparent">
-                                        <td colspan="2" class="cus-bg-transparent"></td>
+                                        <td colspan="3" class="cus-bg-transparent"></td>
                                         <td colspan="3" class="cus-bg-transparent">
                                             <div class="cus-hr cus-mt-2"></div>
                                         </td>
                                     </tr>
                                     <tr class="cus-bg-transparent cus-bold">
-                                        <td colspan="2"></td>
+                                        <td colspan="3"></td>
                                         <td colspan="2" class="cus-p-1">{{ $t('due_amount') }} :</td>
-                                        <td class="cus-text-right cus-p-1">{{
-                                            numberWithCurrencySymbol(formData.due_amount)
-                                        }}
-                                        </td>
+                                        <td class="cus-text-right cus-p-1">{{ numberWithCurrencySymbol(formData.due_amount)
+                                        }}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div class="cus-invoice_container__item cus-p-5 cus-font-xm">
-                            <div>
-                                <template v-if="formData.notes">
-                                    <div class="cus-bold">{{ $t('notes') }}</div>
-                                    <p v-html="formData.notes"></p>
-                                </template>
-                                <template v-if="formData.terms">
-                                    <div class="cus-bold cus-mt-3">{{ $t('terms') }}</div>
-                                    <p v-html="formData.terms"></p>
-                                </template>
-                              <template v-if="formData.from_address">
-                                <div class="cus-bold cus-mt-3">{{ $t('from_address') }}</div>
-                                <p v-html="formData.from_address"></p>
-                              </template>
-                              <template v-if="formData.to_address">
-                              <div class="cus-bold cus-mt-3">{{ $t('to_address') }}</div>
-                              <p v-html="formData.to_address"></p>
+
+                        <!-- Invoice notes -->
+                        <div class="cus-invoice_container__item cus-p-5">
+                            <template v-if="formData.notes">
+                                <div class="cus-bold">{{ $t('notes') }}</div>
+                                <p v-html="formData.notes"></p>
                             </template>
 
-                            </div>
+                            <template v-if="formData.terms">
+                                <div class="cus-bold cus-mt-3">{{ $t('terms') }}</div>
+                                <p v-html="formData.terms"></p>
+                            </template>
+
                         </div>
                     </div>
                 </div>
-                <app-overlay-loader v-else />
             </div>
+
 
             <send-invoice-modal v-if="isSendInvoiceModalActive" :email="formData.client.email"
                 :invoice-information="formData" @closeModal="closeSendInvoiceModal" />
@@ -301,6 +274,7 @@ export default {
             formData: {},
         }
     },
+
     computed: {
         totalTax() {
             let totalTaxes = 0;
@@ -314,8 +288,11 @@ export default {
             return totalTaxes;
         },
     },
+    // The above code is a Vue.js component's methods section that contains various functions.
     methods: {
         calculateProductTax(tax, totalPrice) {
+            console.log('lift' + this.formData.lift);
+            console.log('floor' + this.formData.floor);
             let taxes = 0;
             taxes = ((totalPrice * tax) / 100);
             return taxes;
@@ -334,6 +311,23 @@ export default {
             this.isSendInvoiceModalActive = false;
             $('#send-invoice-modal').modal('hide');
         },
+
+        invoicePackages(value) {
+            let returnedValue;
+            returnedValue = '';
+            if (value === 1) {
+                returnedValue = 'None';
+            } else if (value === 2) {
+                returnedValue = 'Bubble';
+            } else if (value === 3) {
+                returnedValue = 'Corrugated';
+            } else if (value === 4) {
+                returnedValue = 'Packing';
+            } else {
+                returnedValue = 'Foam';
+            }
+            return returnedValue;
+        }
 
     },
 }
@@ -355,7 +349,7 @@ export default {
 }
 
 .cus-bg-dark {
-    background-color: #333333 !important;
+    background-color: #d9251c !important;
 }
 
 .cus-bg-secondary {

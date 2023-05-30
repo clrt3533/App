@@ -1,25 +1,28 @@
+// This is a Vue.js component that displays a list of invoices and provides options to export all
+// invoices, create a new invoice, and view the total amount, total paid, and total due for all
+// invoices. It also includes several modal components for adding/editing payments, deleting invoices,
+// and adding/editing clients. The component uses mixins and helper functions to handle API requests
+// and other functionality.
 <template>
     <div class="content-wrapper">
         <div class="d-flex align-items-center justify-content-between">
-            <app-breadcrumb :page-title="$t('invoices')"/>
+            <app-breadcrumb :page-title="$t('invoices')" />
             <div class="mb-4">
 
                 <a href="javascript:void(0)" type="button" v-if="$can('create_invoices')"
-                   class="btn btn-info btn-with-shadow pl-2"
-                   @click="exportAllInvoice">
-                    <app-icon name="download" class="size-20 mr-2"/>
+                    class="btn btn-info btn-with-shadow pl-2" @click="exportAllInvoice">
+                    <app-icon name="download" class="size-20 mr-2" />
                     {{ $t('export_all') }}
                 </a>
                 <a :href="AppFunction.getAppUrl('invoices/create/view')"
-                   v-if="$can('create_invoices') && isMailSettingExist"
-                   class="btn btn-success btn-with-shadow">
-                    <app-icon name="plus" class="size-20 mr-2"/>
+                    v-if="$can('create_invoices') && isMailSettingExist" class="btn btn-success btn-with-shadow">
+                    <app-icon name="plus" class="size-20 mr-2" />
                     {{ $t('new_invoice') }}
                 </a>
                 <template v-else>
                     <a v-if="$can('create_invoices')" href="javascript:void(0)" @click="showAlertMessage"
-                       class="btn btn-success btn-with-shadow">
-                        <app-icon name="plus" class="size-20 mr-2"/>
+                        class="btn btn-success btn-with-shadow">
+                        <app-icon name="plus" class="size-20 mr-2" />
                         {{ $t('new_invoice') }}
                     </a>
                 </template>
@@ -62,50 +65,32 @@
             </div>
         </div>
 
-        <app-table :id="tableId" :options="options" @action="getListAction"/>
+        <app-table :id="tableId" :options="options" @action="getListAction" />
 
 
         <!-- Payment Add/Edit Modal -->
-        <payment-add-edit-modal
-            v-if="isPaymentAddEditModalActive"
-            :table-id="tableId"
-            :invoice-id="invoiceId"
-            @closeModal="closePaymentAddEditModal"
-        />
+        <payment-add-edit-modal v-if="isPaymentAddEditModalActive" :table-id="tableId" :invoice-id="invoiceId"
+            @closeModal="closePaymentAddEditModal" />
 
-        <invoice-payment-modal
-            v-if="isInvoicePaymentModalActive"
-            :table-id="tableId"
-            :invoice-id="invoiceId"
-            :selected-url="selectUrl"
-            @closeModal="closeInvoicePaymentModal"
-        />
+        <invoice-payment-modal v-if="isInvoicePaymentModalActive" :table-id="tableId" :invoice-id="invoiceId"
+            :selected-url="selectUrl" @closeModal="closeInvoicePaymentModal" />
 
         <!-- Client Delete Modal -->
-        <app-delete-modal
-            v-if="confirmationModalActive"
-            modal-id="delete-confirm-modal"
-            :message="$t('are_you_sure_to_delete_this_invoice')"
-            @confirmed="confirmDelete"
-            @cancelled="cancelledDelete"
-        />
+        <app-delete-modal v-if="confirmationModalActive" modal-id="delete-confirm-modal"
+            :message="$t('are_you_sure_to_delete_this_invoice')" @confirmed="confirmDelete" @cancelled="cancelledDelete" />
 
         <!-- Client Delete Modal -->
 
 
-        <client-add-edit-modal
-            v-if="clientModalActive"
-            :table-id="tableId"
-            @closeModal="closeClientModal"
-        />
+        <client-add-edit-modal v-if="clientModalActive" :table-id="tableId" @closeModal="closeClientModal" />
 
     </div>
 </template>
 
 <script>
 import InvoiceTableMixin from '../../../Mixins/InvoiceTableMixin';
-import {axiosGet, urlGenerator} from "../../../Helpers/AxiosHelper";
-import {MAIL_CHECK_URL, TENANT_MAIL_CHECK_URL} from "../../../Config/ApiUrl";
+import { axiosGet, urlGenerator } from "../../../Helpers/AxiosHelper";
+import { MAIL_CHECK_URL, TENANT_MAIL_CHECK_URL } from "../../../Config/ApiUrl";
 
 export default {
     name: 'Index',

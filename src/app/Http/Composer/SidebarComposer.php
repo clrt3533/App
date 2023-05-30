@@ -23,22 +23,10 @@ class SidebarComposer
             ],
             [
                 'name' => trans('default.invoices'),
-                'id' => 'invoices',
                 'icon' => 'file-text',
-                'permission' => authorize_any(['view_invoices']),
-                'subMenu' => [
-                    [
-                        'name' => trans('default.invoices'),
-                        'url' => request()->root() . '/invoices/list/view',
-                        'permission' => auth()->user()->can('view_invoices'),
-                    ],
+                'url' => request()->root() . '/invoices/list/view',
+                'permission' => auth()->user()->can('view_invoices'),
 
-                    [
-                        'name' => trans('default.recurring_invoices'),
-                        'url' => request()->root() . '/recurring/invoice/list/view',
-                        'permission' => auth()->user()->can('view_invoices'),
-                    ],
-                ]
             ],
 
             [

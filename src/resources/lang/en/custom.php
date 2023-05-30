@@ -127,6 +127,7 @@ return array_merge([
     'general' => 'General',
     'company_info' => 'Company info',
     'company_name' => 'Company name',
+    'company_terms' => 'Company terms',
     'type_your_company_name' => 'Type your company name',
     'company_logo' => 'Company logo',
     'change' => 'Change',
@@ -657,7 +658,7 @@ return array_merge([
     'complete_payment' => 'Complete payment',
     'minimum_amount' => 'Minimum amount',
     'maximum_amount' => 'Maximum amount',
-    'due' => 'Due',
+    'due' => 'New',
     'minimum_paid' => 'Minimum paid',
     'maximum_paid' => 'Maximum paid',
     'minimum_due' => 'Minimum due',
@@ -871,14 +872,25 @@ return array_merge([
     'foam'       => 'Foam',
     'packing'    => 'Packing',
     'packages'   => 'Packages',
+    'none'       => 'None',
 
     //address
-    'from_address'      => 'From Address',
-    'to_address'        => 'To Address',
-    'from_address_place_holder' => 'enter from address',
-    'to_address_place_holder'   => 'enter to address',
+    'from_address'      => 'Origin',
+    'to_address'        => 'Destination',
+    'from_address_place_holder' => 'Add origin address',
+    'to_address_place_holder'   => 'Add destination address',
+    'lift_place_holder' => 'Lift availability',
+    'floor_place_holder' => 'Floor No.',
+    'lift'=>'Lift',
+    'floor'=>'Floor',
+    'packages' => 'Packaging',
 
-    'hide_break_down'=>'hide Break-down',
-    'text_hide_break_down' => 'hide Break down',
+    'from_address_floor' => 'Floor no. (Origin)',
+    'to_address_floor' => 'Floor no. (Destination).',
+    'from_address_lift' => 'Lift (Origin)',
+    'to_address_lift' => 'lift (Destination)',
+
+    'hide_break_down'=>'Break-Down (Hidden)',
+    'text_hide_break_down' => 'Break-Down (Hidden)',
 ], include 'setup.php');
 

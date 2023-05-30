@@ -2,18 +2,15 @@
 	<div class="container-fluid p-0">
 		<div class="row">
 			<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-8">
-				<div class="back-image"
-				     :style="'background-image: url('+ urlGenerator(configData.company_banner) +')'">
+				<div class="back-image" :style="'background-image: url(' + urlGenerator(configData.company_banner) + ')'">
 				</div>
 			</div>
 			<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 pl-md-0">
 				<div class="login-form d-flex align-items-center">
-					<form class="sign-in-sign-up-form w-100"
-					      ref="form" data-url="/admin/users/login">
-						
+					<form class="sign-in-sign-up-form w-100" ref="form" data-url="/admin/users/login">
+
 						<div class="text-center mb-4">
-							<img :src="urlGenerator(configData.company_logo)" alt=""
-							     class="img-fluid logo">
+							<img :src="urlGenerator(configData.company_logo)" alt="" class="img-fluid logo">
 						</div>
 						<div class="form-row">
 							<div class="form-group col-12 px-0">
@@ -21,52 +18,32 @@
 								<label class="text-center d-block">{{ $t('log_in_to_your_dashboard') }}</label>
 							</div>
 						</div>
-						
-						<div class="form-row" v-if="marketPlaceVersion">
-							<div class="form-group col-12">
-								<label>{{ $t("user_role") }}</label>
-								<app-input type="select"
-								           id="input-select"
-								           :placeholder="$t('user_role', '')"
-								           v-model="userRole"
-								           @change="setUserInfo"
-								           :list="userTypeList"/>
-							</div>
-						</div>
-						
+
 						<div class="form-row">
 							<div class="form-group col-12 px-0">
 								<label for="login_email">{{ $t('email') }}</label>
-								<app-input type="email"
-								           v-model="login.email"
-								           :placeholder="$t('enter_your_email')"
-								           :required="true"/>
+								<app-input type="email" v-model="login.email" :placeholder="$t('enter_your_email')"
+									:required="true" />
 							</div>
 						</div>
 						<div class="form-row">
 							<div class="form-group col-12 px-0">
 								<label for="login_password">{{ $t('password') }}</label>
-								<app-input type="password"
-								           v-model="login.password"
-								           :show-password="true"
-								           :placeholder="$t('enter_your_password')"
-								           :required="true"/>
+								<app-input type="password" v-model="login.password" :show-password="true"
+									:placeholder="$t('enter_your_password')" :required="true" />
 							</div>
 						</div>
 						<div class="form-row">
 							<div class="form-group col-12 px-0">
-								<app-load-more :preloader="preloader"
-								               :label="$t('login')"
-								               type="submit"
-								               class-name="btn btn-primary btn-block text-center"
-								               @submit="submit"/>
+								<app-load-more :preloader="preloader" :label="$t('login')" type="submit"
+									class-name="btn btn-primary btn-block text-center" @submit="submit" />
 							</div>
 						</div>
 						<div
 							class="form-row form-row flex-column flex-md-row justify-content-center justify-content-md-between justify-content-lg-between">
 							<a :href="urlGenerator('/forget-password')"
-							   class="bluish-text d-flex align-items-center justify-content-center justify-content-lg-end">
-								<app-icon name="lock" class="pr-2"/>
+								class="bluish-text d-flex align-items-center justify-content-center justify-content-lg-end">
+								<app-icon name="lock" class="pr-2" />
 								{{ $t('forgot_password') }}
 							</a>
 						</div>
@@ -86,8 +63,8 @@
 
 <script>
 import ThemeMixin from "../../../../core/mixins/global/ThemeMixin";
-import {AuthMixin} from "./Mixins/AuthMixin";
-import {urlGenerator} from "../../../Helpers/AxiosHelper";
+import { AuthMixin } from "./Mixins/AuthMixin";
+import { urlGenerator } from "../../../Helpers/AxiosHelper";
 
 export default {
 	name: "Login",
@@ -98,7 +75,7 @@ export default {
 	},
 	data() {
 		return {
-			login: {email: '', password: ''},
+			login: { email: '', password: '' },
 			userRole: '',
 			urlGenerator,
 			userTypeList: [
@@ -128,9 +105,9 @@ export default {
 			let selectUser = this.userTypeList.find((user) => user.id == this.userRole);
 			this.login.email = selectUser.email;
 			this.login.password = selectUser.password;
-			
+
 		},
 	},
-	
+
 }
 </script>

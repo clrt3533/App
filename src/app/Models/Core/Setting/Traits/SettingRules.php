@@ -16,6 +16,7 @@ trait SettingRules
             'time_zone' => 'required|in:'.implode(',', timezone_identifiers_list()),
             'number_of_decimal' => 'required|in:'.implode(',', config('settings.number_of_decimal')),
             'currency_position' => 'required|in:'.implode(',', config('settings.currency_position')),
+            'company_terms' => 'bail|nullable|string',
         ];
     }
 

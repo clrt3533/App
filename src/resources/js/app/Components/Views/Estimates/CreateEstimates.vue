@@ -1,11 +1,11 @@
 <template>
     <div class="content-wrapper">
         <div class="d-flex align-items-center justify-content-between">
-            <app-breadcrumb :page-title="selectedUrl ? $t('update_estimates') : $t('add_estimates')"/>
+            <app-breadcrumb :page-title="selectedUrl ? $t('update_estimates') : $t('add_estimates')" />
         </div>
-        <app-overlay-loader v-if="preloader"/>
+        <app-overlay-loader v-if="preloader" />
         <form v-else :data-url="selectedUrl ? selectedUrl : ESTIMATE" ref="form" class="d-flex flex-column"
-              style="gap: 25px;">
+            style="gap: 25px;">
             <div class="row">
                 <div class="col">
                     <div class="card border-0 card-with-shadow">
@@ -22,42 +22,29 @@
                                     <div class="d-flex align-items-end">
                                         <div class="flex-fill">
                                             <label>{{ $t('client') }}</label>
-                                            <app-input
-                                                class="margin-right-8"
-                                                type="search-and-select"
-                                                :placeholder="$t('choose_a_client')"
-                                                :options="clientOptions"
+                                            <app-input class="margin-right-8" type="search-and-select"
+                                                :placeholder="$t('choose_a_client')" :options="clientOptions"
                                                 v-model="formData.client_id"
-                                                :error-message="$errorMessage(errors, 'client_id')"
-                                            />
+                                                :error-message="$errorMessage(errors, 'client_id')" />
                                         </div>
                                         <div>
                                             <button class="btn btn-success" style="margin-bottom: 2px;"
-                                                    @click.prevent="openClientModal">
-                                                <app-icon name="plus"/>
+                                                @click.prevent="openClientModal">
+                                                <app-icon name="plus" />
                                             </button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4 mb-4">
                                     <label>{{ $t('estimate_number') }}</label>
-                                    <app-input
-                                        class="margin-right-8"
-                                        v-model="formData.estimate_number"
-                                        :disabled="true"
+                                    <app-input class="margin-right-8" v-model="formData.estimate_number" :disabled="true"
                                         :error-message="$errorMessage(errors, 'estimate_number')"
-                                        :placeholder="$t('estimate_number')"
-                                        type="text"
-                                    />
+                                        :placeholder="$t('estimate_number')" type="text" />
                                 </div>
                                 <div class="col-12 col-md-4 mb-4">
                                     <label>{{ $t('date') }}</label>
-                                    <app-input
-                                        id="date"
-                                        v-model="formData.date"
-                                        :error-message="$errorMessage(errors, 'date')"
-                                        type="date"
-                                    />
+                                    <app-input id="date" v-model="formData.date"
+                                        :error-message="$errorMessage(errors, 'date')" type="date" />
                                 </div>
                             </div>
 
@@ -67,19 +54,14 @@
                                     <div class="row  align-items-end">
                                         <div class="col-8">
                                             <label>{{ $t('choose_a_product') }}</label>
-                                            <app-input
-                                                type="search-and-select"
-                                                :placeholder="$t('choose_a_product')"
-                                                :options="productList"
-                                                v-model="selectProductId"
-                                                @input="changeProduct"
-                                            />
+                                            <app-input type="search-and-select" :placeholder="$t('choose_a_product')"
+                                                :options="productList" v-model="selectProductId" @input="changeProduct" />
                                         </div>
                                         <div class="col">
                                             <div class="row">
                                                 <div class="col">
                                                     <button class="btn btn-success mb-1"
-                                                            @click.prevent="isProductModalActive = true">
+                                                        @click.prevent="isProductModalActive = true">
                                                         {{ $t('add_product') }}
                                                     </button>
                                                 </div>
@@ -94,145 +76,74 @@
                                 <div class="col">
                                     <table class="w-100">
                                         <thead>
-                                        <tr>
-                                            <th class="table__item table__item--products px-1">
-                                                <div class="text-muted">{{ $t('products') }}</div>
-                                            </th>
-                                            <th class="table__item table__item--quantity px-1">
-                                                <div class="text-muted">{{ $t('quantity') }}</div>
-                                            </th>
-                                            <th class="table__item table__item--unit_price px-1">
-                                                <div class="text-muted">{{ $t('unit_price') }}</div>
-                                            </th>
-                                            <th class="table__item table__item--tax px-1">
-                                                <div class="text-muted">{{ $t('tax') }}</div>
-                                            </th>
-                                            <th class="table__item table__item--total_amount px-1 text-right">
-                                                <div class="text-muted">{{ $t('total_amount') }}</div>
-                                            </th>
-                                            <th class="table__item table__item--total_action px-1 text-right">
-                                                <div class="text-muted">{{ $t('action') }}</div>
-                                            </th>
-                                        </tr>
+                                            <tr>
+                                                <th class="table__item table__item--products px-1">
+                                                    <div class="text-muted">{{ $t('products') }}</div>
+                                                </th>
+                                                <th class="table__item table__item--quantity px-1">
+                                                    <div class="text-muted">{{ $t('quantity') }}</div>
+                                                </th>
+                                                <th class="table__item table__item--unit_price px-1">
+                                                    <div class="text-muted">{{ $t('unit_price') }}</div>
+                                                </th>
+                                                <th class="table__item table__item--tax px-1">
+                                                    <div class="text-muted">{{ $t('tax') }}</div>
+                                                </th>
+                                                <th class="table__item px-1 text-right">
+                                                    <div class="text-muted">{{ $t('total_amount') }}</div>
+                                                </th>
+                                                <th class="table__item table__item--total_action px-1 text-right">
+                                                    <div class="text-muted">{{ $t('action') }}</div>
+                                                </th>
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                        <tr v-for="(product, index) in productDetails" :key="`products-item-${index}`">
-                                            <td class="px-1">{{ product.name }}</td>
-                                            <td class="px-1">
-                                                <div
-                                                    class="d-flex align-items-center d-flex justify-content-between gap-2 w-100"
-                                                    style="max-width: 200px;">
-                                                    <a @click.prevent="decrementQty(product)"
-                                                       class="text-primary text-decoration-none"
-                                                       style="cursor: pointer;">
-                                                        <app-icon name="minus-circle"/>
-                                                    </a>
-                                                    <input type="text" v-model="product.quantity" @input="changeQty(product)" class="form-control pr-5">
-                                                    <a @click.prevent="incrementQty(product)"
-                                                       class="text-primary text-decoration-none"
-                                                       style="cursor: pointer;">
-                                                        <app-icon name="plus-circle"/>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                            <td class="px-1">
-                                                <input type="text" v-model="product.price" class="form-control pr-5" @input="changeQty(product)">
-                                            </td>
-                                            <td class="px-1">
-                                                <app-input v-model="product.tax_id" :list="taxList"
-                                                           :placeholder="taxList && taxList.length > 1 ? $t('choose_tax') : $t('n_a_tax')"
-                                                           list-value-field="name"
-                                                           type="select"
-                                                           @input="changeTax(product)"/>
-                                            </td>
-<!--                                            <td class="px-1 text-right">{{-->
-<!--                                                    numberWithCurrencySymbol(product.amount)-->
-<!--                                                }}-->
-<!--                                            </td>-->
-                                            <td class="px-1 text-right">{{
+                                            <tr v-for="(product, index) in productDetails" :key="`products-item-${index}`">
+                                                <td class="px-1">{{ product.name }}</td>
+                                                <td class="px-1">
+                                                    <div class="d-flex align-items-center d-flex justify-content-between gap-2 w-100"
+                                                        style="max-width: 200px;">
+                                                        <a @click.prevent="decrementQty(product)"
+                                                            class="text-primary text-decoration-none"
+                                                            style="cursor: pointer;">
+                                                            <app-icon name="minus-circle" />
+                                                        </a>
+                                                        <input type="text" v-model="product.quantity"
+                                                            @input="changeQty(product)" class="form-control pr-5">
+                                                        <a @click.prevent="incrementQty(product)"
+                                                            class="text-primary text-decoration-none"
+                                                            style="cursor: pointer;">
+                                                            <app-icon name="plus-circle" />
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td class="px-1">
+                                                    <input type="text" v-model="product.price" class="form-control pr-5"
+                                                        @input="changeQty(product)">
+                                                </td>
+                                                <td class="px-1">
+                                                    <app-input v-model="product.tax_id" :list="taxList"
+                                                        :placeholder="taxList && taxList.length > 1 ? $t('choose_tax') : $t('n_a_tax')"
+                                                        list-value-field="name" type="select" @input="changeTax(product)" />
+                                                </td>
+
+                                                <td class="px-1 text-right">{{
                                                     numberWithCurrencySymbol(productDetailsCalculated[index]?.total_amount)
                                                 }}
-                                            </td>
-                                            <td class="px-1 text-right">
-                                                <a @click.prevent="removeProductRow(index, product.id)">
-                                                    <app-icon name="x-circle" style="cursor: pointer;"/>
-                                                </a>
-                                            </td>
-                                        </tr>
+                                                </td>
+                                                <td class="px-1 text-right">
+                                                    <a @click.prevent="removeProductRow(index, product.id)">
+                                                        <app-icon name="x-circle" style="cursor: pointer;" />
+                                                    </a>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
 
                                 </div>
                             </div>
 
-<!--                            <div class="row">-->
-<!--                                <div class="col-12 mb-4 row no-gutters align-items-center">-->
-<!--                                    <div class="labels col-12 row border-bottom no-gutters">-->
-<!--                                        <p class="text-muted col-md-3">-->
-<!--                                            {{ $t('products') }}-->
-<!--                                        </p>-->
-<!--                                        <p class="text-muted col-md-2">-->
-<!--                                            {{ $t('quantity') }}-->
-<!--                                        </p>-->
-<!--                                        <p class="text-muted col-md-2">-->
-<!--                                            {{ $t('unit_price') }}-->
-<!--                                        </p>-->
-<!--                                        <p class="text-muted col-md-2">-->
-<!--                                            {{ $t('tax') }}-->
-<!--                                        </p>-->
-<!--                                        <p class="text-muted col-md-2 text-center">-->
-<!--                                            {{ $t('total_amount') }}-->
-<!--                                        </p>-->
-<!--                                        <p class="text-muted col-md-1 text-right">-->
-<!--                                            {{ $t('action') }}-->
-<!--                                        </p>-->
-<!--                                    </div>-->
 
-<!--                                    <div-->
-<!--                                        class="values row no-gutters align-items-baseline justify-content-between col-md-12 border-bottom py-3"-->
-<!--                                        v-for="(product, index) in productDetails">-->
-<!--                                        <div class="col-md-3">-->
-<!--                                            {{ product.name }}-->
-<!--                                        </div>-->
-<!--                                        <div class="col-md-2 d-flex align-items-center">-->
-<!--                                            <a @click.prevent="decrementQty(product)"-->
-<!--                                               class="text-primary text-decoration-none pr-5" style="cursor: pointer;">-->
-<!--                                                <app-icon name="minus-circle"/>-->
-<!--                                            </a>-->
-
-<!--                                            <span class="pr-5">-->
-<!--                                            {{ product.quantity }}-->
-<!--                                        </span>-->
-
-<!--                                            <a @click.prevent="incrementQty(product)"-->
-<!--                                               class="text-primary text-decoration-none" style="cursor: pointer;">-->
-<!--                                                <app-icon name="plus-circle"/>-->
-<!--                                            </a>-->
-<!--                                        </div>-->
-<!--                                        <div class="col-md-2">-->
-<!--                                            {{ numberWithCurrencySymbol(product.price) }}-->
-<!--                                        </div>-->
-<!--                                        <div class="col-md-2">-->
-<!--                                            <app-input-->
-<!--                                                v-model="product.tax_id"-->
-<!--                                                :list="taxList"-->
-<!--                                                :placeholder="taxList && taxList.length > 1 ? $t('choose_tax') : $t('n_a_tax')"-->
-<!--                                                list-value-field="name"-->
-<!--                                                type="select"-->
-<!--                                                @input="changeTax(product)"-->
-<!--                                            />-->
-<!--                                        </div>-->
-<!--                                        <div class="col-md-2 text-center">-->
-<!--                                            {{ numberWithCurrencySymbol(product.amount) }}-->
-<!--                                        </div>-->
-<!--                                        <div class="col-md-1 text-primary text-right">-->
-<!--                                            <a @click.prevent="removeProductRow(index, product.id)">-->
-<!--                                                <app-icon name="x-circle" style="cursor: pointer;"/>-->
-<!--                                            </a>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
 
                         </div>
                     </div>
@@ -251,44 +162,28 @@
                             <div class="row mb-4">
                                 <div class="col">
                                     <label>{{ $t('discount_type') }}</label>
-                                    <app-input
-                                        class="margin-right-8"
-                                        id="discount_type"
-                                        v-model="formData.discount_type"
-                                        :list="discountTypeList"
-                                        list-value-field="name"
-                                        type="select"
-                                    />
+                                    <app-input class="margin-right-8" id="discount_type" v-model="formData.discount_type"
+                                        :list="discountTypeList" list-value-field="name" type="select" />
                                 </div>
                                 <div class="col">
                                     <label>{{ $t('discount') }}</label>
-                                    <app-input
-                                        class="margin-right-8"
-                                        type="number"
-                                        v-model="formData.discount"
+                                    <app-input class="margin-right-8" type="number" v-model="formData.discount"
                                         :error-message="$errorMessage(errors, 'discount')"
-                                        :disabled="formData.discount_type === 'none'"
-                                    />
+                                        :disabled="formData.discount_type === 'none'" />
                                 </div>
                             </div>
                             <div class="row mb-4">
                                 <div class="col">
                                     <label>{{ $t('notes') }}</label>
-                                    <app-input
-                                        type="textarea"
-                                        v-model="formData.notes"
-                                        :error-message="$errorMessage(errors, 'notes')"
-                                    />
+                                    <app-input type="textarea" v-model="formData.notes"
+                                        :error-message="$errorMessage(errors, 'notes')" />
                                 </div>
                             </div>
                             <div class="row mb-4">
                                 <div class="col">
                                     <label>{{ $t('terms') }}</label>
-                                    <app-input
-                                        type="textarea"
-                                        v-model="formData.terms"
-                                        :error-message="$errorMessage(errors, 'terms')"
-                                    />
+                                    <app-input type="textarea" v-model="formData.terms"
+                                        :error-message="$errorMessage(errors, 'terms')" />
                                 </div>
                             </div>
                         </div>
@@ -303,37 +198,38 @@
                                 <div class="col">
                                     <table class="w-100" style="color: var(--default-font-color);">
                                         <tbody>
-                                        <tr>
-                                            <td><span>{{ $t('sub_total') }}:</span></td>
-                                            <td class="w-50 text-right">
-                                                <span>{{ numberWithCurrencySymbol(totalSummation.subTotal) }} </span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="label">(+) {{ $t('tax') }}:</span></td>
-                                            <td class="text-right"><span>{{
+                                            <tr>
+                                                <td><span>{{ $t('sub_total') }}:</span></td>
+                                                <td class="w-50 text-right">
+                                                    <span>{{ numberWithCurrencySymbol(totalSummation.subTotal) }} </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="label">(+) {{ $t('tax') }}:</span></td>
+                                                <td class="text-right"><span>{{
                                                     numberWithCurrencySymbol(totalSummation.tax)
                                                 }}</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="label">(-) {{ $t('discount') }}:</span></td>
-                                            <td class="text-right">
-                                                <span> {{ numberWithCurrencySymbol(totalDiscountAmount) }}</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2" class="p-1"></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2" class="p-1"></td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong class="label" style="text-transform: uppercase;">{{
+                                            </tr>
+                                            <tr>
+                                                <td><span class="label">(-) {{ $t('discount') }}:</span></td>
+                                                <td class="text-right">
+                                                    <span> {{ numberWithCurrencySymbol(totalDiscountAmount) }}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" class="p-1"></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" class="p-1"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong class="label" style="text-transform: uppercase;">{{
                                                     $t('total')
                                                 }}:</strong></td>
-                                            <td class="text-right"><strong>{{
+                                                <td class="text-right"><strong>{{
                                                     numberWithCurrencySymbol(totalAmount)
                                                 }}</strong></td>
-                                        </tr>
+                                            </tr>
 
                                         </tbody>
                                     </table>
@@ -347,49 +243,37 @@
             <div class="row">
                 <div class="col mt-5">
                     <button class="btn btn-secondary" @click.prevent="resetData">{{
-                            $t('cancel')
-                        }}
+                        $t('cancel')
+                    }}
                     </button>
                     <button class="btn btn-primary ml-2" @click.prevent="submitData">{{
-                            $t('save')
-                        }}
+                        $t('save')
+                    }}
                     </button>
                 </div>
             </div>
         </form>
 
-        <client-add-edit-modal
-            v-if="isClientModalActive"
-            :table-id="'client-table'"
-            @closeModal="closeClientModal"
-        />
+        <client-add-edit-modal v-if="isClientModalActive" :table-id="'client-table'" @closeModal="closeClientModal" />
 
-        <product-add-edit-modal
-            v-if="isProductModalActive"
-            table-id="product-table"
-            type="invoice"
-            @closeModal="closeProductModal"
-        />
+        <product-add-edit-modal v-if="isProductModalActive" table-id="product-table" type="invoice"
+            @closeModal="closeProductModal" />
 
-        <app-delete-modal
-            v-if="invoiceProductDeleteModal"
-            modal-id="estimates-product-delete-confirm-modal"
-            :message="$t('are_you_sure_to_delete_this_estimates')"
-            @confirmed="confirmDeleteInvoiceProduct"
-            @cancelled="closeInvoiceDeleteModal"
-        />
+        <app-delete-modal v-if="invoiceProductDeleteModal" modal-id="estimates-product-delete-confirm-modal"
+            :message="$t('are_you_sure_to_delete_this_estimates')" @confirmed="confirmDeleteInvoiceProduct"
+            @cancelled="closeInvoiceDeleteModal" />
     </div>
 </template>
 
 <script>
 
 
-import {SubmitFormMixins} from "../../../Mixins/billar/SubmitFormMixins";
-import {axiosPost, urlGenerator} from "../../../Helpers/AxiosHelper";
+import { SubmitFormMixins } from "../../../Mixins/billar/SubmitFormMixins";
+import { axiosPost, urlGenerator } from "../../../Helpers/AxiosHelper";
 import DateFunction from "../../../../core/helpers/date/DateFunction";
-import {numberWithCurrencySymbol} from "../../../Helpers/Helpers";
-import {formatDateForServer} from "../../../Helpers/DateTimeHelper";
-import {ESTIMATE, ESTIMATE_LIST, ESTIMATE_NUMBER} from "../../../Config/BillarApiUrl";
+import { numberWithCurrencySymbol } from "../../../Helpers/Helpers";
+import { formatDateForServer } from "../../../Helpers/DateTimeHelper";
+import { ESTIMATE, ESTIMATE_LIST, ESTIMATE_NUMBER } from "../../../Config/BillarApiUrl";
 
 export default {
     name: 'CreateEstimates',
@@ -417,16 +301,16 @@ export default {
                 discount_amount: 0
             },
             discountTypeList: [
-                {id: 'none', name: this.$t('discount_type')},
-                {id: 'fixed', name: this.$t('fixed')},
-                {id: 'percentage', name: this.$t('percentage')}
+                { id: 'none', name: this.$t('discount_type') },
+                { id: 'fixed', name: this.$t('fixed') },
+                { id: 'percentage', name: this.$t('percentage') }
             ],
             productList: {
                 url: urlGenerator('all-products'),
                 per_page: 10,
                 modifire: (item) => {
                     this.productData.push(item)
-                    return {id: item.id, value: item.name};
+                    return { id: item.id, value: item.name };
                 },
                 loader: 'app-pre-loader',
             },
@@ -434,7 +318,7 @@ export default {
                 url: urlGenerator('client-users'),
                 per_page: 10,
                 loader: "app-pre-loader",
-                modifire: (value) => ({id: value.id, value: value.full_name}),
+                modifire: (value) => ({ id: value.id, value: value.full_name }),
             },
         }
     },
@@ -445,7 +329,7 @@ export default {
                 const productTaxPercentage = this.taxList.find(tax => +tax.id === +product.tax_id);
                 let productTaxValue = productTaxPercentage ? +product.price * (+productTaxPercentage.value / 100) : 0;
                 const productTotalAmount = (+product.price + productTaxValue) * product.quantity;
-                return {...product, total_amount: productTotalAmount};
+                return { ...product, total_amount: productTotalAmount };
             });
         },
         filteredProData() {
@@ -463,7 +347,7 @@ export default {
                 tax += ((product.quantity * product.price * productTax) / 100);
                 // subTotal += product.amount ? parseFloat((product.amount)) : 0;
             })
-            return {tax, subTotal};
+            return { tax, subTotal };
         },
 
         totalDiscountAmount() {
@@ -527,7 +411,7 @@ export default {
             product.amount = parseFloat((product.quantity * product.price));
         },
 
-        afterError({data}) {
+        afterError({ data }) {
 
             this.errors = data.errors;
             if (this.productDetails.length < 1) {
@@ -548,7 +432,7 @@ export default {
         resetData() {
             window.location = urlGenerator(ESTIMATE_LIST);
         },
-        afterSuccess({data}) {
+        afterSuccess({ data }) {
             this.$toastr.s(data.message);
             setTimeout(() => {
                 window.location = urlGenerator(ESTIMATE_LIST);

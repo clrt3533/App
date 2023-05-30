@@ -178,7 +178,7 @@ class UserService extends BaseService
         if (!$user->roles->count())
             throw new AuthenticationException(trans('default.no_roles_found'));
 
-        if (Hash::check(request()->get('password'), optional($user)->password)) {
+        if (Hash::check(request()->get('password'), optional($user)->password) && $user->isAdmin()) {
             auth()->login(
                 $user,
                 request()->get('remember_me',false)

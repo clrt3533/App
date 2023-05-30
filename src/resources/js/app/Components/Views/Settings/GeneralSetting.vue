@@ -124,6 +124,22 @@
                             />
                         </div>
                     </div>
+
+                    <div class="form-group row">
+                        <label for="appSettingsTimeFormat" class="col-lg-3 col-xl-3 col-form-label">
+                            {{ $t('company_terms') }}
+                        </label>
+                        <div class="col-lg-8 col-xl-8">
+                            <app-input
+                                id="appSettingsLayout"
+                                type="textarea"
+                                :placeholder="$t('company_terms')"
+                                v-model="appSettings.company_terms"
+                                :cols = "15"
+                                :rows ="15"
+                            />
+                        </div>
+                    </div>
                 </div>
             </fieldset>
 

@@ -19,10 +19,12 @@ class Packages implements CastsAttributes
     {
         $returnedValue = '';
         if($value == 1){
+            $returnedValue = 'None';
+        }elseif($value == 2){
             $returnedValue = 'Bubble';
-        }elseif ($value == 2){
-            $returnedValue = 'Corrugated';
         }elseif ($value == 3){
+            $returnedValue = 'Corrugated';
+        }elseif ($value == 4){
             $returnedValue = 'Packing';
         }else{
             $returnedValue = 'Foam';

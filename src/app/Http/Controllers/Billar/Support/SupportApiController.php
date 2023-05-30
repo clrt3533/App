@@ -159,7 +159,7 @@ class SupportApiController extends Controller
             'monthExpense' => $month_expense,
             'weekExpense' => $week_expense,
             'todayExpense' => $today_expense,
-        ];
+            ];
     }
 
     public function product()

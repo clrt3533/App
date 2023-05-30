@@ -1,11 +1,11 @@
 import AppFunction from "../../core/helpers/app/AppFunction";
-import {formatDateToLocal, numberWithCurrencySymbol} from "../Helpers/Helpers";
-import {FormMixin} from "../../core/mixins/form/FormMixin";
-import {DeleteMixins} from "./billar/DeleteMixins";
-import {INVOICES, STOP_RECURRING_INVOICES} from "../Config/BillarApiUrl";
-import {mapGetters} from "vuex";
-import {axiosGet, axiosPatch, urlGenerator} from "../Helpers/AxiosHelper";
-import {status} from "./FilterMixin";
+import { formatDateToLocal, numberWithCurrencySymbol } from "../Helpers/Helpers";
+import { FormMixin } from "../../core/mixins/form/FormMixin";
+import { DeleteMixins } from "./billar/DeleteMixins";
+import { INVOICES, STOP_RECURRING_INVOICES } from "../Config/BillarApiUrl";
+import { mapGetters } from "vuex";
+import { axiosGet, axiosPatch, urlGenerator } from "../Helpers/AxiosHelper";
+import { status } from "./FilterMixin";
 
 export default {
 	mixins: [FormMixin, DeleteMixins, status],
@@ -46,7 +46,7 @@ export default {
 						settings: {
 							url: urlGenerator('client-users'),
 							modifire: (item) => {
-								return {id: item.id, value: item.full_name}
+								return { id: item.id, value: item.full_name }
 							},
 							per_page: 10,
 							loader: 'app-pre-loader',
@@ -90,10 +90,10 @@ export default {
 						key: 'invoice_number',
 						modifier: (value, row) => {
 							return this.$can('show_all_data') ?
-								`<a onclick="window.open(this.href,'_blank');return false;" href="${urlGenerator(`invoices/${row.id}/details`)}"> ${ +row.is_from_estimate == 1 ? "EST-":""}${row.invoice_number}</a>`
+								`<a onclick="window.open(this.href,'_blank');return false;" href="${urlGenerator(`invoices/${row.id}/details`)}"> ${+row.is_from_estimate == 1 ? "EST-" : ""}${row.invoice_number}</a>`
 								:
-								`<p> ${ +row.is_from_estimate == 1 ? "EST-":""}${row.invoice_number}</p>`
-							;
+								`<p> ${+row.is_from_estimate == 1 ? "EST-" : ""}${row.invoice_number}</p>`
+								;
 						}
 					},
 					{
@@ -104,12 +104,7 @@ export default {
 							return `<span class="badge badge-${value.class} badge-pill mr-2">${value.translated_name}</span>`
 						}
 					},
-					{
-						title: this.$t('recurring_cycle'),
-						type: 'object',
-						key: 'recurring_cycle',
-						modifier: (recurring_cycle => recurring_cycle?.name)
-					},
+
 					{
 						title: this.$t('client'),
 						type: 'object',
@@ -122,12 +117,12 @@ export default {
 						type: 'object',
 						key: 'date',
 						modifier: (date => formatDateToLocal(date))
-					}, {
+					}, /* {
 						title: this.$t('due_date'),
 						type: 'object',
 						key: 'due_date',
 						modifier: (due_date => formatDateToLocal(due_date))
-					},
+					}, */
 					{
 						title: this.$t('total'),
 						type: 'object',
@@ -273,7 +268,7 @@ export default {
 			})
 		},
 		downloadInvoice() {
-			this.axiosGet(`invoice-generate`).then(({data}) => {
+			this.axiosGet(`invoice-generate`).then(({ data }) => {
 
 			})
 		},
@@ -300,14 +295,14 @@ export default {
 			})
 		},
 		getAllProduct() {
-			this.axiosGet(`all-products`).then(({data}) => {
+			this.axiosGet(`all-products`).then(({ data }) => {
 				this.productList = data
 			})
 		},
 		deleteProductFromInvoice(data) {
 			this.deletedInvoiceProductContext = data;
 			setTimeout(() => {
-				$('#invoice-add-edit-modal').css({opacity: '.5'});
+				$('#invoice-add-edit-modal').css({ opacity: '.5' });
 				this.invoiceProductDeleteModal = true;
 			});
 		},

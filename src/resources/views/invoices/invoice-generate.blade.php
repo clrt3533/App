@@ -9,7 +9,12 @@
     <link rel="shortcut icon" href="{{ env('APP_URL').config('settings.application.company_icon') }}"/>
     <link rel="apple-touch-icon" href="{{ env('APP_URL').config('settings.application.company_icon') }}"/>
     <link rel="apple-touch-icon-precomposed" href="{{ env('APP_URL').config('settings.application.company_icon') }}"/>
+    <script defer>
+        import 'bootstrap/dist/css/bootstrap.css'
+    </script>
 
+
+    {{--    @include('layouts.includes.header')--}}
     <style>
         /* dev */
         .t {
@@ -21,7 +26,7 @@
         }
 
         .bg-dark {
-            background-color: #333333 !important;
+            background-color: #d9251c !important;
         }
 
         .bg-secondary {
@@ -339,136 +344,209 @@
 <body>
 <div class="invoice_container">
     <div class="invoice_container__item px-5 mt-5 text-black">
-        <div class="w-25 f-left p-2">
+        <div class="w-100 f-left p-2">
             <div>
-                <img class="logo" src="{{ env('APP_URL').config('settings.application.invoice_logo')}}" alt="NF">
+                <img style="width:100%" src="{{public_path('card.jpeg')}}" alt="Sai Packers And Movers">
             </div>
         </div>
-        <div class="w-50 f-right text-right">
-            <h1 class="bold text-black text-capital">{{ __t('invoice') }}</h1>
-            <table class="f-right w-75 font-xm mt-3">
-                <tr>
-                    <td class="bold">{{__t('invoice_no')}}</td>
-                    <td>:</td>
-                    <td class="text-right">{{ $invoice->is_from_estimate ? 'EST-' :'' }}{{$invoice->invoice_number}}</td>
+    </div>
+    {{--    <hr class="hr">--}}
+    </div>
+         <div class="f-clear"> </div>
+    </div>
+    
+    <div class="invoice_container__item px-5">
+        <table class="w-100 font-xm" border="0" cellspacing="0" cellpadding="2">
+            <thead>
+                <tr class="bg-dark text-light">
+                            <!-- Client name -->
+                            <th class="w-25 p-1 text-left bold">{{__t('name')}}: {{$invoice->client->full_name}}</th>
+
+                            <!-- Client contact -->
+                            <th class="w-25 p-1  text-center bold">{{__t('contact')}}: {{$invoice->client->profile->contact}}</th>
+
+                            <!-- Invoice number -->
+                            <th class="w-25 p-1 text-center bold">{{__t('invoice_no')}}: {{ $invoice->is_from_estimate ? 'EST-' :'' }}{{$invoice->invoice_number}}</th>
+
+                            <!-- Invoice date -->
+                            <th class="w-25 p-1 text-right bold">{{__t('date')}}:{{ dateFormat($invoice->date) }} </th>
                 </tr>
-                <tr>
-                    <td class="bold">{{__t('date')}}</td>
-                    <td>:</td>
-                    <td class="text-right">{{ dateFormat($invoice->date) }}</td>
-                </tr>
-                <tr>
-                    <td class="bold">{{__t('due_date')}}</td>
-                    <td>:</td>
-                    <td class="text-right">{{ dateFormat($invoice->due_date) }}</td>
-                </tr>
-                <tr>
-                    <td class="bold">{{__t('vat')}}</td>
-                    <td>:</td>
-                    <td class="text-right">{{ config('settings.application.vat_number') }}</td>
-                </tr>
-            </table>
-            <div class="f-clear"></div>
+            </thead>
+        </table>       
+    </div>
+        <div class="f-clear">
+
         </div>
-        <div class="f-clear"></div>
     </div>
     {{--        <hr class="hr">--}}
+    <!-- Address details -->
     <div class="invoice_container__item p-5 text-black">
         <div class="w-50 f-left font-xm">
-            <p class="bold">{{__t('from')}}</p>
-            @if($invoice->createdBy)
-                <p>{{$invoice->createdBy->full_name}}</p>
-                @if($invoice->createdBy->profile)
-                    <small>{{__t('contact')}}: {{$invoice->createdBy->profile->contact}}</small>
-                    <br>
-                    <small>{{__t('address')}}: {{$invoice->createdBy->profile->address}}</small>
-                @endif
+
+            @if($invoice->from_address)
+                
+                    <div class="row text-left">
+                        <div class="mt-3 col-12 col-md-4" >
+                            <p class="cus-mt-3 bold">{{ __t('from_address') }}</p>
+                            <p >{{$invoice->from_address}}</p>
+                        </div>
+
+                        <div class="mt-3  col-md-4">
+                            <p class="cus-mt-3 bold">{{ "Lift" }}</p>
+                            @if($invoice->lift_from_address)
+                                <p> Available </p>
+
+                            @else
+                                <p >N/A</p>
+
+                            @endif
+                         </div>
+                        <div class="mt-3  col-md-4">
+                            <p class="cus-mt-3 bold">{{"Floor"}}</p>
+                            <p >{{ $invoice->floor_from_address }}</p>
+                        </div>
+                    </div>
             @endif
         </div>
+     
         <div class="w-50 f-right font-xm">
             <div class="w-75 f-right">
-                <p class="bold">{{__t('to')}}</p>
-                @if($invoice->client)
-                    <p>{{$invoice->client->full_name}}</p>
-                    @if($invoice->client->profile)
-                        <small>{{__t('contact')}}: {{$invoice->client->profile->contact}}</small>
-                        <br>
-                        <small>{{__t('address')}}: {{$invoice->client->profile->address}}</small>
-                        <br>
-                        <small>{{__t('vat')}}: {{$invoice->client->profile->vat_number}}</small>
-                    @endif
-                @endif
+                 @if($invoice->to_address)
+                
+                <div class="row text-right"">
+                    <div class="mt-3  col-md-4" >
+                        <p class="cus-mt-3 bold">{{ __t('to_address') }}</p>
+                        <p >{{$invoice->to_address}}</p>
+                    </div>
+
+                    <div class="mt-3  col-md-4">
+                        <p class="cus-mt-3 bold">{{"Lift"}}</p>
+                        @if($invoice->lift_to_address)
+                            <p> Available </p>
+
+                        @else
+                            <p >N/A</p>
+
+                        @endif
+                    </div>
+
+                    <div class="mt-3  col-md-4">
+                        <p class="cus-mt-3 bold">{{"Floor"}}</p>
+                        <p >{{ $invoice->floor_to_address }}</p>
+                    </div>
+                </div>
+        @endif
+              
             </div>
             <div class="f-clear"></div>
         </div>
         <div class="f-clear"></div>
     </div>
     {{--    <hr class="hr">--}}
+    <!-- Message -->
+    <div class="invoice_container__item px-5 font-xm">
+        <div class="row">
+            <p> Dear {{$invoice->client->full_name}},</p></br>
+            <p>Thank you for choosing our services. We greatly appreciate your business and the trust you have placed in us. We are committed to providing you with exceptional services.</p>
+            </br>
+            <p class="bold">Please find the details of your invoice below:</p>
+            </br>
+        </div>
+    </div>
     <div class="invoice_container__item px-5">
-        <table class="w-100 font-xm table-strip" border="0" cellspacing="0" cellpadding="0">
-            <thead>
+    <table class="w-100 font-xm table-strip" border="0" cellspacing="0" cellpadding="0">
+        <thead>
             <tr class="bg-dark text-light">
                 <th class="w-45 p-1 text-left">{{__t('product')}}</th>
                 <th class="w-10 p-1 text-right">{{__t('quantity')}}</th>
-                <th class="w-15 p-1 text-right">{{__t('unit_price')}}</th>
-                <th class="w-15 p-1 text-right">{{__t('tax')}} </th>
-                <th class="w-15 p-1 text-right">{{__t('total')}}</th>
+                <th class="w-10 p-1 text-right">{{__t('packages')}}</th>
+
+                @if($invoice->is_breakdown)
+                    <!-- Display empty table headers -->
+                    <th class="w-15 p-1 text-right"></th>
+                    <th class="w-15 p-1 text-right"></th>
+                    <th class="w-15 p-1 text-right"></th>
+                @else
+                    <th class="w-15 p-1 text-right">{{__t('unit_price')}}</th>
+                    <th class="w-15 p-1 text-right">{{__t('tax')}} </th>
+                    <th class="w-15 p-1 text-right">{{__t('total')}}</th>
+                @endif
             </tr>
-            </thead>
-            <tbody>
+        </thead>
+        <tbody>
             @foreach($invoice->invoiceDetails as $item)
                 <tr class="text-black">
                     @if($item->product)
                         <td class="p-1">{{$item->product->name}}</td>
                     @endif
                     <td class="p-1 text-right">{{$item->quantity}}</td>
-                    <td class="p-1 text-right currency-symbol">{{number_with_currency_symbol($item->price)}}</td>
                     <td class="p-1 text-right">
-                        @if($item->tax)
-                            {{$item->tax->value . '%'}}
-                        @else
-                            <span>N/A</span>
-                        @endif
+                        @php
+                            $returnedValue = '';
+                            $value = $item->packages;
+                            if($value == 1){
+                                $returnedValue = 'None';
+                            }elseif($value == 2){
+                                $returnedValue = 'Bubble';
+                            }elseif ($value == 3){
+                                $returnedValue = 'Corrugated';
+                            }elseif ($value == 4){
+                                $returnedValue = 'Packing';
+                            }else{
+                                $returnedValue = 'Foam';
+                            }
+                        @endphp
+                        {{$returnedValue}}
                     </td>
-                    <td class="p-1 text-right currency-symbol">
-                        {{number_with_currency_symbol(
-                        (($item->quantity * $item->price)+($item->quantity * $item->price) * ($item->tax ? ($item->tax->value /100) : 0 ))
-                        )}}
-                    </td>
+                    @if($invoice->is_breakdown)
+                        <td class="p-1 text-right currency-symbol"></td>
+                        <td class="p-1 text-right"></td>
+                        <td class="p-1 text-right currency-symbol"></td>
+                    @else
+                        <td class="p-1 text-right currency-symbol">{{number_with_currency_symbol($item->price)}}</td>
+                        <td class="p-1 text-right">
+                            @if($item->tax)
+                                {{$item->tax->value . '%'}}
+                            @else
+                                <span>N/A</span>
+                            @endif
+                        </td>
+                        <td class="p-1 text-right currency-symbol">
+                            {{number_with_currency_symbol(($item->quantity * $item->price) + ($item->quantity * $item->price) * ($item->tax ? ($item->tax->value / 100) : 0))}}
+                        </td>
+                    @endif
                 </tr>
             @endforeach
             <tr class="bg-transparent text-black">
-                <td colspan="5">
+                <td colspan="6">
                     <div class="hr mt-2"></div>
                 </td>
             </tr>
-
             <tr class="bg-transparent text-black">
-                <td colspan="2"></td>
+                <td colspan="3"></td>
                 <td colspan="2" class="bold p-1">{{__t('total')}} :</td>
                 <td class="text-right p-1 currency-symbol">{{number_with_currency_symbol($invoice->total)}}</td>
             </tr>
             <tr class="bg-transparent text-black">
-                <td colspan="2"></td>
+                <td colspan="3"></td>
                 <td colspan="2" class="bold p-1">{{__t('paid')}} :</td>
-                <td colspan="2"
-                    class="text-right p-1 currency-symbol">{{number_with_currency_symbol($invoice->received_amount)}}</td>
+                <td colspan="2" class="text-right p-1 currency-symbol">{{number_with_currency_symbol($invoice->received_amount)}}</td>
             </tr>
             <tr>
-                <td colspan="2" class="bg-transparent"></td>
+                <td colspan="3" class="bg-transparent"></td>
                 <td colspan="3" class="bg-transparent">
                     <div class="hr mt-2"></div>
                 </td>
             </tr>
             <tr class="bg-transparent bold text-black">
-                <td colspan="2"></td>
+                <td colspan="3"></td>
                 <td colspan="2" class="p-1">{{__t('due_amount')}} :</td>
                 <td class="text-right p-1 currency-symbol">{{number_with_currency_symbol($invoice->due_amount)}}</td>
             </tr>
-            </tbody>
-        </table>
-    </div>
+        </tbody>
+    </table>
 </div>
+
 
 <div class="invoice_container__item p-5 font-xm">
     <div>
@@ -481,10 +559,14 @@
             <div class="bold mt-3">{{__t('terms')}}</div>
             <p>{!! $invoice->terms !!}</p>
         @endif
+
         @if($invoice->invoice_note)
                 <br>
             <p>{!! $invoice->invoice_note !!}</p>
         @endif
+
     </div>
 </div>
+
+{{--@include('layouts.includes.footer')--}}
 </body>

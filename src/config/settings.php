@@ -22,7 +22,7 @@ return [
         ['name' => 'thousand_separator', 'value' => ',', 'context' => 'app', 'autoload' => 0, 'public' => 1],
         ['name' => 'number_of_decimal', 'value' => '2', 'context' => 'app', 'autoload' => 0, 'public' => 1],
         ['name' => 'currency_position', 'value' => 'prefix_with_space', 'context' => 'app', 'autoload' => 0, 'public' => 1],
-        ['name' => 'invoice_logo', 'value' => '/images/invoice-logo.png', 'context' => 'app', 'autoload' => 0, 'public' => 1],
+        ['name' => 'invoice_logo', 'value' => '/images/card.jpeg', 'context' => 'app', 'autoload' => 0, 'public' => 1],
         ['name' => 'invoice_starting_number', 'value' => '1', 'context' => 'app', 'autoload' => 0, 'public' => 1],
 
     ],

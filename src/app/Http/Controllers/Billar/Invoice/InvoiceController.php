@@ -10,6 +10,7 @@ use App\Jobs\SendMessageJob;
 use App\Models\Billar\Invoice\Invoice;
 use App\Models\Billar\Invoice\InvoiceDetail;
 use App\Services\Billar\Invoice\InvoiceService;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 use PDF;
@@ -61,7 +62,8 @@ class InvoiceController extends Controller
 
         InvoiceAttachmentJob::dispatch($invoiceInfo)->onQueue('high');
 
-        SendMessageJob::dispatch('book-confirmation-message',$this->service->model->client->profile->contact,$this->service->model->date);
+        $date = Carbon::createFromFormat('y-m-d',$this->service->model->date)->format('d-m-y');
+        SendMessageJob::dispatch('book-confirmation-message',$this->service->model->client->profile->contact,$date);
         return created_responses('invoices');
     }
 
@@ -98,7 +100,14 @@ class InvoiceController extends Controller
                 'received_amount',
                 'due_amount',
                 'notes',
-                'terms'
+                'terms',
+                'lift_from_address',
+                'lift_to_address',
+                'floor_from_address',
+                'floor_to_address',
+                'is_breakdown',
+                'from_address' ,
+                'to_address' ,
             ))
             ->update();
         $this->service->when($request->has('products'), fn(InvoiceService $service) => $service->invoiceDetails());

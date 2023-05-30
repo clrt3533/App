@@ -418,7 +418,7 @@ return array_merge([
     're_enter_password' => 'Re-enter password',
     'add_more_address' => 'Add more address',
     'client_details' => 'Client details',
-    'invoice_number' => 'Invoice number',
+    'invoice_number' => 'Invoice No.',
     'due_date' => 'Due date',
     'amount' => 'Amount',
     'invoice_details' => 'Invoice details',

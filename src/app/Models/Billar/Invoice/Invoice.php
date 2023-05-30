@@ -18,6 +18,8 @@ class Invoice extends BaseModel
 {
     use BootTrait, HasFactory, SoftDeletes, CreatedByRelationship;
 
+
+
     protected $fillable = [
         'client_id',
         'currency_id',
@@ -41,11 +43,17 @@ class Invoice extends BaseModel
         'is_breakdown',
         'from_address' ,
         'to_address' ,
-        'reminder'
+        'reminder',
+        'lift_from_address',
+        'lift_to_address',
+        'floor_from_address',
+        'floor_to_address',
     ];
     protected $casts = [
         'due_amount' => 'double',
         'is_breakdown' => 'boolean',
+        'lift_from_address' => 'boolean',
+        'lift_to_address' => 'boolean'
     ];
 
     public function setDateAttribute($value)
@@ -56,6 +64,18 @@ class Invoice extends BaseModel
     public function setDueDateAttribute($value)
     {
         $this->attributes['due_date'] = (new Carbon($value))->format('y-m-d');
+    }
+
+
+
+    public function getFloorToAddressAttribute($value): string
+    {
+        return $value ?? 'N/A';
+    }
+
+    public function getFloorFromAddressAttribute($value): string
+    {
+        return $value ?? 'N/A';
     }
 
     public function status(): BelongsTo

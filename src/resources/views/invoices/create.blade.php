@@ -7,6 +7,7 @@
             :status-list="{{$status}}"
             :recurring-cycle="{{$recurringCycle}}"
             :tax-list="{{$taxs}}"
+            :terms="{{$terms}}"
     ></add-invoice>
 @endsection
 

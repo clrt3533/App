@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Billar\Invoice\Invoice;
 use App\Models\Billar\Recurring\RecurringCycle;
 use App\Models\Billar\Tax\Tax;
+use App\Models\Core\Setting\Setting;
 use App\Repositories\Core\Status\StatusRepository;
 use Illuminate\Http\Request;
 
@@ -31,8 +32,16 @@ class FrontendController extends Controller
         $status = resolve(StatusRepository::class)->statuses('invoice');
         $recurringCycle = RecurringCycle::query()->select('id', 'name')->get();
         $taxs = Tax::query()->select('id', 'name', 'value')->get();
+        $terms = Setting::where('name','company_terms')->first();
+        if (empty($terms)){
+            $terms = [
+                'error' => 'error',
+                'value' => 'error',
+            ];
+            $terms = collect($terms);
+        }
 
-        return view('invoices.create', compact('status', 'recurringCycle', 'taxs'));
+        return view('invoices.create', compact('status', 'recurringCycle', 'taxs','terms'));
     }
 
     public function invoiceEditView($id)

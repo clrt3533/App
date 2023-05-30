@@ -4,6 +4,8 @@
 
 @section('contents')
     <invoices></invoices>
+
+    <!-- This is invoice component Path resources--js -->
 @endsection
 
 

@@ -46,7 +46,7 @@ class InvoiceService extends ApplicationBaseService
             'products.*.quantity' => 'required',
             'products.*.price' => 'required',
             'products.*.amount' => 'required',
-            'product.*.packages' => ['nullable','sometimes','required','integer' ,'gt:0',Rule::in([1,2,3,4])],
+            'product.*.packages' => ['nullable','sometimes','required','integer' ,'gt:0',Rule::in([1,2,3,4,5])],
             'sub_total' => 'required',
             'total' => 'required',
             'from_address' => ['required','string'],

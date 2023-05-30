@@ -18,7 +18,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="col-12 col-md-4 mb-4">
+                                <div class="col-12 col-md-6 mb-4">
                                     <div class="d-flex align-items-end">
                                         <div class="flex-fill">
                                             <label>{{ $t('client') }}</label>
@@ -34,24 +34,35 @@
                                             </button>
                                         </div>
                                     </div>
-                                </div> -->
-                                <!-- Add customer name, contact number and email address -->
-                                <div class="col-12 col-md-4 mb-4">
-                                    <div class="d-flex align-items-end">
-                                        <div class="flex-fill">
-                                            <label>{{ $t('client') }}</label>
-
-                                        </div>
-                                    </div>
                                 </div>
+                                <!-- Add client name, address, and email address (Optional)   
 
-                                <div class="col-12 col-md-4 mb-4">
+
+                                <div class="col-12 col-md-3 mb-4">
+                                    <label>{{ $t('client_name') }}</label>
+                                    <app-input class="margin-right-8" v-model="formData.clientName"
+                                        :error-message="$errorMessage(errors, 'client_name')" :placeholder="$t('Name')"
+                                        type="text" />
+                                </div>
+                                <div class="col-12 col-md-3 mb-4">
+                                    <label>{{ $t('client_email') }}</label>
+                                    <app-input class="margin-right-8" v-model="formData.clientName"
+                                        :error-message="$errorMessage(errors, 'client_email')" :placeholder="$t('Email')"
+                                        type="text" />
+                                </div>
+                                <div class="col-12 col-md-3 mb-4">
+                                    <label>{{ $t('client_number') }}</label>
+                                    <app-input class="margin-right-8" v-model="formData.clientName"
+                                        :error-message="$errorMessage(errors, 'client_number')" :placeholder="$t('Number')"
+                                        type="text" />
+                                </div>-->
+                                <div class="col-12 col-md-3 mb-4">
                                     <label>{{ $t('invoice_number') }}</label>
                                     <app-input class="margin-right-8" v-model="formData.invoice_number" :disabled="true"
                                         :error-message="$errorMessage(errors, 'invoice_number')"
                                         :placeholder="$t('invoice_number')" type="text" />
                                 </div>
-                                <div class="col-12 col-md-4 mb-4">
+                                <div class="col-12 col-md-3 mb-4">
                                     <label>{{ $t('status') }}</label>
                                     <app-input id="status" v-model="formData.status_id"
                                         :error-message="$errorMessage(errors, 'status_id')" :list="statusList"
@@ -71,75 +82,69 @@
                                     <app-input id="dueDate" :min-date="formData.due_date" v-model="formData.due_date"
                                         :error-message="$errorMessage(errors, 'due_date')" type="date" />
                                 </div>
-<<<<<<< HEAD
                                 <div class="col-12 col-md-4 mb-4">
+                                    <label>{{ $t('hide_break_down') }}</label>
+                                    <app-input class="margin-right-8" v-model="formData.is_breakdown"
+                                        :placeholder="$t('text_hide_break_down')"
+                                        :error-message="$errorMessage(errors, 'is_breakdown')" type="switch" />
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row"
+                                style="border: 2px solid red; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); padding-top: 10px;">
+                                <!-- From Address Section -->
+                                <div class="col-12 col-md-6 mb-4" style="font-weight: bold;">
                                     <div class="row">
-                                        <div class="col-auto">
-                                            <label>{{ $t('recurring') }}</label>
-                                            <app-input id="recurring" v-model="formData.recurring"
-                                                :error-message="$errorMessage(errors, 'recurring')" :list="recurringList"
-                                                list-value-field="name" type="radio-buttons" />
+                                        <div class="col-12 ">
+                                            <label>{{ $t('from_address') }}</label>
                                         </div>
-                                        <div class="col">
-                                            <div v-show="Number(formData.recurring) === 1">
-                                                <label>{{ $t('recurring_cycle') }}</label>
-                                                <app-input id="recurringCycle" v-model="formData.recurring_cycle_id"
-                                                    :error-message="$errorMessage(errors, 'recurring_cycle_id')"
-                                                    :list="recurringCycle" :placeholder="$t('choose_a_recurring_cycle')"
-                                                    list-value-field="name" type="search-select" />
-                                            </div>
+                                        <div class="col-12 mb-4">
+                                            <app-input class="margin-right-8" v-model="formData.from_address"
+                                                :error-message="$errorMessage(errors, 'from_address')"
+                                                :placeholder="$t('from_address_place_holder')" type="textarea" />
+                                        </div>
+                                        <div class="col-12 col-md-6 mb-4">
+                                            <label>{{ $t('floor') }}</label>
+                                            <app-input class="margin-right-8" v-model="formData.floor_from_address"
+                                                :placeholder="$t('floor_place_holder')"
+                                                :error-message="$errorMessage(errors, 'floor_from_address')"
+                                                type="number" />
+                                        </div>
+                                        <div class="col-12 col-md-6 mb-4 mt-3">
+                                            <label>{{ $t('lift') }}</label>
+                                            <app-input class="margin-right-8" v-model="formData.lift_from_address"
+                                                :error-message="$errorMessage(errors, 'lift_from_address')"
+                                                :placeholder="$t('lift_place_holder')" type="switch" />
                                         </div>
                                     </div>
-=======
->>>>>>> e8ad10d521d407304057bda4ea2b30273979a7d0
+                                </div>
 
-
+                                <!-- To Address Section -->
+                                <div class="col-12 col-md-6 mb-4" style="font-weight: bold;">
+                                    <div class=" row">
+                                        <div class="col-12">
+                                            <label>{{ $t('to_address') }}</label>
+                                        </div>
+                                        <div class="col-12 mb-4">
+                                            <app-input class="margin-right-8" v-model="formData.to_address"
+                                                :error-message="$errorMessage(errors, 'to_address')"
+                                                :placeholder="$t('to_address_place_holder')" type="textarea" />
+                                        </div>
+                                        <div class="col-12 col-md-6 mb-4">
+                                            <label>{{ $t('floor') }}</label>
+                                            <app-input class="margin-right-8" v-model="formData.floor_to_address"
+                                                :error-message="$errorMessage(errors, 'floor_to_address')"
+                                                :placeholder="$t('floor_place_holder')" type="number" />
+                                        </div>
+                                        <div class="col-12 col-md-6 mb-4 mt-3">
+                                            <label>{{ $t('lift') }}</label>
+                                            <app-input class="margin-right-8" v-model="formData.lift_to_address"
+                                                :error-message="$errorMessage(errors, 'lift_to_address')"
+                                                :placeholder="$t('lift_place_holder')" type="switch" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="row">
-                              <div class="col-12 col-md-4 mb-4">
-                                <label>{{ $t('from_address') }}</label>
-                                <app-input
-                                    class="margin-right-8"
-                                    v-model="formData.from_address"
-                                    :placeholder="$t('from_address_place_holder')"
-                                    type="text"
-                                />
-                              </div>
-
-                              <div class="col-12 col-md-4 mb-4">
-                                <label>{{ $t('to_address') }}</label>
-                                <app-input
-                                    class="margin-right-8"
-                                    v-model="formData.to_address"
-                                    :placeholder="$t('to_address_place_holder')"
-                                    type="text"
-                                />
-                              </div>
-
-
-                            </div>
-
-                          <div class="row">
-                            <div class="col-12 col-md-4 mb-4">
-                              <label>{{ $t('hide_break_down') }}</label>
-                              <app-input
-                                  class="margin-right-8"
-                                  v-model="formData.is_breakdown"
-                                  :placeholder="$t('text_hide_break_down')"
-                                  type="switch"
-                              />
-                            </div>
-<!--                            <div class="col-12 col-md-4 mb-4">-->
-<!--                              <label>{{ $t('choose_tax') }}</label>-->
-<!--                              <app-input v-model="product.tax_id" :list="taxList"-->
-<!--                                         :placeholder="taxList && taxList.length > 1 ? $t('choose_tax') : $t('n_a_tax')"-->
-<!--                                         list-value-field="name"-->
-<!--                                         type="select"-->
-<!--                                        @input="changeTax(product)"-->
-<!--                              />-->
-<!--                            </div>-->
-                          </div>
-
                             <hr>
                             <div class="row mb-4">
                                 <div class="col col-md-8">
@@ -147,7 +152,9 @@
                                         <div class="col-8">
                                             <label>{{ $t('choose_a_product') }}</label>
                                             <app-input type="search-and-select" :placeholder="$t('choose_a_product')"
-                                                :options="productList" v-model="selectProductId" @input="changeProduct" />
+                                                :options="productList" v-model="selectProductId"
+                                                :error-message="$errorMessage(errors, 'selectProductId')"
+                                                @input="changeProduct" />
                                         </div>
                                         <div class="col">
                                             <div class="row">
@@ -164,15 +171,16 @@
                                 </div>
                             </div>
 
-
                             <div class="row">
                                 <div class="col">
                                     <table class="w-100">
                                         <thead>
-<<<<<<< HEAD
                                             <tr>
                                                 <th class="table__item table__item--products px-1">
                                                     <div class="text-muted">{{ $t('products') }}</div>
+                                                </th>
+                                                <th class="table__item table__item--tax px-1">
+                                                    <div class="text-muted">{{ $t('packages') }}</div>
                                                 </th>
                                                 <th class="table__item table__item--quantity px-1">
                                                     <div class="text-muted">{{ $t('quantity') }}</div>
@@ -183,6 +191,7 @@
                                                 <th class="table__item table__item--tax px-1">
                                                     <div class="text-muted">{{ $t('tax') }}</div>
                                                 </th>
+
                                                 <th class="table__item table__item--total_amount px-1 text-right">
                                                     <div class="text-muted">{{ $t('total_amount') }}</div>
                                                 </th>
@@ -194,6 +203,13 @@
                                         <tbody>
                                             <tr v-for="(product, index) in productDetails" :key="`products-item-${index}`">
                                                 <td class="px-1">{{ product.name }}</td>
+                                                <td class="px-1">
+                                                    <app-input v-model="product.packages" :list="packageList"
+                                                        list-value-field="name"
+                                                        :error-message="$errorMessage(errors, 'products' + index + 'packages')"
+                                                        type="select" />
+
+                                                </td>
                                                 <td class="px-1">
                                                     <div class="d-flex align-items-center d-flex justify-content-between gap-2 w-100"
                                                         style="max-width: 200px;">
@@ -218,83 +234,13 @@
                                                 <td class="px-1">
                                                     <app-input v-model="product.tax_id" :list="taxList"
                                                         :placeholder="taxList && taxList.length > 1 ? $t('choose_tax') : $t('n_a_tax')"
-                                                        list-value-field="name" type="select" @input="changeTax(product)" />
+                                                        list-value-field="name" type="select"
+                                                        :error-message="$errorMessage(errors, 'products' + index + 'tax_id')"
+                                                        @input="changeTax(product)" />
                                                 </td>
-                                                <!--                                            <td class="px-1 text-right">{{-->
-                                                <!--                                                    numberWithCurrencySymbol(product.amount)-->
-                                                <!--                                                }}-->
-                                                <!--                                            </td>-->
+
+
                                                 <td class="px-1 text-right">{{
-=======
-                                        <tr>
-                                            <th class="table__item table__item--products px-1">
-                                                <div class="text-muted">{{ $t('products') }}</div>
-                                            </th>
-                                          <th class="table__item table__item--tax px-1">
-                                            <div class="text-muted">{{ $t('packages') }}</div>
-                                          </th>
-                                            <th class="table__item table__item--quantity px-1">
-                                                <div class="text-muted">{{ $t('quantity') }}</div>
-                                            </th>
-                                            <th class="table__item table__item--unit_price px-1">
-                                                <div class="text-muted">{{ $t('unit_price') }}</div>
-                                            </th>
-                                          <th class="table__item table__item--tax px-1">
-                                            <div class="text-muted">{{ $t('tax') }}</div>
-                                          </th>
-
-                                            <th class="table__item table__item--total_amount px-1 text-right">
-                                                <div class="text-muted">{{ $t('total_amount') }}</div>
-                                            </th>
-                                            <th class="table__item table__item--total_action px-1 text-right">
-                                                <div class="text-muted">{{ $t('action') }}</div>
-                                            </th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr v-for="(product, index) in productDetails" :key="`products-item-${index}`">
-                                            <td class="px-1">{{ product.name }}</td>
-                                             <td class="px-1">
-                                              <app-input v-model="product.packages"
-                                                       :list="formData.packageList"
-                                                       type="select"
-                                              />
-                                              </td>
-                                            <td class="px-1">
-                                                <div
-                                                    class="d-flex align-items-center d-flex justify-content-between gap-2 w-100"
-                                                    style="max-width: 200px;">
-                                                    <a @click.prevent="decrementQty(product)"
-                                                       class="text-primary text-decoration-none"
-                                                       style="cursor: pointer;">
-                                                        <app-icon name="minus-circle"/>
-                                                    </a>
-                                                    <input type="text" v-model="product.quantity" @input="changeQty(product)" class="form-control pr-5">
-                                                    <a @click.prevent="incrementQty(product)"
-                                                       class="text-primary text-decoration-none"
-                                                       style="cursor: pointer;">
-                                                        <app-icon name="plus-circle"/>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                            <td class="px-1">
-                                                <input type="text" v-model="product.price" @input="changeQty(product)" class="form-control pr-5">
-                                            </td>
-                                          <td class="px-1">
-                                            <app-input v-model="product.tax_id" :list="taxList"
-                                                       :placeholder="taxList && taxList.length > 1 ? $t('choose_tax') : $t('n_a_tax')"
-                                                       list-value-field="name"
-                                                       type="select"
-                                                       @input="changeTax(product)"
-                                            />
-                                          </td>
-
-<!--                                            <td class="px-1 text-right">{{-->
-<!--                                                    numberWithCurrencySymbol(product.amount)-->
-<!--                                                }}-->
-<!--                                            </td>-->
-                                            <td class="px-1 text-right">{{
->>>>>>> e8ad10d521d407304057bda4ea2b30273979a7d0
                                                     numberWithCurrencySymbol(productDetailsCalculated[index]?.total_amount)
                                                 }}
                                                 </td>
@@ -328,7 +274,8 @@
                                 <div class="col">
                                     <label>{{ $t('discount_type') }}</label>
                                     <app-input class="margin-right-8" id="discount_type" v-model="formData.discount_type"
-                                        :list="discountTypeList" list-value-field="name" type="select" />
+                                        :list="discountTypeList" :error-message="$errorMessage(errors, 'discount_type')"
+                                        list-value-field="name" type="select" />
                                 </div>
                                 <div class="col">
                                     <label>{{ $t('discount') }}</label>
@@ -467,9 +414,13 @@ export default {
         statusList: {},
         recurringCycle: {},
         taxList: {},
+        terms: {
+
+        },
     },
     data() {
         return {
+            error: undefined,
             numberWithCurrencySymbol,
             INVOICES,
             selectProductId: null,
@@ -488,17 +439,24 @@ export default {
                 discount: null,
                 received_amount: null,
                 discount_amount: 0,
-                packages:null,
-               from_address:null,
-               to_address:null,
-               is_breakdown:false,
-                packageList:[
-                  {id: 1, value: this.$t('bubble')},
-                  {id: 2, value: this.$t('corrugated')},
-                  {id: 3, value: this.$t('packing')},
-                  {id: 4, value: this.$t('foam')},
-                ]
+                from_address: null,
+                to_address: null,
+                is_breakdown: false,
+                lift_from_address: false,
+                lift_to_address: false,
+                floor_from_address: null,
+                floor_to_address: null,
+                terms: '',
+
             },
+
+            packageList: [
+                { id: 1, name: this.$t('None') },
+                { id: 2, name: this.$t('bubble') },
+                { id: 3, name: this.$t('corrugated') },
+                { id: 4, name: this.$t('packing') },
+                { id: 5, name: this.$t('foam') },
+            ],
             recurringList: [
                 { id: 1, name: 'Yes' },
                 { id: 2, name: 'No' }
@@ -584,7 +542,10 @@ export default {
         },
     },
 
+
+
     methods: {
+
         changeProduct() {
             if (this.selectProductId) {
                 let productObject = this.filteredProData.find(item => item.id === this.selectProductId);
@@ -599,7 +560,7 @@ export default {
                         price: productObject.unit_price,
                         tax_id: null,
                         amount: (1 * productObject.unit_price),
-                        packages:null
+                        packages: productObject.packages
                     });
                 }
             }
@@ -672,6 +633,7 @@ export default {
                     price: item.price,
                     tax_id: item.tax ? item.tax_id : null,
                     amount: (item.quantity * item.price),
+                    packages: item.packages
 
                 }
             });
@@ -737,9 +699,14 @@ export default {
     },
 
     mounted() {
+        console.log('terms ' + this.terms)
         if (!this.selectedUrl) {
             this.editorShow = true;
             this.getInvoiceCount();
+        }
+
+        if (this.terms && !this.terms.error) {
+            this.formData.terms = this.terms.value;
         }
     }
 

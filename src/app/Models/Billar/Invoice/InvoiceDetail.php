@@ -22,9 +22,9 @@ class InvoiceDetail extends BaseModel
         'packages',
     ];
 
-    protected $casts = [
-        'packages' => Packages::class
-      ];
+//    protected $casts = [
+//        'packages' => Packages::class
+//      ];
 
     public function product(): BelongsTo
     {
