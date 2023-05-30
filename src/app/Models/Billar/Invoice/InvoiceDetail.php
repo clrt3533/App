@@ -2,6 +2,7 @@
 
 namespace App\Models\Billar\Invoice;
 
+use App\Casts\Packages;
 use App\Models\Billar\Product\Product;
 use App\Models\Billar\Tax\Tax;
 use App\Models\Core\BaseModel;
@@ -18,7 +19,12 @@ class InvoiceDetail extends BaseModel
         'quantity',
         'price',
         'tax_id',
+        'packages',
     ];
+
+    protected $casts = [
+        'packages' => Packages::class
+      ];
 
     public function product(): BelongsTo
     {

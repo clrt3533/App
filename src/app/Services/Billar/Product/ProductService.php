@@ -24,8 +24,6 @@ class ProductService extends ApplicationBaseService
         $id = $this->model->id ?: '';
         validator(request()->all(), [
             'name' => 'required|max:191',
-            'code' => 'required|max:191|unique:products,code,' . $id,
-            'unit_price' => 'required|numeric',
             'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             //'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|size:2048|dimensions:min_width=200,min_height=200,max_width=200,max_height=200',
         ])->validate();

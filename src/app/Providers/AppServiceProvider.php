@@ -5,8 +5,11 @@ namespace App\Providers;
 use App\Helpers\App\Traits\SetPaymentConfig;
 use App\Helpers\App\Traits\SetSettingsConfig;
 use App\Mail\App\Traits\SetMailConfig;
+use App\Services\App\SmsSetting\Message91Services;
 use Carbon\Carbon;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Exception;
@@ -24,6 +27,15 @@ class AppServiceProvider extends ServiceProvider
         if (!$this->app->environment('production') && class_exists(\Laravel\Telescope\TelescopeServiceProvider::class)) {
             $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
         }
+        $this->app->singleton(Message91Services::class,function (Application $app){
+            $client = Http::withHeaders([
+                'accept' => 'application/json',
+                'authkey' => '238708A7BIRMsept5ba3c275',
+                'content-type' => 'application/json',
+            ])->baseUrl('https://control.msg91.com/api/v5/flow');
+
+            return new Message91Services($client);
+        });
     }
 
     /**

@@ -71,6 +71,7 @@
                                     <app-input id="dueDate" :min-date="formData.due_date" v-model="formData.due_date"
                                         :error-message="$errorMessage(errors, 'due_date')" type="date" />
                                 </div>
+<<<<<<< HEAD
                                 <div class="col-12 col-md-4 mb-4">
                                     <div class="row">
                                         <div class="col-auto">
@@ -89,9 +90,55 @@
                                             </div>
                                         </div>
                                     </div>
+=======
+>>>>>>> e8ad10d521d407304057bda4ea2b30273979a7d0
 
-                                </div>
+
                             </div>
+                            <div class="row">
+                              <div class="col-12 col-md-4 mb-4">
+                                <label>{{ $t('from_address') }}</label>
+                                <app-input
+                                    class="margin-right-8"
+                                    v-model="formData.from_address"
+                                    :placeholder="$t('from_address_place_holder')"
+                                    type="text"
+                                />
+                              </div>
+
+                              <div class="col-12 col-md-4 mb-4">
+                                <label>{{ $t('to_address') }}</label>
+                                <app-input
+                                    class="margin-right-8"
+                                    v-model="formData.to_address"
+                                    :placeholder="$t('to_address_place_holder')"
+                                    type="text"
+                                />
+                              </div>
+
+
+                            </div>
+
+                          <div class="row">
+                            <div class="col-12 col-md-4 mb-4">
+                              <label>{{ $t('hide_break_down') }}</label>
+                              <app-input
+                                  class="margin-right-8"
+                                  v-model="formData.is_breakdown"
+                                  :placeholder="$t('text_hide_break_down')"
+                                  type="switch"
+                              />
+                            </div>
+<!--                            <div class="col-12 col-md-4 mb-4">-->
+<!--                              <label>{{ $t('choose_tax') }}</label>-->
+<!--                              <app-input v-model="product.tax_id" :list="taxList"-->
+<!--                                         :placeholder="taxList && taxList.length > 1 ? $t('choose_tax') : $t('n_a_tax')"-->
+<!--                                         list-value-field="name"-->
+<!--                                         type="select"-->
+<!--                                        @input="changeTax(product)"-->
+<!--                              />-->
+<!--                            </div>-->
+                          </div>
 
                             <hr>
                             <div class="row mb-4">
@@ -122,6 +169,7 @@
                                 <div class="col">
                                     <table class="w-100">
                                         <thead>
+<<<<<<< HEAD
                                             <tr>
                                                 <th class="table__item table__item--products px-1">
                                                     <div class="text-muted">{{ $t('products') }}</div>
@@ -177,6 +225,76 @@
                                                 <!--                                                }}-->
                                                 <!--                                            </td>-->
                                                 <td class="px-1 text-right">{{
+=======
+                                        <tr>
+                                            <th class="table__item table__item--products px-1">
+                                                <div class="text-muted">{{ $t('products') }}</div>
+                                            </th>
+                                          <th class="table__item table__item--tax px-1">
+                                            <div class="text-muted">{{ $t('packages') }}</div>
+                                          </th>
+                                            <th class="table__item table__item--quantity px-1">
+                                                <div class="text-muted">{{ $t('quantity') }}</div>
+                                            </th>
+                                            <th class="table__item table__item--unit_price px-1">
+                                                <div class="text-muted">{{ $t('unit_price') }}</div>
+                                            </th>
+                                          <th class="table__item table__item--tax px-1">
+                                            <div class="text-muted">{{ $t('tax') }}</div>
+                                          </th>
+
+                                            <th class="table__item table__item--total_amount px-1 text-right">
+                                                <div class="text-muted">{{ $t('total_amount') }}</div>
+                                            </th>
+                                            <th class="table__item table__item--total_action px-1 text-right">
+                                                <div class="text-muted">{{ $t('action') }}</div>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="(product, index) in productDetails" :key="`products-item-${index}`">
+                                            <td class="px-1">{{ product.name }}</td>
+                                             <td class="px-1">
+                                              <app-input v-model="product.packages"
+                                                       :list="formData.packageList"
+                                                       type="select"
+                                              />
+                                              </td>
+                                            <td class="px-1">
+                                                <div
+                                                    class="d-flex align-items-center d-flex justify-content-between gap-2 w-100"
+                                                    style="max-width: 200px;">
+                                                    <a @click.prevent="decrementQty(product)"
+                                                       class="text-primary text-decoration-none"
+                                                       style="cursor: pointer;">
+                                                        <app-icon name="minus-circle"/>
+                                                    </a>
+                                                    <input type="text" v-model="product.quantity" @input="changeQty(product)" class="form-control pr-5">
+                                                    <a @click.prevent="incrementQty(product)"
+                                                       class="text-primary text-decoration-none"
+                                                       style="cursor: pointer;">
+                                                        <app-icon name="plus-circle"/>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td class="px-1">
+                                                <input type="text" v-model="product.price" @input="changeQty(product)" class="form-control pr-5">
+                                            </td>
+                                          <td class="px-1">
+                                            <app-input v-model="product.tax_id" :list="taxList"
+                                                       :placeholder="taxList && taxList.length > 1 ? $t('choose_tax') : $t('n_a_tax')"
+                                                       list-value-field="name"
+                                                       type="select"
+                                                       @input="changeTax(product)"
+                                            />
+                                          </td>
+
+<!--                                            <td class="px-1 text-right">{{-->
+<!--                                                    numberWithCurrencySymbol(product.amount)-->
+<!--                                                }}-->
+<!--                                            </td>-->
+                                            <td class="px-1 text-right">{{
+>>>>>>> e8ad10d521d407304057bda4ea2b30273979a7d0
                                                     numberWithCurrencySymbol(productDetailsCalculated[index]?.total_amount)
                                                 }}
                                                 </td>
@@ -369,7 +487,17 @@ export default {
                 discount_type: 'none',
                 discount: null,
                 received_amount: null,
-                discount_amount: 0
+                discount_amount: 0,
+                packages:null,
+               from_address:null,
+               to_address:null,
+               is_breakdown:false,
+                packageList:[
+                  {id: 1, value: this.$t('bubble')},
+                  {id: 2, value: this.$t('corrugated')},
+                  {id: 3, value: this.$t('packing')},
+                  {id: 4, value: this.$t('foam')},
+                ]
             },
             recurringList: [
                 { id: 1, name: 'Yes' },
@@ -471,6 +599,7 @@ export default {
                         price: productObject.unit_price,
                         tax_id: null,
                         amount: (1 * productObject.unit_price),
+                        packages:null
                     });
                 }
             }

@@ -442,25 +442,7 @@
                     <div class="hr mt-2"></div>
                 </td>
             </tr>
-            <tr class="bg-transparent text-black">
-                <td colspan="2"></td>
-                <td colspan="2" class="bold p-1">{{__t('sub_total')}} :</td>
-                <td class="text-right p-1 currency-symbol">{{number_with_currency_symbol($invoice->sub_total)}}</td>
-            </tr>
-            <tr class="bg-transparent text-black">
-                <td colspan="2"></td>
-                <td colspan="2" class="bold p-1">{{__t('tax')}} :</td>
-                <td class="text-right p-1 currency-symbol">{{number_with_currency_symbol($invoice->totalTax)}}</td>
-            </tr>
-            <tr class="bg-transparent text-black">
-                <td colspan="2"></td>
-                <td colspan="2" class="bold p-1">{{__t('discount')}} :
-                    @if($invoice->discount_type == 'percentage')
-                        {{$invoice->discount}} %
-                    @endif
-                </td>
-                <td class="text-right p-1 currency-symbol">{{number_with_currency_symbol($invoice->discount_amount)}}</td>
-            </tr>
+
             <tr class="bg-transparent text-black">
                 <td colspan="2"></td>
                 <td colspan="2" class="bold p-1">{{__t('total')}} :</td>

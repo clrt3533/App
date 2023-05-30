@@ -26,23 +26,14 @@ export default {
                         type: 'text',
                         key: 'name',
                     },
-                    {
-                        title: this.$t('code'),
-                        type: 'text',
-                        key: 'code',
-                    },
+
                     {
                         title: this.$t('category'),
                         type: 'object',
                         key: 'category',
                         modifier: (value => value ? value.name : '')
                     },
-                    {
-                        title: this.$t('price'),
-                        type: 'object',
-                        key: 'unit_price',
-                        modifier: (price => numberWithCurrencySymbol(price))
-                    },
+
                     {
                         title: this.$t('actions'),
                         type: 'action'

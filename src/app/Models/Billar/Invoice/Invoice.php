@@ -2,6 +2,7 @@
 
 namespace App\Models\Billar\Invoice;
 
+use App\Casts\Packages;
 use App\Models\Billar\Recurring\RecurringCycle;
 use App\Models\Core\BaseModel;
 use App\Models\Core\Status;
@@ -36,10 +37,15 @@ class Invoice extends BaseModel
         'terms',
         'created_by',
         'discount_amount',
-        'is_from_estimate'
+        'is_from_estimate',
+        'is_breakdown',
+        'from_address' ,
+        'to_address' ,
+        'reminder'
     ];
     protected $casts = [
         'due_amount' => 'double',
+        'is_breakdown' => 'boolean',
     ];
 
     public function setDateAttribute($value)

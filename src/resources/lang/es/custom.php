@@ -665,7 +665,7 @@ return array_merge([
     'payment' => 'Payment',
     'invoice_no' => 'Invoice No',
     'action_invoice_download' => 'Download',
-    'issue_date' => 'Issue date',
+    'issue_date' => 'Move date',
     'recurring_invoices' => 'Recurring invoices',
     'stop_recurring' => 'Stop recurring',
 

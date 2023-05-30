@@ -40,17 +40,6 @@
 					/>
 				</div>
 				<div class="form-group">
-					<label for="code">{{ $t('code') }}<sup class="text-size-20 top-1">*</sup></label>
-					<app-input
-						id="code"
-						type="text"
-						:placeholder="$t('code')"
-						v-model="formData.code"
-						:error-message="$errorMessage(errors, 'code')"
-						:required="true"
-					/>
-				</div>
-				<div class="form-group">
 					<label for="category">{{ $t('category') }}</label>
 					<div class="d-flex align-items-center">
 						<div class="flex-grow-1">
@@ -71,19 +60,7 @@
 						</button>
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="unitPrice">
-						{{ $t('unit_price') }}<sup class="text-size-20 top-1">*</sup>
-					</label>
-					<app-input
-						id="unitPrice"
-						type="number"
-						:placeholder="$t('unit_price')"
-						v-model="formData.unit_price"
-						:error-message="$errorMessage(errors, 'unit_price')"
-						:required="true"
-					/>
-				</div>
+
 				<div class="form-group">
 					<label for="description">
 						{{ $t('description') }}

@@ -1,6 +1,6 @@
 // Import Fonts
 @font-face {
-  font-family: 'Poppins';
+  @import url("../../../../node_modules/nouislider/distribute/nouislider.min.css");
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -8,8 +8,8 @@
 }
 
 // import css from node modules
-@import url('../../../node_modules/nouislider/distribute/nouislider.min.css');
-@import url('../../../node_modules/animate.css/animate.min.css');
+@import url('../../../../node_modules/nouislider/distribute/nouislider.min.css');
+@import url('../../../../node_modules/animate.css/animate.min.css');
 
 // Import Custom Variables
 @import "variables";
