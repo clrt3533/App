@@ -47,40 +47,40 @@ class UserInvitationController extends Controller
             $this->beforeInvited
                 ->handle();
 
-            // $user = $this->service->invite(
-            //     $request->get('email'),
-            //     $request->get('roles', [])
-            // );
+            $user = $this->service->invite(
+                $request->get('email'),
+                $request->get('roles', [])
+            );
 
-            // //GUD app level code start
-            // $socialLinks = SocialLink::pluck('id')->toArray();
-            // $user->assignSocialLinks($socialLinks);
-            // //End
+            //GUD app level code start
+            $socialLinks = SocialLink::pluck('id')->toArray();
+            $user->assignSocialLinks($socialLinks);
+            //End
 
-            // notify()
-            //     ->on('user_invited')
-            //     ->with($user)
-            //     ->send(UserInvitationNotification::class);
+            notify()
+                ->on('user_invited')
+                ->with($user)
+                ->send(UserInvitationNotification::class);
 
-            // log_to_database(trans('default.user_invited_to_join'), [
-            //     'old' => [],
-            //     'attributes' => $user
-            // ]);
+            log_to_database(trans('default.user_invited_to_join'), [
+                'old' => [],
+                'attributes' => $user
+            ]);
 
-            // $user->load('roles');
+            $user->load('roles');
 
-            // $this->afterInvited
-            //     ->setModel($user)
-            //     ->handle();
+            $this->afterInvited
+                ->setModel($user)
+                ->handle();
 
 
-            try {
-                Mail::to($request->get('email'))->send(new SendEmail());
-                echo "Email sent successfully!";
-            } catch (Swift_TransportException $e) {
-                // Display the reason for the failure
-                echo "Failed to send email. Reason: " . $e->getMessage();
-            }
+            // try {
+            //     Mail::to($request->get('email'))->send(new SendEmail());
+            //     echo "Email sent successfully!";
+            // } catch (Swift_TransportException $e) {
+            //     // Display the reason for the failure
+            //     echo "Failed to send email. Reason: " . $e->getMessage();
+            // }
         });
 
         return response()->json([

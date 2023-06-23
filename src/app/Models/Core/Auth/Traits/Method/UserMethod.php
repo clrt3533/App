@@ -25,7 +25,7 @@ trait UserMethod
      */
     public function canChangePassword()
     {
-        return ! app('session')->has(config('access.socialite_session_name'));
+        return !app('session')->has(config('access.socialite_session_name'));
     }
 
     /**
@@ -87,7 +87,7 @@ trait UserMethod
      */
     public function admin($type = 'app', $brand_id = null)
     {
-        return cache()->remember($type.'-admin-'.$this->id, 84000, function () use ($type, $brand_id) {
+        return cache()->remember($type . '-admin-' . $this->id, 84000, function () use ($type, $brand_id) {
             return $this->roles()
                 ->where('is_admin', 1)
                 ->where('is_default', 1)
@@ -108,17 +108,17 @@ trait UserMethod
         })->firstOrFail();
     }
 
-    // public function invite()
-    // {
-    //     var_dump($this->email);
-    //     var_dump(new UserInvitationMail($this));
-    //     // return Mail::to($this->email)
-    //     //     ->locale(app()->getLocale())
-    //     //     ->send((new UserInvitationMail($this))->onQueue('high')->delay(5));
-    // }
-
-    public function assignSocialLinks($socialLinks){
-        return $this->socialLinks()->attach($socialLinks);
+    public function invite()
+    {
+        // var_dump($this->email);
+        // var_dump(new UserInvitationMail($this));
+        return Mail::to($this->email)
+            ->locale(app()->getLocale())
+            ->send((new UserInvitationMail($this))->onQueue('high')->delay(5));
     }
 
+    public function assignSocialLinks($socialLinks)
+    {
+        return $this->socialLinks()->attach($socialLinks);
+    }
 }
