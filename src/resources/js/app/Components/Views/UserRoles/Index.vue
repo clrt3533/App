@@ -309,8 +309,10 @@ export default {
         },
         checkMailSettings() {
             this.preloader = true;
+            console.log("This: ", this);
             const url = this.alias === 'tenant' ? TENANT_MAIL_CHECK_URL : MAIL_CHECK_URL
             axiosGet(url).then(response => {
+                console.log("Setting: ", response.data, url);
                 this.isMailSettingExist = !!response.data;
             })
         },

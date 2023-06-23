@@ -3,6 +3,8 @@ import Vue from 'vue';
 // Helpers Component
 import './Components/Helpers/HelperComponent';
 
+Vue.component('example', require('./Components/Views/Auth/Example').default);
+
 /**
  * All Component of Billar
  */
@@ -66,6 +68,7 @@ Vue.component('address-view-all-modal', require('./Components/Views/Clients/Addr
 Vue.component('invoices', require('./Components/Views/Invoices/Index').default);
 Vue.component('add-invoice', require('./Components/Views/Invoices/CreateInvoice').default);
 Vue.component('invoice-details', require('./Components/Views/Invoices/InvoiceDetails').default);
+Vue.component('category-products-modal', require('./Components/Views/Invoices/CategoryProductsModal').default);
 Vue.component('send-invoice-modal', require('./Components/Views/Invoices/SendInvoiceModal').default);
 Vue.component('invoice-add-edit-modal', require('./Components/Views/Invoices/InvoiceAddEditModal').default);
 Vue.component('invoice-payment-modal', require('./Components/Views/Invoices/InvoicePaymentModal').default);

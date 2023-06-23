@@ -159,7 +159,6 @@
 </template>
 
 <script>
-
 import {FormMixin} from "../../../../core/mixins/form/FormMixin";
 import {numberWithCurrencySymbol} from "../../../Helpers/Helpers";
 

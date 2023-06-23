@@ -13,7 +13,7 @@ class InvoiceDownloadController extends Controller
     {
         $invoiceInfo = $invoice->load(['invoiceDetails' => function ($query) {
             $query->with('product:id,name', 'tax:id,name,value');
-        }, 'client.profile', 'createdBy.profile']);
+        }, 'createdBy.profile']);
         $invoiceInfo->totalTax = $invoiceInfo->invoiceDetails->map(function ($item) {
             $tax = $item->load('tax')->tax ? $item->load('tax')->tax->value : 0;
             return $this->productTaxSum($item->quantity, $item->price, $tax);
@@ -34,6 +34,4 @@ class InvoiceDownloadController extends Controller
     {
         return (($quantity * $price) * ($taxValue / 100));
     }
-
-
 }

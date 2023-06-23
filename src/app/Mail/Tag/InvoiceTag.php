@@ -23,7 +23,7 @@ class InvoiceTag extends Tag
     public function notification(): array
     {
         return array_merge([
-            '{receiver_name}' => $this->invoice->client->full_name,
+            '{receiver_name}' => $this->invoice->client_name,
             '{invoice_number}' => $this->invoice->invoice_number,
             '{date}' => $this->dateFormat($this->invoice->due_date),
         ], $this->appNameAndLogo());

@@ -108,12 +108,14 @@ trait UserMethod
         })->firstOrFail();
     }
 
-    public function invite()
-    {
-        return Mail::to($this->email)
-            ->locale(app()->getLocale())
-            ->send((new UserInvitationMail($this))->onQueue('high')->delay(5));
-    }
+    // public function invite()
+    // {
+    //     var_dump($this->email);
+    //     var_dump(new UserInvitationMail($this));
+    //     // return Mail::to($this->email)
+    //     //     ->locale(app()->getLocale())
+    //     //     ->send((new UserInvitationMail($this))->onQueue('high')->delay(5));
+    // }
 
     public function assignSocialLinks($socialLinks){
         return $this->socialLinks()->attach($socialLinks);

@@ -10,7 +10,7 @@ use App\Models\Billar\Invoice\InvoiceDetail;
 use App\Repositories\Core\Setting\SettingRepository;
 use App\Services\Billar\ApplicationBaseService;
 use Illuminate\Support\Facades\Storage;
-Use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rule;
 use PDF;
 
 class InvoiceService extends ApplicationBaseService
@@ -34,32 +34,29 @@ class InvoiceService extends ApplicationBaseService
     {
         $id = $this->model->id ?: '';
         validator(request()->all(), [
-            'client_id' => 'required|max:191',
+            'client_name' => 'required|max:191',
+            'client_email' => 'required|max:191',
+            'client_number' => 'required|max:191',
             'invoice_number' => 'required|unique:invoices,invoice_number,' . $id,
             'recurring' => 'required',
             'date' => 'required|date',
-            'due_date' => 'required|date',
-            'status_id' => 'required',
             'recurring_cycle_id' => 'required_if:recurring, ==, 1',
             'products' => 'required|array|min:1',
             'products.*.product_id' => 'required',
             'products.*.quantity' => 'required',
-            'products.*.price' => 'required',
-            'products.*.amount' => 'required',
-            'product.*.packages' => ['nullable','sometimes','required','integer' ,'gt:0',Rule::in([1,2,3,4,5])],
+            'product.*.packages' => ['nullable', 'sometimes', 'required', 'integer', 'gt:0', Rule::in([1, 2, 3, 4, 5])],
             'sub_total' => 'required',
             'total' => 'required',
-            'from_address' => ['required','string'],
-            'to_address'   => ['required','string'],
-            'is_breakdown' => ['required','boolean']
+            'from_address' => ['required', 'string'],
+            'to_address'   => ['required', 'string'],
+            'is_breakdown' => ['required', 'boolean']
         ], [
-            'client_id.required' => 'The client field is required.',
-            'status_id.required' => 'The status field is required.',
+            'client_name.required' => 'The client name is required.',
+            'client_email.required' => 'The client email is required.',
+            'client_number.required' => 'The client number is required.',
             'recurring_cycle_id.required_if' => 'The recurring cycle field is required.',
             'products.*.product_id.required' => 'The product field is required.',
             'products.*.quantity.required' => 'The quantity field is required.',
-            'products.*.price.required' => 'The price field is required.',
-            'products.*.amount.required' => 'The amount field is required.',
 
         ])->validate();
 
@@ -88,18 +85,12 @@ class InvoiceService extends ApplicationBaseService
                     InvoiceDetail::where('id', $item['id'])->update([
                         'product_id' => $item['product_id'],
                         'quantity' => $item['quantity'],
-                        'price' => $item['price'],
-                        'tax_id' => $item['tax_id'],
-                        'packages'    => $item['packages']
                     ]);
                 } else {
                     InvoiceDetail::create([
                         'invoice_id' => $this->model->id,
                         'product_id' => $item['product_id'],
                         'quantity'   => $item['quantity'],
-                        'price'       => $item['price'],
-                        'tax_id'      => $item['tax_id'],
-                        'packages'    => $item['packages']
                     ]);
                 }
             }
@@ -110,9 +101,15 @@ class InvoiceService extends ApplicationBaseService
 
     public function loadInvoiceInfo($invoice)
     {
-        $invoiceInfo = $invoice->load(['invoiceDetails' => function ($query) {
-            $query->with('product:id,name', 'tax:id,name,value');
-        }, 'client:id,first_name,last_name,email', 'createdBy:id,first_name,last_name']);
+        $invoiceInfo = $invoice->load([
+            'invoiceDetails' => function ($query) {
+                $query->with(
+                    'product:id,name',
+                    'tax:id,name,value'
+                );
+            },
+            'createdBy:id,first_name,last_name'
+        ]);
 
         $invoiceInfo->totalTax = $invoiceInfo->invoiceDetails->map(function ($item) {
             $tax = $item->load('tax')->tax ? $item->load('tax')->tax->value : 0;
@@ -120,7 +117,6 @@ class InvoiceService extends ApplicationBaseService
         })->sum();
 
         return $invoiceInfo;
-
     }
 
     public function pdfGenerate($invoiceInfo): self
@@ -145,8 +141,8 @@ class InvoiceService extends ApplicationBaseService
             '{invoice_number}' => $invoice['invoice_number'],
             '{invoice_amount}' => $invoice['total'],
             '{invoice_logo}' => '<img src= "' . asset(config('settings.application.invoice_logo')) . '"/>',
-            '{client_name}' => $invoice['client']['full_name'],
-            '{client_email}' => $invoice['client']['email'],
+            '{client_name}' => $invoice['client_name'],
+            '{client_email}' => $invoice['client_email'],
             '{company_name}' => config('app.name'),
             '{login_link}' => '<a href="' . url('/') . '"> Click Here </a>',
         ];
@@ -164,5 +160,4 @@ class InvoiceService extends ApplicationBaseService
     {
         return (($quantity * $price) * ($taxValue / 100));
     }
-
 }

@@ -39,6 +39,14 @@ class UserInvitationMail extends Mailable implements ShouldQueue
 
         $tag = new UserTag($this->user, $this->auth);
 
+        // TESTING TESTING
+        // return [[
+        //     "template" => $template,
+        //     "tag" => $tag
+        // ]];
+
+
+
         return $this->view('notification.mail.user.template', [
             'template' => $template->parse(
                 $tag->invitation()

@@ -48,7 +48,7 @@ class SupportApiController extends Controller
         $paidInvoiceStatus = resolve(StatusRepository::class)->invoicePaid();
         return Invoice::query()
             ->filters(new InvoiceFilter())
-            ->where('status_id', '<>', $paidInvoiceStatus)
+            // ->where('status_id', '<>', $paidInvoiceStatus)
             ->select('id', 'invoice_number', 'due_amount')
             ->orderByDesc('id')
             ->paginate(request('per_page', 10));

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateInvoicesTable extends Migration
+class AddHideChargesToInvoices extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,7 @@ class UpdateInvoicesTable extends Migration
     public function up()
     {
         Schema::table('invoices', function (Blueprint $table) {
-            $table->dropForeign('invoices_currency_id_foreign');
-            $table->dropColumn('currency_id');
+            $table->boolean('is_hide_charges')->default(0);
         });
     }
 
@@ -26,5 +25,8 @@ class UpdateInvoicesTable extends Migration
      */
     public function down()
     {
+        Schema::table('invoices', function (Blueprint $table) {
+            $table->dropColumn('is_hide_charges');
+        });
     }
 }
