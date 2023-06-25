@@ -103,15 +103,15 @@ trait UserMethod
 
     public static function findByEmail(string $email)
     {
-        return self::where('email', $email)->whereHas('status', function (Builder $builder) {
-            $builder->whereNotIn('name', ['status_inactive', 'status_invited']);
-        })->firstOrFail();
+        return self::where('email', $email)
+            ->whereHas('status', function (Builder $builder) {
+                $builder->whereNotIn('name', ['status_inactive', 'status_invited']);
+            })
+            ->firstOrFail();
     }
 
     public function invite()
     {
-        // var_dump($this->email);
-        // var_dump(new UserInvitationMail($this));
         return Mail::to($this->email)
             ->locale(app()->getLocale())
             ->send((new UserInvitationMail($this))->onQueue('high')->delay(5));

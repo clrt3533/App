@@ -48,11 +48,12 @@
                 <div class="col-12 col-md-3 mb-4">
                   <label>{{ $t("client_number") }}</label>
                   <app-input
+                    type="text"
                     class="margin-right-8"
                     v-model="formData.client_number"
                     :error-message="$errorMessage(errors, 'client_number')"
                     :placeholder="$t('Number')"
-                    type="text"
+                    @input="handleClientNumber"
                   />
                 </div>
                 <!-- <div class="col-12 col-md-3 mb-4">
@@ -752,9 +753,10 @@ export default {
         },
       ],
       formData: {
-        client_name: null,
-        client_email: null,
-        client_number: null,
+        client_name: "",
+        client_email: "",
+        country_code: "+91",
+        client_number: "",
         recurring: 2,
         invoice_number: null,
         date: DateFunction.getDateFormat(new Date(), "YYYY-MM-DD"),
@@ -848,6 +850,13 @@ export default {
     },
   },
   methods: {
+    handleClientNumber(inputValue) {
+      // Check if the input value starts with the country code
+      if (!inputValue.startsWith(this.formData.country_code)) {
+        // If not, set the input value to the country code prepended with the entered value
+        this.formData.client_number = this.formData.country_code + inputValue;
+      }
+    },
     changeCategory() {
       this.selectCategoryName = this.categoryData.filter(
         (product) => product.id === this.selectCategoryId
@@ -952,7 +961,7 @@ export default {
     },
     submitData() {
       let products = this.tempSelectedProducts.flatMap((obj) => obj.products);
-      
+
       if (this.selectedUrl) {
         const updatedProducts = products.map((item) => {
           const matchingItem = this.formData.invoice_details.find(

@@ -42,9 +42,11 @@ class Message91Services
             'content-type' => 'application/json',
         ];
 
-        $template_id = "1207161485496784256";
+        $template_id = "";
         if ($received_amount > 0) {
             $template_id = "6040ca8e0fdf72715d773ec8";
+        } else {
+            $template_id = "6040bfedd6fc05609509b496";
         }
 
         $response = Http::withHeaders($headers)->post('https://control.msg91.com/api/v5/flow/', [
