@@ -18,12 +18,29 @@ class TestMailController extends Controller
             'message' => ['required'],
         ]);
 
+        // try {
+        //     var_dump(Mail::to($request->email)
+        //         ->send(new TestMail($request->subject, $request->message)));
+        //     return response()->json(['status' => true, 'message' => __('email_sent_successfully')]);
+        // } catch (\Exception $exception) {
+        //     return response()->json(['status' => false, 'message' => __('email_setup_is_not_correct')]);
+        // }
+
+
         try {
-            Mail::to($request->email)
-                ->send(new TestMail($request->subject, $request->message));
-            return response(['status' => true, 'message' => __t('email_sent_successfully')]);
+            $mail = new TestMail($request->subject, $request->message);
+            Mail::to($request->email)->send($mail);
+
+            if (count(Mail::failures()) > 0) {
+                // Email failed to send to one or more recipients
+                return response()->json(['status' => false, 'message' => Mail::failures()]);
+            } else {
+                // Email sent successfully
+                return response()->json(['status' => true, 'message' => __('email_sent_successfully')]);
+            }
         } catch (\Exception $exception) {
-            return response(['status' => false, 'message' => __t('email_setup_is_not_correct')]);
+            // Exception occurred while sending email
+            return response()->json(['status' => false, 'message' => __('email_setup_is_not_correct')]);
         }
     }
 }

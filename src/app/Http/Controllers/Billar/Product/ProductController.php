@@ -28,6 +28,10 @@ class ProductController extends Controller
             ->paginate(request('per_page', 10));
     }
 
+    public function productsByCategory() {
+        return $this->service->filters()->get();
+    }
+
     public function store(Request $request)
     {
         $this->service

@@ -21,8 +21,7 @@ class PaymentHistoryController extends Controller
     {
         return $this->service
            ->with(['paymentMethod:id,name', 'invoice' => function ($query) {
-                    $query->select('id', 'invoice_number', 'client_id')
-                        ->with('client:id,first_name,last_name');
+                    $query->select('id', 'invoice_number', 'client_name');
                 }]
             )->filters($this->filter)
             ->orderBy('id', request()->get('orderBy'))
@@ -40,11 +39,11 @@ class PaymentHistoryController extends Controller
 
         $invoiceInfo = $payment->load('invoice')->invoice;
 
-        $this->service
-            ->setAttribute('file_path', 'public/pdf/invoice_' . $invoiceInfo->id . '.pdf')
-            ->pdfGenerate($invoiceInfo);
+        // $this->service
+        //     ->setAttribute('file_path', 'public/pdf/invoice_' . $invoiceInfo->id . '.pdf')
+        //     ->pdfGenerate($invoiceInfo);
 
-        InvoiceAttachmentJob::dispatch($invoiceInfo, 'payment_recived')->onQueue('high');
+        // InvoiceAttachmentJob::dispatch($invoiceInfo, 'payment_recived')->onQueue('high');
         return created_responses('payments');
     }
 

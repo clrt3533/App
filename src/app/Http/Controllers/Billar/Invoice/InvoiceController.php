@@ -31,18 +31,17 @@ class InvoiceController extends Controller
         if (request()->get('invoice_type')) {
             return $this->service
                 ->where('recurring', 3)
-                ->with('status:id,name,class', 'client:id,first_name,last_name', 'recurringCycle:id,name')
+                ->with('recurringCycle:id,name')
                 ->filters($this->filter)
                 ->orderBy('id', request()->get('orderBy'))
                 ->paginate(request('per_page', 10));
         }
         return $this->service
             ->where('recurring', '!=', 3)
-            ->with('status:id,name,class', 'client:id,first_name,last_name', 'recurringCycle:id,name')
+            ->with('recurringCycle:id,name')
             ->filters($this->filter)
             ->orderBy('id', request()->get('orderBy'))
             ->paginate(request('per_page', 10));
-
     }
 
 
@@ -53,17 +52,21 @@ class InvoiceController extends Controller
             ->setAttributes($request->all())
             ->save();
 
-        $this->service->when($request->has('products'), fn(InvoiceService $service) => $service->invoiceDetails());
+        $this->service->when($request->has('products'), fn (InvoiceService $service) => $service->invoiceDetails());
         $invoiceInfo = $this->service->loadInvoiceInfo($invoice);
 
         $this->service
             ->setAttribute('file_path', 'public/pdf/invoice_' . $invoice->id . '.pdf')
             ->pdfGenerate($invoiceInfo);
 
-        InvoiceAttachmentJob::dispatch($invoiceInfo)->onQueue('high');
+        // Send email to client about order confirmation
+        // InvoiceAttachmentJob::dispatch($invoiceInfo)->onQueue('high');
 
-        $date = Carbon::createFromFormat('y-m-d',$this->service->model->date)->format('d-m-y');
-        SendMessageJob::dispatch('book-confirmation-message',$this->service->model->client->profile->contact,$date);
+        $date = Carbon::createFromFormat('y-m-d', $this->service->model->date)->format('d-m-y');
+
+        // Send SMS to client about order confirmation
+        SendMessageJob::dispatch('book-confirmation-message', $this->service->model->client_number, $this->service->model->received_amount, $date);
+
         return created_responses('invoices');
     }
 
@@ -72,9 +75,12 @@ class InvoiceController extends Controller
     {
         return $this->service
             ->with([
-                'client.profile', 'createdBy.profile',
+                'createdBy.profile',
                 'invoiceDetails' => function ($query) {
-                    $query->with('tax:id,name,value', 'product:id,name');
+                    $query->with('tax:id,name,value')
+                        ->join('products', 'invoice_details.product_id', '=', 'products.id')
+                        ->join('categories', 'products.category_id', '=', 'categories.id')
+                        ->select('invoice_details.*', 'products.name as product_name', 'categories.id as category_id', 'categories.name as category_name');
                 }
             ])->find($id);
     }
@@ -85,12 +91,12 @@ class InvoiceController extends Controller
             ->setModel($invoice)
             ->setValidation()
             ->setAttributes($request->only(
-                'client_id',
+                'client_name',
+                'client_email',
+                'client_number',
                 'invoice_number',
                 'recurring',
                 'date',
-                'due_date',
-                'status_id',
                 'recurring_cycle_id',
                 'sub_total',
                 'discount_type',
@@ -106,11 +112,24 @@ class InvoiceController extends Controller
                 'floor_from_address',
                 'floor_to_address',
                 'is_breakdown',
-                'from_address' ,
-                'to_address' ,
+                'from_address',
+                'to_address',
+
+                'is_hide_charges',
+                'packing',
+                'unloading',
+                'local',
+                'gst',
+                'transport',
+                'unpacking',
+                'car_transport',
+                'loading',
+                'ac',
+                'insuarance'
             ))
             ->update();
-        $this->service->when($request->has('products'), fn(InvoiceService $service) => $service->invoiceDetails());
+
+        $this->service->when($request->has('products'), fn (InvoiceService $service) => $service->invoiceDetails());
         return updated_responses('invoices');
     }
 

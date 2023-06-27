@@ -25,7 +25,7 @@ trait UserMethod
      */
     public function canChangePassword()
     {
-        return ! app('session')->has(config('access.socialite_session_name'));
+        return !app('session')->has(config('access.socialite_session_name'));
     }
 
     /**
@@ -87,7 +87,7 @@ trait UserMethod
      */
     public function admin($type = 'app', $brand_id = null)
     {
-        return cache()->remember($type.'-admin-'.$this->id, 84000, function () use ($type, $brand_id) {
+        return cache()->remember($type . '-admin-' . $this->id, 84000, function () use ($type, $brand_id) {
             return $this->roles()
                 ->where('is_admin', 1)
                 ->where('is_default', 1)
@@ -103,9 +103,11 @@ trait UserMethod
 
     public static function findByEmail(string $email)
     {
-        return self::where('email', $email)->whereHas('status', function (Builder $builder) {
-            $builder->whereNotIn('name', ['status_inactive', 'status_invited']);
-        })->firstOrFail();
+        return self::where('email', $email)
+            ->whereHas('status', function (Builder $builder) {
+                $builder->whereNotIn('name', ['status_inactive', 'status_invited']);
+            })
+            ->firstOrFail();
     }
 
     public function invite()
@@ -115,8 +117,8 @@ trait UserMethod
             ->send((new UserInvitationMail($this))->onQueue('high')->delay(5));
     }
 
-    public function assignSocialLinks($socialLinks){
+    public function assignSocialLinks($socialLinks)
+    {
         return $this->socialLinks()->attach($socialLinks);
     }
-
 }

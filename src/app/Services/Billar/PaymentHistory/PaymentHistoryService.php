@@ -40,7 +40,10 @@ class PaymentHistoryService extends ApplicationBaseService
         $invoice->decrement('due_amount', request('amount'));
         $invoice->increment('received_amount', request('amount'));
         //Status adjustment
-        $this->statusAdjustment($invoice);
+
+        // THIS FUNCTIONALITY HAS BEEN DEPRECIATED
+        // $this->statusAdjustment($invoice);
+        
         return $this;
     }
 

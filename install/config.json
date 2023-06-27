@@ -7,12 +7,7 @@
 
     "permissions" : {
         ".env" : "644",
-        "config/gain.php": "644",
-        "bootstrap/" : "755",
-        "bootstrap/cache/" : "755",
-        "storage/" : "755",
-        "storage/logs/" : "755",
-        "storage/framework/": "755"
+        "config/gain.php": "644"
     },
     "requirements" : {
         "php" : [

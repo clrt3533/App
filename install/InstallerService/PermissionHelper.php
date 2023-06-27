@@ -81,8 +81,16 @@ class PermissionHelper
             $location = $permission_base_path . $directory;
         }*/
 
-        $location = $permission_base_path . $directory;
-        $directoryPermission = ltrim(substr(sprintf('%o', fileperms($location)), -4), '0');
-        return intval($directoryPermission) >= intval($permission);
+        $location = dirname(dirname($permission_base_path . $directory));
+
+        // Option 1: Using error control operator (@) to suppress warnings
+        $permissions = @fileperms($location);
+        if ($permissions !== false) {
+            $directoryPermission = ltrim(substr(sprintf('%o', fileperms($location)), -4), '0');
+            return intval($directoryPermission) >= intval($permission);
+        } else {
+            $directoryPermission = ltrim(substr(sprintf('%o', fileperms(dirname($location))), -4), '0');
+            return intval($directoryPermission) >= intval($permission);
+        }
     }
 }

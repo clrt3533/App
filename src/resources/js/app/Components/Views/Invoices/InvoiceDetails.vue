@@ -16,7 +16,7 @@
                     </button>
                 </div>
             </div>
-
+            
             <div class="row justify-content-center">
                 <div v-if="dataLoaded" class="invoice_preview primary-card-color">
                     <div id="print-invoice" class="cus-invoice_container">
@@ -25,7 +25,7 @@
                             <div class="cus-w-100">
                                 <div>
                                     <img style="width: 100%;"
-                                        src="http://sh004.hostgator.tempwebhost.net/~saipaob3/images/card.jpeg"
+                                        src="http://app.saipackersandmovers.com/images/card.jpeg"
                                         alt="Sai Packers and Movers">
                                 </div>
                             </div>
@@ -38,14 +38,14 @@
                                     <tr class="cus-bg-dark cus-text-light">
                                         <!-- Client name -->
                                         <th class="cus-w-25 cus-p-1 cus-text-left">
-                                            <p v-if="formData.client" class="cus-bold">{{ $t('Name') }}: {{
-                                                formData.client.full_name }}</p>
+                                            <p v-if="formData.client_name" class="cus-bold">{{ $t('Name') }}: {{
+                                                formData.client_name }}</p>
                                         </th>
 
                                         <!-- Client contact -->
                                         <th class="cus-w-25 cus-p-1 cus-text-center">
-                                            <p v-if="formData.client.profile.contact">{{ $t('contact') }}: {{
-                                                formData.client.profile.contact }}</p>
+                                            <p v-if="formData.client_number">{{ $t('contact') }}: {{
+                                                formData.client_number }}</p>
                                         </th>
 
                                         <!-- Invoice number -->
@@ -127,45 +127,66 @@
                                 <thead>
                                     <tr class="cus-bg-dark cus-text-light">
                                         <th class="cus-w-25 cus-p-1 cus-text-left">{{ $t('product') }}</th>
-                                        <th class="cus-w-10 cus-p-1 cus-text-right">{{ $t('quantity') }}</th>
-                                        <th class="cus-w-10 cus-p-1 cus-text-right">{{ $t('packages') }}</th>
+                                        <th class="cus-w-10 cus-p-1 cus-text-right">
+                                            <!-- {{ $t('quantity') }} -->
+                                        </th>
+                                        <th class="cus-w-10 cus-p-1 cus-text-right">
+                                            <!-- {{ $t('packages') }} -->
+                                        </th>
 
                                         <!-- Hide invoice details header -->
+
                                         <th class="cus-w-15 cus-p-1 cus-text-right" v-if="formData.is_breakdown"></th>
                                         <th class="cus-w-15 cus-p-1 cus-text-right" v-if="formData.is_breakdown"></th>
                                         <th class="cus-w-15 cus-p-1 cus-text-right" v-if="formData.is_breakdown"></th>
 
                                         <!-- Show in-detail invoice header -->
-                                        <th class="cus-w-15 cus-p-1 cus-text-right" v-if="!formData.is_breakdown">{{
-                                            $t('unit_price') }}</th>
-                                        <th class="cus-w-15 cus-p-1 cus-text-right" v-if="!formData.is_breakdown">{{
-                                            $t('tax') }}</th>
-                                        <th class="cus-w-15 cus-p-1 cus-text-right" v-if="!formData.is_breakdown">{{
-                                            $t('total') }}</th>
+                                        
+                                        <th class="cus-w-15 cus-p-1 cus-text-right" v-if="!formData.is_breakdown">
+                                            <!-- {{ $t('unit_price') }} -->
+                                        </th>
+                                        <th class="cus-w-15 cus-p-1 cus-text-right" v-if="!formData.is_breakdown">
+                                            <!-- {{ $t('tax') }} -->
+                                        </th>
+                                        <th class="cus-w-15 cus-p-1 cus-text-right" v-if="!formData.is_breakdown">
+                                            <!-- {{ $t('total') }} -->
+                                            {{ $t('quantity') }}
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr v-for="(invoiceProduct, index) in formData.invoice_details"
                                         :key="`invoice-item-${index}`">
-                                        <td class="cus-p-1">{{ invoiceProduct.product.name }}</td>
-                                        <td class="cus-p-1 cus-text-right">{{ invoiceProduct.quantity }}</td>
-                                        <td class="cus-p-1 cus-text-right">{{ invoicePackages(invoiceProduct.packages) }}
+                                        <td class="cus-p-1">{{ invoiceProduct.product_name }}</td>
+                                        <td class="cus-p-1 cus-text-right">
+                                            <!-- {{ invoiceProduct.quantity }} -->
                                         </td>
+                                        <!-- <td class="cus-p-1 cus-text-right">{{ invoicePackages(invoiceProduct.packages) }}
+                                        </td> -->
 
                                         <!-- Hide invoice details data -->
+
                                         <td class="cus-p-1 cus-text-right" v-if="formData.is_breakdown"></td>
                                         <td class="cus-p-1 cus-text-right" v-if="formData.is_breakdown"></td>
                                         <td class="cus-p-1 cus-text-right" v-if="formData.is_breakdown"></td>
 
                                         <!-- Show in-detail invoice data-->
-                                        <td class="cus-p-1 cus-text-right" v-if="!formData.is_breakdown">{{
-                                            numberWithCurrencySymbol(invoiceProduct.price) }}</td>
-                                        <td class="cus-p-1 cus-text-right" v-if="!formData.is_breakdown">{{
-                                            invoiceProduct.tax ? (invoiceProduct.tax.value) + ('%') : 'N/A' }}</td>
-                                        <td class="cus-p-1 cus-text-right" v-if="!formData.is_breakdown">{{
+                                        <td class="cus-p-1 cus-text-right" v-if="!formData.is_breakdown">
+                                            <!-- {{ numberWithCurrencySymbol(invoiceProduct.price) }} -->
+                                        </td>
+                                        <td class="cus-p-1 cus-text-right" v-if="!formData.is_breakdown">
+                                            <!-- {{ invoiceProduct.tax ? (invoiceProduct.tax.value) + ('%') : 'N/A' }} -->
+                                        </td>
+                                        <td class="cus-p-1 cus-text-right" v-if="!formData.is_breakdown">
+                                            <!-- {{
                                             numberWithCurrencySymbol(calculateProductTax(invoiceProduct.tax ?
                                                 invoiceProduct.tax.value : 0, invoiceProduct.quantity * invoiceProduct.price) +
-                                                (invoiceProduct.quantity * invoiceProduct.price)) }}</td>
+                                                (invoiceProduct.quantity * invoiceProduct.price)) 
+                                            }} -->
+                                        </td>
+                                        <td class="cus-p-1 cus-text-right" v-if="!formData.is_breakdown">
+                                            {{ invoiceProduct.quantity }}
+                                        </td>
                                     </tr>
                                     <tr class="cus-bg-transparent">
                                         <td colspan="6">
@@ -173,18 +194,35 @@
                                         </td>
                                     </tr>
                                     <tr class="cus-bg-transparent" v-if="!formData.is_breakdown">
-                                        <td colspan="3"></td>
-                                        <td colspan="2" class="cus-bold cus-p-1">{{ $t('sub_total') }} :</td>
-                                        <td class="cus-text-right cus-p-1">{{ numberWithCurrencySymbol(formData.sub_total)
-                                        }}</td>
+                                        <td colspan="2" class="cus-bold">
+                                          {{ formData.is_hide_charges === 0 ? "Charges":"" }}
+                                        </td>
+                                        <td colspan="1"></td>
+                                        <td colspan="2" class="cus-bold cus-p-1"></td>
+                                        <td class="cus-text-right cus-p-1"></td>
                                     </tr>
                                     <tr class="cus-bg-transparent" v-if="!formData.is_breakdown">
+                                      <td colspan="2" class="cus-bold">
+                                          {{ formData.is_hide_charges === 0 ? "Packing" :""}}
+                                        </td>
+                                        <td colspan="1">
+                                          {{ formData.is_hide_charges === 0 ?numberWithCurrencySymbol(formData.packing):"" }}
+                                        </td>
+                                        <td colspan="2" class="cus-bold cus-p-1">{{ $t('sub_total') }} :</td>
+                                        <td class="cus-text-right cus-p-1">{{ numberWithCurrencySymbol(formData.sub_total)}}</td>
+                                    </tr>
+                                    <!-- <tr class="cus-bg-transparent" v-if="!formData.is_breakdown">
                                         <td colspan="3"></td>
                                         <td colspan="2" class="cus-bold p-1">{{ $t('tax') }} :</td>
                                         <td class="cus-text-right cus-p-1">{{ numberWithCurrencySymbol(totalTax) }}</td>
-                                    </tr>
+                                    </tr> -->
                                     <tr class="cus-bg-transparent" v-if="!formData.is_breakdown">
-                                        <td colspan="3"></td>
+                                      <td colspan="2" class="cus-bold">
+                                          {{ formData.is_hide_charges === 0 ? "Transport" :""}}
+                                        </td>
+                                        <td colspan="1">
+                                          {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.transport):"" }}
+                                        </td>
                                         <td colspan="2" class="cus-bold cus-p-1">{{ $t('discount') }} :
                                             <template v-if="formData.discount_type === 'percentage'">
                                                 {{ formData.discount }} %
@@ -194,28 +232,88 @@
                                             numberWithCurrencySymbol(formData.discount_amount) }}</td>
                                     </tr>
                                     <tr class="cus-bg-transparent">
-                                        <td colspan="3"></td>
+                                      <td colspan="2" class="cus-bold">
+                                          {{ formData.is_hide_charges === 0 ? "Loading":"" }}
+                                        </td>
+                                        <td colspan="1">
+                                          {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.loading):"" }}
+                                        </td>
                                         <td colspan="2" class="cus-bold p-1">{{ $t('total') }} :</td>
                                         <td class="cus-text-right cus-p-1">{{ numberWithCurrencySymbol(formData.total) }}
                                         </td>
                                     </tr>
                                     <tr class="cus-bg-transparent">
-                                        <td colspan="3"></td>
+                                      <td colspan="2" class="cus-bold">
+                                          {{ formData.is_hide_charges === 0 ? "Unloading" :""}}
+                                        </td>
+                                        <td colspan="1">
+                                          {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.unloading) :""}}
+                                        </td>
                                         <td colspan="2" class="cus-bold p-1">{{ $t('paid') }} :</td>
                                         <td class="cus-text-right cus-p-1">{{
                                             numberWithCurrencySymbol(formData.received_amount) }}</td>
                                     </tr>
                                     <tr class="cus-bg-transparent">
-                                        <td colspan="3" class="cus-bg-transparent"></td>
+                                      <td colspan="2" class="cus-bold">
+                                          {{ formData.is_hide_charges === 0 ? "Unpacking":"" }}
+                                        </td>
+                                        <td colspan="1">
+                                          {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.unpacking) :""}}
+                                        </td>
                                         <td colspan="3" class="cus-bg-transparent">
                                             <div class="cus-hr cus-mt-2"></div>
                                         </td>
                                     </tr>
-                                    <tr class="cus-bg-transparent cus-bold">
-                                        <td colspan="3"></td>
-                                        <td colspan="2" class="cus-p-1">{{ $t('due_amount') }} :</td>
-                                        <td class="cus-text-right cus-p-1">{{ numberWithCurrencySymbol(formData.due_amount)
+                                    <tr class="cus-bg-transparent">
+                                      <td colspan="2" class="cus-bold">
+                                          {{ formData.is_hide_charges === 0 ? "AC":"" }}
+                                        </td>
+                                        <td colspan="1">
+                                          {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.ac):"" }}
+                                        </td>
+                                        <td colspan="2" class="cus-p-1 cus-bold">{{ $t('due_amount') }} :</td>
+                                        <td class="cus-text-right cus-p-1 cus-bold">{{ numberWithCurrencySymbol(formData.due_amount)
                                         }}</td>
+                                    </tr>
+                                    <tr class="cus-bg-transparent">
+                                      <td colspan="2" class="cus-bold">
+                                          {{ formData.is_hide_charges === 0 ? "Local":"" }}
+                                        </td>
+                                        <td colspan="1">
+                                          {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.local):"" }}
+                                        </td>
+                                        <td colspan="2" class="cus-bold p-1"></td>
+                                        <td class="cus-text-right cus-p-1"></td>
+                                    </tr>
+                                    <tr class="cus-bg-transparent">
+                                      <td colspan="2" class="cus-bold">
+                                          {{ formData.is_hide_charges === 0 ? "Car Transport" :""}}
+                                        </td>
+                                        <td colspan="1">
+                                          {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.car_transport):"" }}
+                                        </td>
+                                        <td colspan="2" class="cus-bold p-1"></td>
+                                        <td class="cus-text-right cus-p-1"></td>
+                                    </tr>
+                                    <tr class="cus-bg-transparent">
+                                      <td colspan="2" class="cus-bold">
+                                          {{ formData.is_hide_charges === 0 ? "Insuarance" :""}}
+                                        </td>
+                                        <td colspan="1">
+                                          {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.insuarance):"" }}
+                                        </td>
+                                        <td colspan="2" class="cus-bold p-1"></td>
+                                        <td class="cus-text-right cus-p-1"></td>
+                                    </tr>
+                                    <tr class="cus-bg-transparent">
+                                      <td colspan="2" class="cus-bold">
+                                          {{ formData.is_hide_charges === 0 ? "GST":"" }}
+                                        </td>
+                                        <td colspan="1">
+                                          {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.gst):"" }}
+                                        </td>
+                                        <td colspan="2" class="cus-bold p-1"></td>
+                                        <td class="cus-text-right cus-p-1"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -247,408 +345,416 @@
 </template>
 
 <script>
-import AppFunction from '../../../../core/helpers/app/AppFunction';
+import AppFunction from "../../../../core/helpers/app/AppFunction";
 import { SubmitFormMixins } from "../../../Mixins/billar/SubmitFormMixins";
-import { formatDateToLocal, numberWithCurrencySymbol } from "../../../Helpers/Helpers";
+import {
+  formatDateToLocal,
+  numberWithCurrencySymbol,
+} from "../../../Helpers/Helpers";
 import { mapGetters } from "vuex";
 import { INVOICES } from "../../../Config/BillarApiUrl";
 import { clientUser, status } from "../../../Mixins/FilterMixin";
 
-
 export default {
-    name: 'InvoiceDetails',
-    mixins: [SubmitFormMixins,],
-    props: {
-        configData: {}
-    },
-    data() {
-        return {
-            numberWithCurrencySymbol,
-            formatDateToLocal,
-            dataLoaded: false,
-            AppFunction,
-            isSendInvoiceModalActive: false,
-            isInvoiceAddEditModalActive: false,
-            productList: [],
-            selectUrl: '',
-            formData: {},
+  name: "InvoiceDetails",
+  mixins: [SubmitFormMixins],
+  props: {
+    configData: {},
+  },
+  data() {
+    return {
+      numberWithCurrencySymbol,
+      formatDateToLocal,
+      dataLoaded: false,
+      AppFunction,
+      isSendInvoiceModalActive: false,
+      isInvoiceAddEditModalActive: false,
+      productList: [],
+      selectUrl: "",
+      formData: {},
+    };
+  },
+
+  computed: {
+    totalTax() {
+      let totalTaxes = 0;
+      this.formData.invoice_details.map((item) => {
+        if (item.tax) {
+          totalTaxes =
+            totalTaxes + (item.price * item.quantity * item.tax.value) / 100;
+        } else {
+          totalTaxes = totalTaxes + 0;
         }
+      });
+      return totalTaxes;
+    },
+  },
+  // The above code is a Vue.js component's methods section that contains various functions.
+  methods: {
+    calculateProductTax(tax, totalPrice) {
+      console.log("lift" + this.formData.lift);
+      console.log("floor" + this.formData.floor);
+      let taxes = 0;
+      taxes = (totalPrice * tax) / 100;
+      return taxes;
+    },
+    afterSuccessFromGetEditData(response) {
+      this.formData = response.data;
+      console.log("Data: ", response.data);
+      this.dataLoaded = true;
+    },
+    downloadInvoice() {
+      window.open(
+        AppFunction.getAppUrl(`invoice-download/${this.formData.id}`)
+      );
+    },
+    openSendInvoiceModal() {
+      this.isSendInvoiceModalActive = true;
+    },
+    closeSendInvoiceModal() {
+      this.isSendInvoiceModalActive = false;
+      $("#send-invoice-modal").modal("hide");
     },
 
-    computed: {
-        totalTax() {
-            let totalTaxes = 0;
-            this.formData.invoice_details.map((item) => {
-                if (item.tax) {
-                    totalTaxes = totalTaxes + (((item.price * item.quantity) * item.tax.value) / 100)
-                } else {
-                    totalTaxes = totalTaxes + 0;
-                }
-            });
-            return totalTaxes;
-        },
+    invoicePackages(value) {
+      let returnedValue;
+      returnedValue = "";
+      if (value === 1) {
+        returnedValue = "None";
+      } else if (value === 2) {
+        returnedValue = "Bubble";
+      } else if (value === 3) {
+        returnedValue = "Corrugated";
+      } else if (value === 4) {
+        returnedValue = "Packing";
+      } else {
+        returnedValue = "Foam";
+      }
+      return returnedValue;
     },
-    // The above code is a Vue.js component's methods section that contains various functions.
-    methods: {
-        calculateProductTax(tax, totalPrice) {
-            console.log('lift' + this.formData.lift);
-            console.log('floor' + this.formData.floor);
-            let taxes = 0;
-            taxes = ((totalPrice * tax) / 100);
-            return taxes;
-        },
-        afterSuccessFromGetEditData(response) {
-            this.formData = response.data;
-            this.dataLoaded = true;
-        },
-        downloadInvoice() {
-            window.open(AppFunction.getAppUrl(`invoice-download/${this.formData.id}`))
-        },
-        openSendInvoiceModal() {
-            this.isSendInvoiceModalActive = true;
-        },
-        closeSendInvoiceModal() {
-            this.isSendInvoiceModalActive = false;
-            $('#send-invoice-modal').modal('hide');
-        },
-
-        invoicePackages(value) {
-            let returnedValue;
-            returnedValue = '';
-            if (value === 1) {
-                returnedValue = 'None';
-            } else if (value === 2) {
-                returnedValue = 'Bubble';
-            } else if (value === 3) {
-                returnedValue = 'Corrugated';
-            } else if (value === 4) {
-                returnedValue = 'Packing';
-            } else {
-                returnedValue = 'Foam';
-            }
-            return returnedValue;
-        }
-
-    },
-}
+  },
+};
 </script>
 <style scoped>
 /* dev */
 .t {
-    border: 1px solid red;
+  border: 1px solid red;
 }
 
 .invoice_preview {
-    width: 100%;
-    max-width: 800px;
-    min-height: 700px;
+  width: 100%;
+  max-width: 800px;
+  min-height: 700px;
 }
 
 .cus-bg-t {
-    background-color: #00660050;
+  background-color: #00660050;
 }
 
 .cus-bg-dark {
-    background-color: #d9251c !important;
+  background-color: #d9251c !important;
 }
 
 .cus-bg-secondary {
-    background-color: #dddddd !important;
+  background-color: #dddddd !important;
 }
 
 .cus-bg-transparent {
-    background-color: transparent !important;
+  background-color: transparent !important;
 }
 
 .invoice_preview * {
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0;
-    padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 /*common*/
 .cus-m-0 {
-    margin: 0;
+  margin: 0;
 }
 
 .cus-m-1 {
-    margin: 5px;
+  margin: 5px;
 }
 
 .cus-m-2 {
-    margin: 10px;
+  margin: 10px;
 }
 
 .cus-m-3 {
-    margin: 15px;
+  margin: 15px;
 }
 
 .cus-m-4 {
-    margin: 20px;
+  margin: 20px;
 }
 
 .cus-m-5 {
-    margin: 25px;
+  margin: 25px;
 }
 
 .cus-mx-1 {
-    margin: 0 5px;
+  margin: 0 5px;
 }
 
 .cus-mx-2 {
-    margin: 0 10px;
+  margin: 0 10px;
 }
 
 .cus-mx-3 {
-    margin: 0 15px;
+  margin: 0 15px;
 }
 
 .cus-mx-4 {
-    margin: 0 20px;
+  margin: 0 20px;
 }
 
 .cus-mx-5 {
-    margin: 0 25px;
+  margin: 0 25px;
 }
 
 .cus-my-1 {
-    margin: 5px 0;
+  margin: 5px 0;
 }
 
 .cus-my-2 {
-    margin: 10px 0;
+  margin: 10px 0;
 }
 
 .cus-my-3 {
-    margin: 15px 0;
+  margin: 15px 0;
 }
 
 .cus-my-4 {
-    margin: 20px 0;
+  margin: 20px 0;
 }
 
 .cus-my-5 {
-    margin: 25px 0;
+  margin: 25px 0;
 }
 
 .cus-mt-1 {
-    margin-top: 5px
+  margin-top: 5px;
 }
 
 .cus-mt-2 {
-    margin-top: 10px
+  margin-top: 10px;
 }
 
 .cus-mt-3 {
-    margin-top: 15px
+  margin-top: 15px;
 }
 
 .cus-mt-4 {
-    margin-top: 20px
+  margin-top: 20px;
 }
 
 .cus-mt-5 {
-    margin-top: 25px
+  margin-top: 25px;
 }
 
 .cus-mb-1 {
-    margin-bottom: 5px
+  margin-bottom: 5px;
 }
 
 .cus-mb-2 {
-    margin-bottom: 10px
+  margin-bottom: 10px;
 }
 
 .cus-mb-3 {
-    margin-bottom: 15px
+  margin-bottom: 15px;
 }
 
 .cus-mb-4 {
-    margin-bottom: 20px
+  margin-bottom: 20px;
 }
 
 .cus-mb-5 {
-    margin-bottom: 25px
+  margin-bottom: 25px;
 }
 
 .cus-p-0 {
-    padding: 0;
+  padding: 0;
 }
 
 .cus-p-1 {
-    padding: 5px;
+  padding: 5px;
 }
 
 .cus-p-2 {
-    padding: 10px;
+  padding: 10px;
 }
 
 .cus-p-3 {
-    padding: 15px;
+  padding: 15px;
 }
 
 .cus-p-4 {
-    padding: 20px;
+  padding: 20px;
 }
 
 .cus-p-5 {
-    padding: 25px;
+  padding: 25px;
 }
 
 .cus-px-1 {
-    padding: 0 5px;
+  padding: 0 5px;
 }
 
 .cus-px-2 {
-    padding: 0 10px;
+  padding: 0 10px;
 }
 
 .cus-px-3 {
-    padding: 0 15px;
+  padding: 0 15px;
 }
 
 .cus-px-4 {
-    padding: 0 20px;
+  padding: 0 20px;
 }
 
 .cus-px-5 {
-    padding: 0 25px;
+  padding: 0 25px;
 }
 
 .cus-py-1 {
-    padding: 5px 0;
+  padding: 5px 0;
 }
 
 .cus-py-2 {
-    padding: 10px 0;
+  padding: 10px 0;
 }
 
 .cus-py-3 {
-    padding: 15px 0;
+  padding: 15px 0;
 }
 
 .cus-py-4 {
-    padding: 20px 0;
+  padding: 20px 0;
 }
 
 .cus-py-5 {
-    padding: 25px 0;
+  padding: 25px 0;
 }
 
 .cus-w-10 {
-    width: 10%;
+  width: 10%;
 }
 
 .cus-w-15 {
-    width: 15%;
+  width: 15%;
 }
 
 .cus-w-45 {
-    width: 45%;
+  width: 45%;
 }
 
 .cus-w-25 {
-    width: 25%;
+  width: 25%;
 }
 
 .cus-w-50 {
-    width: 50%;
+  width: 50%;
 }
 
 .cus-w-75 {
-    width: 75%;
+  width: 75%;
 }
 
 .cus-w-100 {
-    width: 100%;
+  width: 100%;
 }
 
 .cus-h-100 {
-    height: 100%;
+  height: 100%;
 }
 
 .cus-f-left {
-    float: left;
+  float: left;
 }
 
 .cus-f-right {
-    float: right;
+  float: right;
 }
 
 .cus-f-clear {
-    clear: both;
+  clear: both;
 }
 
 .cus-text-left {
-    text-align: left;
+  text-align: left;
 }
 
 .cus-text-right {
-    text-align: right;
+  text-align: right;
 }
 
 .cus-text-center {
-    text-align: center;
+  text-align: center;
 }
 
 .cus-text-secondary {
-    color: #666666;
+  color: #666666;
 }
 
 .cus-text-black {
-    color: #000 !important;
+  color: #000 !important;
 }
 
 .cus-text-light {
-    color: #fff;
+  color: #fff;
 }
 
 .cus-text-capital {
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 .cus-thin {
-    font-weight: lighter;
+  font-weight: lighter;
 }
 
 .cus-bold {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .cus-font-xm {
-    font-size: small;
+  font-size: small;
 }
 
 .cus-font-md {
-    font-size: medium;
+  font-size: medium;
 }
 
 .cus-font-lg {
-    font-size: large;
+  font-size: large;
 }
 
-.cus-table-strip {}
+.cus-table-strip {
+}
 
 .cus-table-strip tr:nth-child(even) {
-    background-color: #66666610;
+  background-color: #66666610;
 }
 
 /*layout*/
-.cus-invoice_container {}
-
-.cus-invoice_container * {
-    box-sizing: content-box;
+.cus-invoice_container {
 }
 
-.cus-invoice_container__item {}
+.cus-invoice_container * {
+  box-sizing: content-box;
+}
+
+.cus-invoice_container__item {
+}
 
 .cus-logo {
-    width: 96px;
+  width: 96px;
 }
 
 .cus-hr {
-    background-color: #999999;
-    border: none;
-    height: 1px;
+  background-color: #999999;
+  border: none;
+  height: 1px;
 }
 </style>

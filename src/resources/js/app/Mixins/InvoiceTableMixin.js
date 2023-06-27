@@ -27,33 +27,33 @@ export default {
 						'option': ['today', 'thisMonth', 'last7Days', 'nextYear']
 					},
 					{
-						'title': this.$t('due_date'),
+						'title': this.$t('issue_date'),
 						'type': 'range-picker',
-						'key': 'due',
+						'key': 'date',
 						'option': ['today', 'thisMonth', 'last7Days', 'nextYear']
 					},
-					{
-						title: this.$t("status"),
-						type: "checkbox",
-						key: "status",
-						option: [],
-						permission: this.$can('show_all_data') ? true : false
-					},
-					{
-						title: this.$t("clients"),
-						type: "search-and-select-filter",
-						key: "clients",
-						settings: {
-							url: urlGenerator('client-users'),
-							modifire: (item) => {
-								return { id: item.id, value: item.full_name }
-							},
-							per_page: 10,
-							loader: 'app-pre-loader',
-							multiple: true,
-						},
-						permission: this.$can('show_all_data') ? true : false
-					},
+					// {
+					// 	title: this.$t("status"),
+					// 	type: "checkbox",
+					// 	key: "status",
+					// 	option: [],
+					// 	permission: this.$can('show_all_data') ? true : false
+					// },
+					// {
+					// 	title: this.$t("clients"),
+					// 	type: "search-and-select-filter",
+					// 	key: "clients",
+					// 	settings: {
+					// 		url: urlGenerator('client-users'),
+					// 		modifire: (item) => {
+					// 			return { id: item.id, value: item.full_name }
+					// 		},
+					// 		per_page: 10,
+					// 		loader: 'app-pre-loader',
+					// 		multiple: true,
+					// 	},
+					// 	permission: this.$can('show_all_data') ? true : false
+					// },
 					{
 						title: this.$t("amount"),
 						type: "range-filter",
@@ -96,21 +96,21 @@ export default {
 								;
 						}
 					},
-					{
-						title: this.$t('status'),
-						type: 'custom-html',
-						key: 'status',
-						modifier: (value) => {
-							return `<span class="badge badge-${value.class} badge-pill mr-2">${value.translated_name}</span>`
-						}
-					},
+					// {
+					// 	title: this.$t('status'),
+					// 	type: 'custom-html',
+					// 	key: 'status',
+					// 	modifier: (value) => {
+					// 		return `<span class="badge badge-${value.class} badge-pill mr-2">${value.translated_name}</span>`
+					// 	}
+					// },
 
 					{
 						title: this.$t('client'),
 						type: 'object',
-						key: 'client',
+						key: 'client_name',
 						isVisible: !!this.$can('show_all_data'),
-						modifier: (client => client ? client.full_name : '')
+						modifier: (client => client)
 					},
 					{
 						title: this.$t('issue_date'),

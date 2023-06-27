@@ -17,6 +17,9 @@ use App\Notifications\Core\User\UserInvitationNotification;
 use App\Services\Core\Auth\UserInvitationService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Swift_TransportException;
+
+use App\Mail\SendEmail;
 
 class UserInvitationController extends Controller
 {
@@ -69,13 +72,21 @@ class UserInvitationController extends Controller
             $this->afterInvited
                 ->setModel($user)
                 ->handle();
+
+
+            // try {
+            //     Mail::to($request->get('email'))->send(new SendEmail());
+            //     echo "Email sent successfully!";
+            // } catch (Swift_TransportException $e) {
+            //     // Display the reason for the failure
+            //     echo "Failed to send email. Reason: " . $e->getMessage();
+            // }
         });
 
         return response()->json([
             'status' => true,
             'message' => trans('default.invite_user_response')
         ]);
-
     }
 
 
@@ -103,6 +114,4 @@ class UserInvitationController extends Controller
 
         return response()->json(['status' => true, 'message' => __t('user_invitation_canceled_successfully')]);
     }
-
-
 }

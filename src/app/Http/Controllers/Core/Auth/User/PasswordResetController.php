@@ -65,8 +65,6 @@ class PasswordResetController extends Controller
         }
 
         return view('frontend.user.reset_password', ['user' => $user, 'token' => $request->get('token')]);
-
-
     }
 
     public function update(ResetPasswordRequest $request)
@@ -88,9 +86,9 @@ class PasswordResetController extends Controller
 
         return response()->json([
             'status' => true,
+            'user' => $user,
             'message' => trans('default.password_has_been_reset_successfully'),
             'redirect' => route(home_route()['route_name'], ['params' => home_route()['route_params']])
         ]);
-
     }
 }

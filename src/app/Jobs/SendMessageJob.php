@@ -16,6 +16,7 @@ class SendMessageJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     private string $messageType;
     private string $phone_number;
+    private string $received_amount;
     private string $date;
 
     /**
@@ -23,10 +24,11 @@ class SendMessageJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(string $messageType,string $phone_number,string $date = '')
+    public function __construct(string $messageType, string $phone_number, float $received_amount, string $date = '')
     {
         $this->messageType  =  $messageType;
         $this->phone_number =  $phone_number;
+        $this->received_amount = $received_amount;
         $this->date         =  $date;
     }
 
@@ -37,12 +39,12 @@ class SendMessageJob implements ShouldQueue
      */
     public function handle(Message91Services $message91Services)
     {
-        if ($this->messageType === 'onboard-message'){
-           $response = $message91Services->sendOnBoardedMessage($this->phone_number);
-        }elseif ($this->messageType === 'book-confirmation-message'){
-            $response = $message91Services->sendBookingConfirmedMessage($this->phone_number,$this->date);
-        }elseif ($this->messageType === 'estimate-generation-message'){
-           $response = $message91Services->sendEstimateGenerationMessage($this->phone_number);
+        if ($this->messageType === 'onboard-message') {
+            $response = $message91Services->sendOnBoardedMessage($this->phone_number);
+        } elseif ($this->messageType === 'book-confirmation-message') {
+            $response = $message91Services->sendBookingConfirmedMessage($this->phone_number, $this->received_amount, $this->date);
+        } elseif ($this->messageType === 'estimate-generation-message') {
+            $response = $message91Services->sendEstimateGenerationMessage($this->phone_number);
         }
     }
 }

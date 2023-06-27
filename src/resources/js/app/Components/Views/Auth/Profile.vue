@@ -28,7 +28,10 @@
                                     {{ user.loggedInUser.full_name }}
                                 </h5>
                                 <p class="text-muted mb-2">{{ user.loggedInUser.email }}</p>
-                                <span class="badge badge-pill badge-success user-status">{{ $t('active') }}</span>
+                                <span class="badge badge-pill badge-success user-status">
+                                    <!-- {{ $t('active') }} -->
+                                    {{ user.status.translated_name }}
+                                </span>
                                 <div class="social-links pt-3">
                                     <a class="mr-3" v-for="socialLink in user.socialLinks"
                                        v-if="socialLink.link" :href="socialLink.link" target="_blank">

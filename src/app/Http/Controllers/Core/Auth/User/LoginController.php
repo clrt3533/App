@@ -8,6 +8,7 @@ use App\Services\Core\Auth\UserService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;
 use App\Hooks\User\CustomRoute;
+
 class LoginController extends Controller
 {
     public function __construct(UserService $service)

@@ -4,6 +4,7 @@ namespace App\Models\Billar\Invoice;
 
 use App\Casts\Packages;
 use App\Models\Billar\Product\Product;
+use App\Models\Billar\Category\Category;
 use App\Models\Billar\Tax\Tax;
 use App\Models\Core\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,9 +18,9 @@ class InvoiceDetail extends BaseModel
         'invoice_id',
         'product_id',
         'quantity',
-        'price',
-        'tax_id',
-        'packages',
+        // 'price',
+        // 'tax_id',
+        // 'packages',
     ];
 
 //    protected $casts = [
@@ -30,6 +31,10 @@ class InvoiceDetail extends BaseModel
     {
         return $this->belongsTo(Product::class, 'product_id')->withTrashed();
     }
+    // public function category(): BelongsTo
+    // {
+    //     return $this->belongsTo(Category::class, 'category_id')->withTrashed();
+    // }
     public function tax(): BelongsTo
     {
         return $this->belongsTo(Tax::class, 'tax_id');
