@@ -86,21 +86,6 @@
                     type="date"
                   />
                 </div>
-                <!-- <div class="col-12 col-md-4 mb-4">
-                                    <label>{{ $t('due_date') }}</label>
-                                    <app-input id="dueDate" :min-date="formData.due_date" v-model="formData.due_date"
-                                        :error-message="$errorMessage(errors, 'due_date')" type="date" />
-                                </div> -->
-                <div class="col-12 col-md-4 mb-4">
-                  <label>{{ $t("hide_break_down") }}</label>
-                  <app-input
-                    class="margin-right-8"
-                    v-model="formData.is_breakdown"
-                    :placeholder="$t('text_hide_break_down')"
-                    :error-message="$errorMessage(errors, 'is_breakdown')"
-                    type="switch"
-                  />
-                </div>
               </div>
               <hr />
               <div
@@ -766,7 +751,6 @@ export default {
         discount_amount: 0,
         from_address: null,
         to_address: null,
-        is_breakdown: false,
         lift_from_address: false,
         lift_to_address: false,
         floor_from_address: null,

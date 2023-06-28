@@ -127,29 +127,12 @@
                                 <thead>
                                     <tr class="cus-bg-dark cus-text-light">
                                         <th class="cus-w-25 cus-p-1 cus-text-left">{{ $t('product') }}</th>
-                                        <th class="cus-w-10 cus-p-1 cus-text-right">
-                                            <!-- {{ $t('quantity') }} -->
-                                        </th>
-                                        <th class="cus-w-10 cus-p-1 cus-text-right">
-                                            <!-- {{ $t('packages') }} -->
-                                        </th>
-
-                                        <!-- Hide invoice details header -->
-
-                                        <th class="cus-w-15 cus-p-1 cus-text-right" v-if="formData.is_breakdown"></th>
-                                        <th class="cus-w-15 cus-p-1 cus-text-right" v-if="formData.is_breakdown"></th>
-                                        <th class="cus-w-15 cus-p-1 cus-text-right" v-if="formData.is_breakdown"></th>
-
-                                        <!-- Show in-detail invoice header -->
+                                        <th class="cus-w-10 cus-p-1 cus-text-right"></th>
+                                        <th class="cus-w-10 cus-p-1 cus-text-right"></th>
                                         
-                                        <th class="cus-w-15 cus-p-1 cus-text-right" v-if="!formData.is_breakdown">
-                                            <!-- {{ $t('unit_price') }} -->
-                                        </th>
-                                        <th class="cus-w-15 cus-p-1 cus-text-right" v-if="!formData.is_breakdown">
-                                            <!-- {{ $t('tax') }} -->
-                                        </th>
-                                        <th class="cus-w-15 cus-p-1 cus-text-right" v-if="!formData.is_breakdown">
-                                            <!-- {{ $t('total') }} -->
+                                        <th class="cus-w-15 cus-p-1 cus-text-right"></th>
+                                        <th class="cus-w-15 cus-p-1 cus-text-right"></th>
+                                        <th class="cus-w-15 cus-p-1 cus-text-right">
                                             {{ $t('quantity') }}
                                         </th>
                                     </tr>
@@ -158,33 +141,12 @@
                                     <tr v-for="(invoiceProduct, index) in formData.invoice_details"
                                         :key="`invoice-item-${index}`">
                                         <td class="cus-p-1">{{ invoiceProduct.product_name }}</td>
+                                        <td class="cus-p-1 cus-text-right"></td>
+                                        <td class="cus-p-1 cus-text-right"></td>
+
+                                        <td class="cus-p-1 cus-text-right"></td>
+                                        <td class="cus-p-1 cus-text-right"></td>
                                         <td class="cus-p-1 cus-text-right">
-                                            <!-- {{ invoiceProduct.quantity }} -->
-                                        </td>
-                                        <!-- <td class="cus-p-1 cus-text-right">{{ invoicePackages(invoiceProduct.packages) }}
-                                        </td> -->
-
-                                        <!-- Hide invoice details data -->
-
-                                        <td class="cus-p-1 cus-text-right" v-if="formData.is_breakdown"></td>
-                                        <td class="cus-p-1 cus-text-right" v-if="formData.is_breakdown"></td>
-                                        <td class="cus-p-1 cus-text-right" v-if="formData.is_breakdown"></td>
-
-                                        <!-- Show in-detail invoice data-->
-                                        <td class="cus-p-1 cus-text-right" v-if="!formData.is_breakdown">
-                                            <!-- {{ numberWithCurrencySymbol(invoiceProduct.price) }} -->
-                                        </td>
-                                        <td class="cus-p-1 cus-text-right" v-if="!formData.is_breakdown">
-                                            <!-- {{ invoiceProduct.tax ? (invoiceProduct.tax.value) + ('%') : 'N/A' }} -->
-                                        </td>
-                                        <td class="cus-p-1 cus-text-right" v-if="!formData.is_breakdown">
-                                            <!-- {{
-                                            numberWithCurrencySymbol(calculateProductTax(invoiceProduct.tax ?
-                                                invoiceProduct.tax.value : 0, invoiceProduct.quantity * invoiceProduct.price) +
-                                                (invoiceProduct.quantity * invoiceProduct.price)) 
-                                            }} -->
-                                        </td>
-                                        <td class="cus-p-1 cus-text-right" v-if="!formData.is_breakdown">
                                             {{ invoiceProduct.quantity }}
                                         </td>
                                     </tr>

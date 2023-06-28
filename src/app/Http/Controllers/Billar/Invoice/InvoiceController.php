@@ -111,7 +111,6 @@ class InvoiceController extends Controller
                 'lift_to_address',
                 'floor_from_address',
                 'floor_to_address',
-                'is_breakdown',
                 'from_address',
                 'to_address',
 
