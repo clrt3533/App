@@ -166,14 +166,23 @@
 
                       {{ $t('quantity') }}
                     </th>
+=======
+                    <!-- Product header -->
+                    <th class="cus-w-25 cus-p-1 cus-text-left">{{ $t('product') }}</th>
+                    <th class="cus-w-15 cus-p-1 cus-text-right">{{ $t('quantity') }}</th>
+>>>>>>> Stashed changes
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="(invoiceProduct, index) in formData.invoice_details" :key="`invoice-item-${index}`">
                     <td class="cus-p-1">{{ invoiceProduct.product_name }}</td>
+<<<<<<< Updated upstream
                     <td class="cus-p-1 cus-text-right" v-if="!formData.is_breakdown">
                       {{ invoiceProduct.quantity }}
                     </td>
+=======
+                    <td class="cus-p-1 cus-text-right">{{ invoiceProduct.quantity }}</td>
+>>>>>>> Stashed changes
                   </tr>
                   <tr class="cus-bg-transparent">
                     <td colspan="6">
