@@ -9,7 +9,6 @@
             <app-icon class="size-20 mr-2" name="download" />
             {{ $t('action_invoice_download') }}
           </button>
-<<<<<<< Updated upstream
           <!-- <button v-if="$can('invoice_send')" class="btn btn-success btn-with-shadow" type="button"
             @click="openSendInvoiceModal">
             <app-icon class="size-20 mr-2" name="send" />
@@ -18,16 +17,6 @@
         </div>
       </div>
       <!-- Invoice design-->
-=======
-          <button v-if="$can('invoice_send')" class="btn btn-success btn-with-shadow" type="button"
-            @click="openSendInvoiceModal">
-            <app-icon class="size-20 mr-2" name="send" />
-            {{ $t('send') }}
-          </button>
-        </div>
-      </div>
-
->>>>>>> Stashed changes
       <div class="row justify-content-center">
         <div v-if="dataLoaded" class="invoice_preview primary-card-color">
           <div id="print-invoice" class="cus-invoice_container">
@@ -36,11 +25,7 @@
               <div class="cus-w-100">
                 <div>
                   <img style="width: 100%;" src="http://app.saipackersandmovers.com/images/card.jpeg"
-<<<<<<< Updated upstream
                     alt="Sai Packers and Movers logo">
-=======
-                    alt="Sai Packers and Movers">
->>>>>>> Stashed changes
                 </div>
               </div>
             </div>
@@ -71,11 +56,7 @@
                     </th>
 
                     <!-- Invoice date -->
-<<<<<<< Updated upstream
                     <th class="cus-w-25 cus-text-right">
-=======
-                    <th class="cus-w-25 cus-p-1 cus-text-right">
->>>>>>> Stashed changes
                     <td class="cus-bold cus-text-right">{{ $t('date') }}</td>
                     <td>:</td>
                     <td class="cus-text-right">{{ formatDateToLocal(formData.date) }}</td>
@@ -120,13 +101,7 @@
                     </td>
 
                   </tr>
-<<<<<<< Updated upstream
                 </template>
-=======
-
-                </template>
-
->>>>>>> Stashed changes
               </table>
               <div class="cus-hr cus-mt-2"></div>
             </div>
@@ -150,50 +125,31 @@
               <div class="cus-f-clear"></div>
             </div>
 
-<<<<<<< Updated upstream
             <!-- Invoice charges details  table -->
-=======
-            <!-- Invoice product detaila and charges table -->
->>>>>>> Stashed changes
             <div class="cus-invoice_container__item cus-px-5">
               <table class="cus-w-100 cus-font-xm cus-table-strip" border="0" cellspacing="0" cellpadding="0">
                 <thead>
                   <tr class="cus-bg-dark cus-text-light">
-<<<<<<< Updated upstream
                     <th class="cus-w-25 cus-p-1 cus-text-left">{{ $t('product') }}</th>
 
                     <th class="cus-w-15 cus-p-1 cus-text-right" v-if="!formData.is_breakdown">
 
                       {{ $t('quantity') }}
                     </th>
-=======
-                    <!-- Product header -->
-                    <th class="cus-w-25 cus-p-1 cus-text-left">{{ $t('product') }}</th>
-                    <th class="cus-w-15 cus-p-1 cus-text-right">{{ $t('quantity') }}</th>
->>>>>>> Stashed changes
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="(invoiceProduct, index) in formData.invoice_details" :key="`invoice-item-${index}`">
                     <td class="cus-p-1">{{ invoiceProduct.product_name }}</td>
-<<<<<<< Updated upstream
                     <td class="cus-p-1 cus-text-right" v-if="!formData.is_breakdown">
                       {{ invoiceProduct.quantity }}
                     </td>
-=======
-                    <td class="cus-p-1 cus-text-right">{{ invoiceProduct.quantity }}</td>
->>>>>>> Stashed changes
                   </tr>
                   <tr class="cus-bg-transparent">
                     <td colspan="6">
                       <div class="cus-hr cus-mt-2"></div>
                     </td>
                   </tr>
-<<<<<<< Updated upstream
-=======
-
-                  <!-- Charges section (visible only when is_hide_charges is false) -->
->>>>>>> Stashed changes
                   <tr class="cus-bg-transparent" v-if="!formData.is_breakdown">
                     <td colspan="2" class="cus-bold">
                       {{ formData.is_hide_charges === 0 ? "Charges" : "" }}
@@ -212,11 +168,6 @@
                     <td colspan="2" class="cus-bold cus-p-1">{{ $t('sub_total') }} :</td>
                     <td class="cus-text-right cus-p-1">{{ numberWithCurrencySymbol(formData.sub_total) }}</td>
                   </tr>
-<<<<<<< Updated upstream
-=======
-
-                  <!-- Additional charges (visible only when is_hide_charges is false) -->
->>>>>>> Stashed changes
                   <tr class="cus-bg-transparent" v-if="!formData.is_breakdown">
                     <td colspan="2" class="cus-bold">
                       {{ formData.is_hide_charges === 0 ? "Transport" : "" }}
@@ -229,12 +180,8 @@
                         {{ formData.discount }} %
                       </template>
                     </td>
-<<<<<<< Updated upstream
                     <td class="cus-text-right cus-p-1">{{
                       numberWithCurrencySymbol(formData.discount_amount) }}</td>
-=======
-                    <td class="cus-text-right cus-p-1">{{ numberWithCurrencySymbol(formData.discount_amount) }}</td>
->>>>>>> Stashed changes
                   </tr>
                   <tr class="cus-bg-transparent">
                     <td colspan="2" class="cus-bold">
@@ -244,12 +191,8 @@
                       {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.loading) : "" }}
                     </td>
                     <td colspan="2" class="cus-bold p-1">{{ $t('total') }} :</td>
-<<<<<<< Updated upstream
                     <td class="cus-text-right cus-p-1">{{ numberWithCurrencySymbol(formData.total) }}
                     </td>
-=======
-                    <td class="cus-text-right cus-p-1">{{ numberWithCurrencySymbol(formData.total) }}</td>
->>>>>>> Stashed changes
                   </tr>
                   <tr class="cus-bg-transparent">
                     <td colspan="2" class="cus-bold">
@@ -259,12 +202,8 @@
                       {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.unloading) : "" }}
                     </td>
                     <td colspan="2" class="cus-bold p-1">{{ $t('paid') }} :</td>
-<<<<<<< Updated upstream
                     <td class="cus-text-right cus-p-1">{{
                       numberWithCurrencySymbol(formData.received_amount) }}</td>
-=======
-                    <td class="cus-text-right cus-p-1">{{ numberWithCurrencySymbol(formData.received_amount) }}</td>
->>>>>>> Stashed changes
                   </tr>
                   <tr class="cus-bg-transparent">
                     <td colspan="2" class="cus-bold">
@@ -285,12 +224,8 @@
                       {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.ac) : "" }}
                     </td>
                     <td colspan="2" class="cus-p-1 cus-bold">{{ $t('due_amount') }} :</td>
-<<<<<<< Updated upstream
                     <td class="cus-text-right cus-p-1 cus-bold">{{ numberWithCurrencySymbol(formData.due_amount)
                     }}</td>
-=======
-                    <td class="cus-text-right cus-p-1 cus-bold">{{ numberWithCurrencySymbol(formData.due_amount) }}</td>
->>>>>>> Stashed changes
                   </tr>
                   <tr class="cus-bg-transparent">
                     <td colspan="2" class="cus-bold">
@@ -304,11 +239,7 @@
                   </tr>
                   <tr class="cus-bg-transparent">
                     <td colspan="2" class="cus-bold">
-<<<<<<< Updated upstream
                       {{ formData.is_hide_charges === 0 ? "Carpentry" : "" }}
-=======
-                      {{ formData.is_hide_charges === 0 ? "Car Transport" : "" }}
->>>>>>> Stashed changes
                     </td>
                     <td colspan="1">
                       {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.car_transport) : "" }}
@@ -340,10 +271,6 @@
               </table>
             </div>
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
             <!-- Invoice notes -->
             <div class="cus-invoice_container__item cus-p-5">
               <template v-if="formData.notes">
