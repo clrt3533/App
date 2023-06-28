@@ -150,126 +150,148 @@
                       <div class="cus-hr cus-mt-2"></div>
                     </td>
                   </tr>
-                  <tr class="cus-bg-transparent" v-if="!formData.is_breakdown">
-                    <td colspan="2" class="cus-bold">
-                      {{ formData.is_hide_charges === 0 ? "Charges" : "" }}
+                </tbody>
+              </table>
+
+              <!-- Invoice charges details  table -->
+              <table class="cus-w-100 cus-font-xm cus-table-strip" border="0" cellspacing="0" cellpadding="0">
+                <tbody>
+                  <tr class="cus-bg-transparent">
+                    <td colspan="2" class="cus-bold cus-p-1">
+                      {{ formData.is_hide_charges === 0 ? "Charges in detail" : "" }}
                     </td>
-                    <td colspan="1"></td>
-                    <td colspan="2" class="cus-bold cus-p-1"></td>
-                    <td class="cus-text-right cus-p-1"></td>
                   </tr>
-                  <tr class="cus-bg-transparent" v-if="!formData.is_breakdown">
+                  <tr class="cus-bg-transparent">
                     <td colspan="2" class="cus-bold">
-                      {{ formData.is_hide_charges === 0 ? "Packing" : "" }}
+                      {{ formData.is_hide_charges === 0 ? "Packing :" : "" }}
                     </td>
-                    <td colspan="1">
+                    <td colspan="1" class=" cus-p-1">
                       {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.packing) : "" }}
                     </td>
-                    <td colspan="2" class="cus-bold cus-p-1">{{ $t('sub_total') }} :</td>
-                    <td class="cus-text-right cus-p-1">{{ numberWithCurrencySymbol(formData.sub_total) }}</td>
-                  </tr>
-                  <tr class="cus-bg-transparent" v-if="!formData.is_breakdown">
                     <td colspan="2" class="cus-bold">
-                      {{ formData.is_hide_charges === 0 ? "Transport" : "" }}
+                      {{ formData.is_hide_charges === 0 ? "Transport :" : "" }}
                     </td>
-                    <td colspan="1">
+                    <td colspan="1" class="cus-text-right cus-p-1">
                       {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.transport) : "" }}
                     </td>
-                    <td colspan="2" class="cus-bold cus-p-1">{{ $t('discount') }} :
-                      <template v-if="formData.discount_type === 'percentage'">
-                        {{ formData.discount }} %
-                      </template>
-                    </td>
-                    <td class="cus-text-right cus-p-1">{{
-                      numberWithCurrencySymbol(formData.discount_amount) }}</td>
                   </tr>
-                  <tr class="cus-bg-transparent">
+                  <tr class=" cus-bg-transparent">
                     <td colspan="2" class="cus-bold">
-                      {{ formData.is_hide_charges === 0 ? "Loading" : "" }}
+                      {{ formData.is_hide_charges === 0 ? "Loading :" : "" }}
                     </td>
-                    <td colspan="1">
+                    <td colspan="1" class=" cus-p-1">
                       {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.loading) : "" }}
                     </td>
-                    <td colspan="2" class="cus-bold p-1">{{ $t('total') }} :</td>
-                    <td class="cus-text-right cus-p-1">{{ numberWithCurrencySymbol(formData.total) }}
-                    </td>
-                  </tr>
-                  <tr class="cus-bg-transparent">
                     <td colspan="2" class="cus-bold">
-                      {{ formData.is_hide_charges === 0 ? "Unloading" : "" }}
+                      {{ formData.is_hide_charges === 0 ? "Unloading :" : "" }}
                     </td>
-                    <td colspan="1">
+                    <td colspan="1" class="cus-text-right cus-p-1">
                       {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.unloading) : "" }}
                     </td>
-                    <td colspan="2" class="cus-bold p-1">{{ $t('paid') }} :</td>
-                    <td class="cus-text-right cus-p-1">{{
-                      numberWithCurrencySymbol(formData.received_amount) }}</td>
+
                   </tr>
+
                   <tr class="cus-bg-transparent">
                     <td colspan="2" class="cus-bold">
-                      {{ formData.is_hide_charges === 0 ? "Unpacking" : "" }}
+                      {{ formData.is_hide_charges === 0 ? "Unpacking :" : "" }}
                     </td>
-                    <td colspan="1">
+                    <td colspan="1" class=" cus-p-1">
                       {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.unpacking) : "" }}
                     </td>
-                    <td colspan="3" class="cus-bg-transparent">
-                      <div class="cus-hr cus-mt-2"></div>
-                    </td>
-                  </tr>
-                  <tr class="cus-bg-transparent">
                     <td colspan="2" class="cus-bold">
-                      {{ formData.is_hide_charges === 0 ? "AC" : "" }}
+                      {{ formData.is_hide_charges === 0 ? "AC :" : "" }}
                     </td>
-                    <td colspan="1">
+                    <td colspan="1" class="cus-text-right cus-p-1">
                       {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.ac) : "" }}
                     </td>
-                    <td colspan="2" class="cus-p-1 cus-bold">{{ $t('due_amount') }} :</td>
-                    <td class="cus-text-right cus-p-1 cus-bold">{{ numberWithCurrencySymbol(formData.due_amount)
-                    }}</td>
                   </tr>
+
                   <tr class="cus-bg-transparent">
                     <td colspan="2" class="cus-bold">
-                      {{ formData.is_hide_charges === 0 ? "Local" : "" }}
+                      {{ formData.is_hide_charges === 0 ? "Local :" : "" }}
                     </td>
-                    <td colspan="1">
+                    <td colspan="1" class=" cus-p-1">
                       {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.local) : "" }}
                     </td>
-                    <td colspan="2" class="cus-bold p-1"></td>
-                    <td class="cus-text-right cus-p-1"></td>
-                  </tr>
-                  <tr class="cus-bg-transparent">
                     <td colspan="2" class="cus-bold">
-                      {{ formData.is_hide_charges === 0 ? "Carpentry" : "" }}
+                      {{ formData.is_hide_charges === 0 ? "Carpentry :" : "" }}
                     </td>
-                    <td colspan="1">
+                    <td colspan="1" class="cus-text-right cus-p-1">
                       {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.car_transport) : "" }}
                     </td>
-                    <td colspan="2" class="cus-bold p-1"></td>
-                    <td class="cus-text-right cus-p-1"></td>
                   </tr>
+
                   <tr class="cus-bg-transparent">
                     <td colspan="2" class="cus-bold">
-                      {{ formData.is_hide_charges === 0 ? "Insuarance" : "" }}
+                      {{ formData.is_hide_charges === 0 ? "Insuarance :" : "" }}
                     </td>
-                    <td colspan="1">
+                    <td colspan="1" class=" cus-p-1">
                       {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.insuarance) : "" }}
                     </td>
-                    <td colspan="2" class="cus-bold p-1"></td>
-                    <td class="cus-text-right cus-p-1"></td>
-                  </tr>
-                  <tr class="cus-bg-transparent">
                     <td colspan="2" class="cus-bold">
-                      {{ formData.is_hide_charges === 0 ? "GST" : "" }}
+                      {{ formData.is_hide_charges === 0 ? "GST :" : "" }}
                     </td>
-                    <td colspan="1">
+                    <td colspan="1" class="cus-text-right cus-p-1">
                       {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.gst) : "" }}
                     </td>
-                    <td colspan="2" class="cus-bold p-1"></td>
-                    <td class="cus-text-right cus-p-1"></td>
+                  </tr>
+                  <tr class="cus-bg-transparent">
+                    <td colspan="6">
+                      <div class="cus-hr cus-mt-2"></div>
+                    </td>
                   </tr>
                 </tbody>
               </table>
             </div>
+            <div class="cus-f-clear"></div>
+            <!-- charges for invoice-->
+            <div class="cus-invoice_container__item cus-p-5">
+              <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                  <table class="cus-w-100 cus-font-xm cus-table-strip" border="0" cellspacing="0" cellpadding="0">
+                    <tbody>
+                      <tr class="cus-bg-transparent">
+                        <td colspan="2" class="cus-bold"></td>
+                        <td colspan="2" class="cus-bold cus-p-1">{{ $t('sub_total') }} :</td>
+                        <td class="cus-text-right cus-p-1">{{ numberWithCurrencySymbol(formData.sub_total) }}</td>
+                      </tr>
+                      <tr class="cus-bg-transparent">
+                        <td colspan="2" class="cus-bold"></td>
+                        <td colspan="2" class="cus-bold cus-p-1">{{ $t('discount') }} :
+                          <template v-if="formData.discount_type === 'percentage'">
+                            {{ formData.discount }} %
+                          </template>
+                        </td>
+                        <td class="cus-text-right cus-p-1">{{ numberWithCurrencySymbol(formData.discount_amount) }}</td>
+                      </tr>
+                      <tr class="cus-bg-transparent">
+                        <td colspan="2" class="cus-bold"></td>
+                        <td colspan="2" class="cus-bold p-1">{{ $t('total') }} :</td>
+                        <td class="cus-text-right cus-p-1">{{ numberWithCurrencySymbol(formData.total) }}</td>
+                      </tr>
+                      <tr class="cus-bg-transparent">
+                        <td colspan="2" class="cus-bold"></td>
+                        <td colspan="2" class="cus-bold p-1">{{ $t('paid') }} :</td>
+                        <td class="cus-text-right p-1">{{ numberWithCurrencySymbol(formData.received_amount) }}</td>
+                      </tr>
+                      <tr class="cus-bg-transparent">
+                        <td colspan="2" class="cus-bold"></td>
+                        <td colspan="2" class="cus-p-1 cus-bold">{{ $t('due_amount') }} :</td>
+                        <td class="cus-text-right cus-p-1">{{ numberWithCurrencySymbol(formData.due_amount) }}</td>
+                      </tr>
+                      <tr class="cus-bg-transparent">
+                        <td colspan="6">
+                          <div class="cus-hr cus-mt-2"></div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+
 
             <!-- Invoice notes -->
             <div class="cus-invoice_container__item cus-p-5">
