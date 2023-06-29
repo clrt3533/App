@@ -119,30 +119,30 @@
                     services.</p>
                   <p><br></p>
                   <p class="cus-bold"> Please find the details of your invoice below:</p>
+
                 </div>
                 <div class="cus-f-clear"></div>
               </div>
               <div class="cus-f-clear"></div>
             </div>
 
-            <!-- Invoice charges details  table -->
+            <!-- Invoice products details  table -->
             <div class="cus-invoice_container__item cus-px-5">
-              <table class="cus-w-100 cus-font-xm cus-table-strip" border="0" cellspacing="0" cellpadding="0">
+
+              <table class="cus-w-100 cus-font-xm cus-table-strip" border="0" cellspacing="0" cellpadding="0"
+                style="column-count: 2; column-gap: 20px;">
                 <thead>
-                  <tr class="cus-bg-dark cus-text-light">
-                    <th class="cus-w-25 cus-p-1 cus-text-left">{{ $t('product') }}</th>
 
-                    <th class="cus-w-15 cus-p-1 cus-text-right" v-if="!formData.is_breakdown">
-
-                      {{ $t('quantity') }}
-                    </th>
-                  </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(invoiceProduct, index) in formData.invoice_details" :key="`invoice-item-${index}`">
-                    <td class="cus-p-1">{{ invoiceProduct.product_name }}</td>
-                    <td class="cus-p-1 cus-text-right" v-if="!formData.is_breakdown">
-                      {{ invoiceProduct.quantity }}
+                  <tr v-for="index in Math.ceil(formData.invoice_details.length / 2)" :key="index">
+                    <td class="cus-p-1">{{ formData.invoice_details[(index - 1) * 2].product_name }}</td>
+                    <td class="cus-p-1 cus-text-right">{{ formData.invoice_details[(index - 1) * 2].quantity }}</td>
+                    <td class="cus-p-1" v-if="formData.invoice_details.length > (index - 1) * 2 + 1">
+                      {{ formData.invoice_details[(index - 1) * 2 + 1].product_name }}
+                    </td>
+                    <td class="cus-p-1 cus-text-right" v-if="formData.invoice_details.length > (index - 1) * 2 + 1">
+                      {{ formData.invoice_details[(index - 1) * 2 + 1].quantity }}
                     </td>
                   </tr>
                   <tr class="cus-bg-transparent">
@@ -155,84 +155,83 @@
 
               <!-- Invoice charges details  table -->
               <table class="cus-w-100 cus-font-xm cus-table-strip" border="0" cellspacing="0" cellpadding="0">
-                <tbody>
+                <tbody v-if="formData.is_hide_charges === 0">
+
                   <tr class="cus-bg-transparent">
                     <td colspan="2" class="cus-bold cus-p-1">
-                      {{ formData.is_hide_charges === 0 ? "Charges in detail" : "" }}
+                      Charges in detail
+
                     </td>
                   </tr>
+
                   <tr class="cus-bg-transparent">
                     <td colspan="2" class="cus-bold">
-                      {{ formData.is_hide_charges === 0 ? "Packing :" : "" }}
+                      Packing :
                     </td>
                     <td colspan="1" class=" cus-p-1">
-                      {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.packing) : "" }}
+                      {{ numberWithCurrencySymbol(formData.packing) }}
                     </td>
                     <td colspan="2" class="cus-bold">
-                      {{ formData.is_hide_charges === 0 ? "Transport :" : "" }}
+                      Transport :
                     </td>
                     <td colspan="1" class="cus-text-right cus-p-1">
-                      {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.transport) : "" }}
+                      {{ numberWithCurrencySymbol(formData.transport) }}
                     </td>
                   </tr>
                   <tr class=" cus-bg-transparent">
                     <td colspan="2" class="cus-bold">
-                      {{ formData.is_hide_charges === 0 ? "Loading :" : "" }}
+                      Loading :
                     </td>
                     <td colspan="1" class=" cus-p-1">
-                      {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.loading) : "" }}
+                      {{ numberWithCurrencySymbol(formData.loading) }}
                     </td>
                     <td colspan="2" class="cus-bold">
-                      {{ formData.is_hide_charges === 0 ? "Unloading :" : "" }}
+                      Unloading :
                     </td>
                     <td colspan="1" class="cus-text-right cus-p-1">
-                      {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.unloading) : "" }}
-                    </td>
-
-                  </tr>
-
-                  <tr class="cus-bg-transparent">
-                    <td colspan="2" class="cus-bold">
-                      {{ formData.is_hide_charges === 0 ? "Unpacking :" : "" }}
-                    </td>
-                    <td colspan="1" class=" cus-p-1">
-                      {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.unpacking) : "" }}
-                    </td>
-                    <td colspan="2" class="cus-bold">
-                      {{ formData.is_hide_charges === 0 ? "AC :" : "" }}
-                    </td>
-                    <td colspan="1" class="cus-text-right cus-p-1">
-                      {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.ac) : "" }}
+                      {{ numberWithCurrencySymbol(formData.unloading) }}
                     </td>
                   </tr>
-
                   <tr class="cus-bg-transparent">
                     <td colspan="2" class="cus-bold">
-                      {{ formData.is_hide_charges === 0 ? "Local :" : "" }}
+                      Unpacking :
                     </td>
                     <td colspan="1" class=" cus-p-1">
-                      {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.local) : "" }}
+                      {{ numberWithCurrencySymbol(formData.unpacking) }}
                     </td>
                     <td colspan="2" class="cus-bold">
-                      {{ formData.is_hide_charges === 0 ? "Carpentry :" : "" }}
+                      AC :
                     </td>
                     <td colspan="1" class="cus-text-right cus-p-1">
-                      {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.car_transport) : "" }}
+                      {{ numberWithCurrencySymbol(formData.ac) }}
                     </td>
                   </tr>
-
                   <tr class="cus-bg-transparent">
                     <td colspan="2" class="cus-bold">
-                      {{ formData.is_hide_charges === 0 ? "Insuarance :" : "" }}
+                      Local :
                     </td>
                     <td colspan="1" class=" cus-p-1">
-                      {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.insuarance) : "" }}
+                      {{ numberWithCurrencySymbol(formData.local) }}
                     </td>
                     <td colspan="2" class="cus-bold">
-                      {{ formData.is_hide_charges === 0 ? "GST :" : "" }}
+                      Carpentry :
                     </td>
                     <td colspan="1" class="cus-text-right cus-p-1">
-                      {{ formData.is_hide_charges === 0 ? numberWithCurrencySymbol(formData.gst) : "" }}
+                      {{ numberWithCurrencySymbol(formData.car_transport) }}
+                    </td>
+                  </tr>
+                  <tr class="cus-bg-transparent">
+                    <td colspan="2" class="cus-bold">
+                      Insurance :
+                    </td>
+                    <td colspan="1" class=" cus-p-1">
+                      {{ numberWithCurrencySymbol(formData.insurance) }}
+                    </td>
+                    <td colspan="2" class="cus-bold">
+                      GST :
+                    </td>
+                    <td colspan="1" class="cus-text-right cus-p-1">
+                      {{ numberWithCurrencySymbol(formData.gst) }}
                     </td>
                   </tr>
                   <tr class="cus-bg-transparent">
@@ -240,16 +239,21 @@
                       <div class="cus-hr cus-mt-2"></div>
                     </td>
                   </tr>
+
                 </tbody>
               </table>
+
             </div>
 
-           
+
             <div class="cus-f-clear"></div>
             <!-- charges for invoice-->
             <div class="cus-invoice_container__item cus-p-5">
               <div class="row">
-                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                  <p class="cus-p-1">{{ $t('Packaging Type : ') }}{{ formData.packaging_type
+                  }}</p>
+                </div>
                 <div class="col-md-6">
                   <table class="cus-w-100 cus-font-xm cus-table-strip" border="0" cellspacing="0" cellpadding="0">
                     <tbody>
@@ -287,6 +291,7 @@
                           <div class="cus-hr cus-mt-2"></div>
                         </td>
                       </tr>
+
                     </tbody>
                   </table>
 
@@ -332,6 +337,8 @@ import { mapGetters } from "vuex";
 import { INVOICES } from "../../../Config/BillarApiUrl";
 import { clientUser, status } from "../../../Mixins/FilterMixin";
 
+
+
 export default {
   name: "InvoiceDetails",
   mixins: [SubmitFormMixins],
@@ -352,6 +359,8 @@ export default {
     };
   },
 
+  // The above code is a Vue.js component's methods section that contains various functions.
+
   computed: {
     totalTax() {
       let totalTaxes = 0;
@@ -366,6 +375,8 @@ export default {
       return totalTaxes;
     },
   },
+
+
   // The above code is a Vue.js component's methods section that contains various functions.
   methods: {
     calculateProductTax(tax, totalPrice) {
