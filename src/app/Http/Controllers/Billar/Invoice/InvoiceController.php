@@ -62,7 +62,7 @@ class InvoiceController extends Controller
         // Send email to client about order confirmation
         // InvoiceAttachmentJob::dispatch($invoiceInfo)->onQueue('high');
 
-        $date = Carbon::createFromFormat('y-m-d', $this->service->model->date)->format('d-m-y');
+        $date = Carbon::createFromFormat('Y-m-d H:i:s', $this->service->model->date)->format('d-m-y');
 
         // Send SMS to client about order confirmation
         SendMessageJob::dispatch('book-confirmation-message', $this->service->model->client_number, $this->service->model->received_amount, $date);
@@ -129,6 +129,7 @@ class InvoiceController extends Controller
             ))
             ->update();
 
+        // var_dump($request);
         $this->service->when($request->has('products'), fn (InvoiceService $service) => $service->invoiceDetails());
         return updated_responses('invoices');
     }
