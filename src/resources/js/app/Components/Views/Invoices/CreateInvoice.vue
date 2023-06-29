@@ -25,7 +25,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-12 col-md-6 mb-4">
+                <div class="col-12 col-md-5 mb-4">
                   <label>{{ $t("client_name") }}</label>
                   <app-input
                     class="margin-right-8"
@@ -35,7 +35,7 @@
                     type="text"
                   />
                 </div>
-                <div class="col-12 col-md-3 mb-4">
+                <div class="col-12 col-md-4 mb-4">
                   <label>{{ $t("client_email") }}</label>
                   <app-input
                     class="margin-right-8"
@@ -84,6 +84,18 @@
                     v-model="formData.date"
                     :error-message="$errorMessage(errors, 'date')"
                     type="date"
+                  />
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                  <label>Packaging</label>
+                  <app-input
+                    class="margin-right-8"
+                    id="packaging_type"
+                    v-model="formData.packaging_type"
+                    :list="packagingTypeList"
+                    :error-message="$errorMessage(errors, 'packaging_type')"
+                    list-value-field="name"
+                    type="select"
                   />
                 </div>
               </div>
@@ -745,6 +757,7 @@ export default {
         recurring: 2,
         invoice_number: null,
         date: DateFunction.getDateFormat(new Date(), "YYYY-MM-DD"),
+        packaging_type: "",
         discount_type: "none",
         discount: null,
         received_amount: null,
@@ -769,6 +782,11 @@ export default {
         insuarance: 0,
         sub_total: null,
       },
+      packagingTypeList: [
+        { id: "none", name: "Choose packaing type" },
+        { id: "regular", name: "Regular" },
+        { id: "premium", name: "Premium" },
+      ],
       recurringList: [
         { id: 1, name: "Yes" },
         { id: 2, name: "No" },

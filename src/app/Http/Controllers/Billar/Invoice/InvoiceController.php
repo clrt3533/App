@@ -97,6 +97,7 @@ class InvoiceController extends Controller
                 'invoice_number',
                 'recurring',
                 'date',
+                'packaging_type',
                 'recurring_cycle_id',
                 'sub_total',
                 'discount_type',

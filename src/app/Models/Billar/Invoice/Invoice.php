@@ -25,6 +25,7 @@ class Invoice extends BaseModel
         'invoice_number',
         'recurring',
         'date',
+        "packaging_type",
         'recurring_cycle_id',
         'sub_total',
         'discount_type',
