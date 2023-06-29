@@ -21,13 +21,11 @@ class Invoice extends BaseModel
 
 
     protected $fillable = [
-        // 'client_id',
         'currency_id',
         'invoice_number',
         'recurring',
         'date',
-        // 'due_date',
-        // 'status_id',
+        "packaging_type",
         'recurring_cycle_id',
         'sub_total',
         'discount_type',
@@ -40,7 +38,6 @@ class Invoice extends BaseModel
         'created_by',
         'discount_amount',
         'is_from_estimate',
-        'is_breakdown',
         'from_address' ,
         'to_address' ,
         'reminder',
@@ -67,7 +64,6 @@ class Invoice extends BaseModel
     
     protected $casts = [
         'due_amount' => 'double',
-        'is_breakdown' => 'boolean',
         'lift_from_address' => 'boolean',
         'lift_to_address' => 'boolean'
     ];

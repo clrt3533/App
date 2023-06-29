@@ -454,78 +454,25 @@
             <thead>
                 <tr class="bg-dark text-light">
                     <th class="w-45 p-1 text-left">{{__t('product')}}</th>
-                    <th class="w-10 p-1 text-right">
-                        <!-- {{__t('quantity')}} -->
-                    </th>
+                    <th class="w-10 p-1 text-right"></th>
+                    <th class="w-10 p-1 text-right"></th>
 
-                    @if($invoice->is_breakdown)
-                    <!-- Display empty table headers -->
                     <th class="w-15 p-1 text-right"></th>
                     <th class="w-15 p-1 text-right"></th>
-                    <th class="w-15 p-1 text-right"></th>
-                    @else
                     <th class="w-15 p-1 text-right">
-                        <!-- {{__t('unit_price')}} -->
-                    </th>
-                    <th class="w-15 p-1 text-right">
-                        <!-- {{__t('tax')}} -->
-                    </th>
-                    <th class="w-15 p-1 text-right">
-                        <!-- {{__t('tax')}} -->
-                    </th>
-                    <th class="w-15 p-1 text-right">
-                        <!-- {{__t('total')}} -->
                         {{__t('quantity')}}
                     </th>
-                    @endif
                 </tr>
             </thead>
             <tbody>
                 @foreach($invoice->invoiceDetails as $item)
                 <tr class="text-black">
-                    @if($item->product)
                     <td class="p-1">{{$item->product->name}}</td>
-                    @endif
-                    <td class="p-1 text-right">
-                        <!-- {{$item->quantity}} -->
-                    </td>
-                    <!-- <td class="p-1 text-right">
-                        @php
-                        $returnedValue = '';
-                        $value = $item->packages;
-                        if($value == 1){
-                        $returnedValue = 'None';
-                        }elseif($value == 2){
-                        $returnedValue = 'Bubble';
-                        }elseif ($value == 3){
-                        $returnedValue = 'Corrugated';
-                        }elseif ($value == 4){
-                        $returnedValue = 'Packing';
-                        }else{
-                        $returnedValue = 'Foam';
-                        }
-                        @endphp
-                        {{$returnedValue}}
-                    </td> -->
-                    @if($invoice->is_breakdown)
-                    <td class="p-1 text-right currency-symbol"></td>
                     <td class="p-1 text-right"></td>
-                    <td class="p-1 text-right currency-symbol"></td>
-                    @else
-                    <td class="p-1 text-right currency-symbol">
-                        <!-- {{number_with_currency_symbol($item->price)}} -->
-                    </td>
-                    <td class="p-1 text-right">
-                        <!-- @if($item->tax)
-                        {{$item->tax->value . '%'}}
-                        @else
-                        <span>N/A</span>
-                        @endif -->
-                    </td>
-                    <td class="p-1 text-right currency-symbol">
-                        <!-- {{number_with_currency_symbol(($item->quantity * $item->price) + ($item->quantity * $item->price) * ($item->tax ? ($item->tax->value / 100) : 0))}} -->
-                    </td>
-                    @endif
+                    <td class="p-1 text-right"></td>
+                    
+                    <td class="p-1 text-right"></td>
+                    <td class="p-1 text-right"></td>
                     <td class="p-1 text-right">
                         {{$item->quantity}}
                     </td>

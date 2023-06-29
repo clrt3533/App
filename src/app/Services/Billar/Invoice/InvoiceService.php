@@ -48,8 +48,7 @@ class InvoiceService extends ApplicationBaseService
             'sub_total' => 'required',
             'total' => 'required',
             'from_address' => ['required', 'string'],
-            'to_address'   => ['required', 'string'],
-            'is_breakdown' => ['required', 'boolean']
+            'to_address'   => ['required', 'string']
         ], [
             'client_name.required' => 'The client name is required.',
             'client_email.required' => 'The client email is required.',

@@ -97,6 +97,7 @@ class InvoiceController extends Controller
                 'invoice_number',
                 'recurring',
                 'date',
+                'packaging_type',
                 'recurring_cycle_id',
                 'sub_total',
                 'discount_type',
@@ -111,7 +112,6 @@ class InvoiceController extends Controller
                 'lift_to_address',
                 'floor_from_address',
                 'floor_to_address',
-                'is_breakdown',
                 'from_address',
                 'to_address',
 

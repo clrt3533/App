@@ -17,12 +17,12 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-12 col-md-6 mb-4">
+                <div class="col-12 col-md-5 mb-4">
                   <label>{{ $t("client_name") }}</label>
                   <app-input class="margin-right-8" v-model="formData.client_name"
                     :error-message="$errorMessage(errors, 'client_name')" :placeholder="$t('Name')" type="text" />
                 </div>
-                <div class="col-12 col-md-3 mb-4">
+                <div class="col-12 col-md-4 mb-4">
                   <label>{{ $t("client_email") }}</label>
                   <app-input class="margin-right-8" v-model="formData.client_email"
                     :error-message="$errorMessage(errors, 'client_email')" :placeholder="$t('Email')" type="text" />
@@ -54,16 +54,18 @@
                   <app-input id="date" v-model="formData.date" :error-message="$errorMessage(errors, 'date')"
                     type="date" />
                 </div>
-                <!-- <div class="col-12 col-md-4 mb-4">
-                                    <label>{{ $t('due_date') }}</label>
-                                    <app-input id="dueDate" :min-date="formData.due_date" v-model="formData.due_date"
-                                        :error-message="$errorMessage(errors, 'due_date')" type="date" />
-                                </div> -->
                 <div class="col-12 col-md-4 mb-4">
-                  <label>{{ $t("hide_break_down") }}</label>
-                  <app-input class="margin-right-8" v-model="formData.is_breakdown"
-                    :placeholder="$t('text_hide_break_down')" :error-message="$errorMessage(errors, 'is_breakdown')"
-                    type="switch" />
+
+                  <label>Packaging</label>
+                  <app-input
+                    class="margin-right-8"
+                    id="packaging_type"
+                    v-model="formData.packaging_type"
+                    :list="packagingTypeList"
+                    :error-message="$errorMessage(errors, 'packaging_type')"
+                    list-value-field="name"
+                    type="select"
+                  />
                 </div>
               </div>
               <hr />
@@ -558,13 +560,13 @@ export default {
         recurring: 2,
         invoice_number: null,
         date: DateFunction.getDateFormat(new Date(), "YYYY-MM-DD"),
+        packaging_type: "",
         discount_type: "none",
         discount: null,
         received_amount: null,
         discount_amount: 0,
         from_address: null,
         to_address: null,
-        is_breakdown: false,
         lift_from_address: false,
         lift_to_address: false,
         floor_from_address: null,
@@ -583,6 +585,11 @@ export default {
         insuarance: 0,
         sub_total: null,
       },
+      packagingTypeList: [
+        { id: "none", name: "Choose packaing type" },
+        { id: "regular", name: "Regular" },
+        { id: "premium", name: "Premium" },
+      ],
       recurringList: [
         { id: 1, name: "Yes" },
         { id: 2, name: "No" },

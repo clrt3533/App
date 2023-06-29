@@ -243,6 +243,8 @@
                 </tbody>
               </table>
             </div>
+
+           
             <div class="cus-f-clear"></div>
             <!-- charges for invoice-->
             <div class="cus-invoice_container__item cus-p-5">
@@ -287,6 +289,7 @@
                       </tr>
                     </tbody>
                   </table>
+
                 </div>
               </div>
             </div>
