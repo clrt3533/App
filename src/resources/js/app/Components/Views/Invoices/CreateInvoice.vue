@@ -1071,7 +1071,7 @@ export default {
       }
 
       formData.recurring_cycle_id = null;
-      console.log("Submit: ", formData);
+      // console.log("Submit: ", formData);
       this.save(formData);
     },
     resetData() {
