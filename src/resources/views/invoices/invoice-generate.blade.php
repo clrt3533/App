@@ -405,7 +405,7 @@
             @endif
         </div>
 
-        <div class="w-50 f-right font-xm">
+        <div class="w-50 f-left font-xm">
             <div class="w-75 f-right">
                 @if($invoice->to_address)
 
@@ -465,19 +465,19 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($invoice->invoiceDetails as $item)
+              @foreach($invoice->invoiceDetails->chunk(2) as $items)
                 <tr class="text-black">
-                    <td class="p-1">{{$item->product->name}}</td>
-                    <td class="p-1 text-right"></td>
-                    <td class="p-1 text-right"></td>
-                    
-                    <td class="p-1 text-right"></td>
-                    <td class="p-1 text-right"></td>
-                    <td class="p-1 text-right">
-                        {{$item->quantity}}
-                    </td>
+                    @foreach($items as $index => $item)
+                        @if($index % 2 == 0)
+                            <td class="p-1 col-md-3">{{ $item->product->name }}</td>
+                            <td class="p-1 col-md-3 text-right">{{ $item->quantity }}</td>
+                        @else
+                            <td class="p-1 col-md-3">{{ $item->product->name }}</td>
+                            <td class="p-1 col-md-3 text-right">{{ $item->quantity }}</td>
+                        @endif
+                    @endforeach
                 </tr>
-                @endforeach
+              @endforeach
                 <tr class="bg-transparent text-black">
                     <td colspan="6">
                         <div class="hr mt-2"></div>
