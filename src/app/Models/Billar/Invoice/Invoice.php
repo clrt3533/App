@@ -70,7 +70,7 @@ class Invoice extends BaseModel
 
     public function setDateAttribute($value)
     {
-        $this->attributes['date'] = (new Carbon($value))->format('y-m-d');
+        $this->attributes['date'] = (new Carbon($value))->format('Y-m-d H:i:s');
     }
 
     public function setDueDateAttribute($value)

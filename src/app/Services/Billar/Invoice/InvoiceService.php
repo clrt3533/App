@@ -39,7 +39,7 @@ class InvoiceService extends ApplicationBaseService
             'client_number' => 'required|max:191',
             'invoice_number' => 'required|unique:invoices,invoice_number,' . $id,
             'recurring' => 'required',
-            'date' => 'required|date',
+            'date' => 'required|date_format:Y-m-d H:i:s',
             'recurring_cycle_id' => 'required_if:recurring, ==, 1',
             'products' => 'required|array|min:1',
             'products.*.product_id' => 'required',
