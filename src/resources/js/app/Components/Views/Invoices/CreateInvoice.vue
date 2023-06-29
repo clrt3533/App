@@ -5,15 +5,30 @@
     </div>
     <app-overlay-loader v-if="preloader" />
     <form v-else :data-url="selectedUrl ? selectedUrl : INVOICES" ref="form" class="d-flex flex-column" style="gap: 25px">
+      <!--Client details and date form with invoice number  hidden-->
       <div class="row">
         <div class="col">
-          <div class="card border-0 card-with-shadow">
-            <div class="card-body">
+          <div class="card border-0 card-with-shadow" style="margin-bottom: 20px">
+            <div class="card-body" style="
+                  border-bottom: 2px solid red;
+                  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+                  padding-top: 1px;
+                ">
               <div class="row">
                 <div class="col-md-12">
                   <div>
-                    <div class="note note-warning p-4 mb-primary clearfix">
+                    <!-- <div class="note note-warning p-4 mb-primary clearfix">
                       <p class="m-1">{{ $t("setup_email_address") }}</p>
+                    </div> -->
+                    <h5 class=" mb-3 border-bottom mt-2">
+                      {{ "Client details and date" }}
+                    </h5>
+                    <!-- Hidden Invoice number-->
+                    <div class="col-12 col-md-3 mb-4" :hidden="true">
+                      <label>{{ $t("invoice_number") }}</label>
+                      <app-input class="margin-right-8" v-model="formData.invoice_number" :disabled="true"
+                        :error-message="$errorMessage(errors, 'invoice_number')" :placeholder="$t('invoice_number')"
+                        type="text" />
                     </div>
                   </div>
                 </div>
@@ -23,7 +38,7 @@
                     :error-message="$errorMessage(errors, 'client_name')" :placeholder="$t('Name')" type="text" />
                 </div>
                 <div class="col-12 col-md-4 mb-4">
-                  <label>{{ $t("client_email") }}</label>
+                  <label>{{ $t("Email") }}</label>
                   <app-input class="margin-right-8" v-model="formData.client_email"
                     :error-message="$errorMessage(errors, 'client_email')" :placeholder="$t('Email')" type="text" />
                 </div>
@@ -33,47 +48,41 @@
                     :error-message="$errorMessage(errors, 'client_number')" :placeholder="$t('Number')"
                     @input="handleClientNumber" />
                 </div>
-                <!-- <div class="col-12 col-md-3 mb-4">
-                                    <label>{{ $t('status') }}</label>
-                                    <app-input id="status" v-model="formData.status_id"
-                                        :error-message="$errorMessage(errors, 'status_id')" :list="statusList"
-                                        :placeholder="$t('choose_a_status')" list-value-field="translated_name"
-                                        type="search-select" />
-                                </div> -->
               </div>
 
               <div class="row">
-                <div class="col-12 col-md-3 mb-4">
-                  <label>{{ $t("invoice_number") }}</label>
-                  <app-input class="margin-right-8" v-model="formData.invoice_number" :disabled="true"
-                    :error-message="$errorMessage(errors, 'invoice_number')" :placeholder="$t('invoice_number')"
-                    type="text" />
-                </div>
-                <div class="col-12 col-md-3 mb-4">
+
+                <div class="col-12 col-md-4 mb-4">
                   <label>{{ $t("issue_date") }}</label>
                   <app-input id="date" v-model="formData.date" :error-message="$errorMessage(errors, 'date')" type="date"
                     required />
                 </div>
-                <div class="col-12 col-md-3 mb-4">
+
+                <div class="col-12 col-md-4 mb-4">
                   <label>Time</label>
                   <app-input id="time" v-model="formData.time" :error-message="$errorMessage(errors, 'date')"
                     type="time" />
                 </div>
-                <div class="col-12 col-md-3 mb-4">
+                <div class="col-12 col-md-4 mb-4">
                   <label>Packaging</label>
                   <app-input class="margin-right-8" id="packaging_type" v-model="formData.packaging_type"
                     :list="packagingTypeList" :error-message="$errorMessage(errors, 'packaging_type')"
                     list-value-field="name" type="select" />
                 </div>
               </div>
-
-              <hr />
-
-              <div class="row" style="
-                  border: 2px solid red;
+            </div>
+          </div>
+          <div class="card border-0 card-with-shadow" style="margin-bottom: 20px">
+            <div class="card-body" style="
+                  border-bottom: 2px solid red;
                   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-                  padding-top: 10px;
+                  padding-top: 1px;
                 ">
+              <h5 class=" mb-3 border-bottom mt-2">
+                {{ "Origin and Destination address details" }}
+              </h5>
+
+              <div class="row">
                 <!-- From Address Section -->
                 <div class="col-12 col-md-6 mb-4" style="font-weight: bold">
                   <div class="row">
@@ -123,60 +132,20 @@
                   </div>
                 </div>
               </div>
-              <!-- <hr />
-              <div class="row mb-4">
-                <div class="col">
-                  <div class="row align-items-end">
-                    <div class="col-4">
-                      <label>{{ $t("choose_a_category") }}</label>
-                      <app-input
-                        type="search-and-select"
-                        v-model="selectCategoryId"
-                        :placeholder="$t('choose_a_category')"
-                        :options="categoryList"
-                        @input="changeCategory"
-                      />
-                    </div>
-                    <div class="col-4">
-                      <label>{{ $t("choose_a_product") }}</label>
-                      <app-input
-                        :disabled="selectCategoryId === null"
-                        type="search-and-select"
-                        :placeholder="$t('choose_a_product')"
-                        :options="productList"
-                        v-model="selectProductId"
-                        :error-message="
-                          $errorMessage(errors, 'selectProductId')
-                        "
-                        @input="changeProduct"
-                      />
-                    </div>
-                    <div class="col">
-                      <div class="row">
-                        <div class="col">
-                          <button
-                            class="btn btn-success mb-1"
-                            @click.prevent="isProductModalActive = true"
-                          >
-                            {{ $t("add_product") }}
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
             </div>
           </div>
         </div>
       </div>
-
+      <!-- Origin and destination address details-->
       <div class="row">
         <div class="col-12">
-          <div class="card border-0 card-with-shadow" style="margin-bottom: 25px">
-            <div class="card-body">
-              <h5 class="text-muted mb-3 border-bottom pb-2">
-                {{ "Items to Pack and Move" }}
+          <div class="card border-0 card-with-shadow" style="margin-bottom: 20px">
+            <div class="card-body" style="
+                  border-bottom: 2px solid red;
+                  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+                  padding-top: 1px;">
+              <h5 class=" mb-3 border-bottom mt-2">
+                {{ "Select products for transport" }}
               </h5>
 
               <div v-if="tempSelectedProducts">
@@ -208,145 +177,110 @@
                     </div>
                   </div>
                 </div>
-
-                <!-- {{ selectCategoryName }}
-                <ul
-                  v-for="(product, index) in selectedProductsDetails"
-                  :key="`selected-product-item-${index}`"
-                  style="list-style-type: none; padding-left: 0"
-                  class="mb-3"
-                >
-                  <li>
-                    {{ product.name }}:
-                    <span>
-                      {{ product.quantity }}
-                    </span>
-                  </li>
-                </ul> -->
-
-                <!-- OLD ONE -->
-
-                <!-- <div
-                  v-for="(category, index) in tempSelectedProducts"
-                  :key="index"
-                  class="mb-3"
-                >
-                  <span
-                    class="font-weight-bold mb-2"
-                    @click="handleEditCategoryAndProducts(category.name)"
-                  >
-                    {{ category.name }}
-                    <app-icon name="edit" class="menu-icon ml-3" />
-                  </span>
-
-                  <ul
-                    class="mb-3"
-                    style="list-style-type: none; padding-left: 0"
-                  >
-                    <li
-                      v-for="(product, index) in category.products"
-                      :key="`selected-product-item-${index}`"
-                      class="mb-1"
-                    >
-                      {{ product.name }}:
-                      <span>
-                        {{ product.quantity }}
-                      </span>
-                    </li>
-                  </ul>
-                </div> -->
-
                 <div>
-                  <h5 class="text-muted border-bottom mt-2 mb-3">Charges</h5>
-
-                  <div class="mb-3">
-                    <label>Hide charges from invoice</label>
-                    <app-input class="margin-right-8" style="display: inline-block; margin-left: 10px"
-                      v-model="formData.is_hide_charges" :placeholder="$t('text_hide_break_down')"
-                      :error-message="$errorMessage(errors, 'is_hide_charges')" type="switch" />
-                  </div>
-                  <div class="row">
-                    <div class="col col-lg-4">
-                      <div class="mb-3">
-                        <label>Packing</label>
-                        <app-input class="margin-right-8" v-model="formData.packing"
-                          :error-message="$errorMessage(errors, 'packing')" placeholder="" type="number"
-                          @input="calculateSubTotal" />
-                      </div>
-
-                      <div class="mb-3">
-                        <label>Unloading</label>
-                        <app-input class="margin-right-8" v-model="formData.unloading"
-                          :error-message="$errorMessage(errors, 'unloading')" type="number" @input="calculateSubTotal" />
-                      </div>
-
-                      <div class="mb-3">
-                        <label>Local</label>
-                        <app-input class="margin-right-8" v-model="formData.local"
-                          :error-message="$errorMessage(errors, 'local')" type="number" @input="calculateSubTotal" />
-                      </div>
-
-                      <div class="mb-3">
-                        <label>GST</label>
-                        <app-input class="margin-right-8" v-model="formData.gst"
-                          :error-message="$errorMessage(errors, 'gst')" type="number" @input="calculateSubTotal" />
-                      </div>
-                    </div>
-                    <div class="col col-lg-4">
-                      <div class="mb-3">
-                        <label>Transport</label>
-                        <app-input class="margin-right-8" v-model="formData.transport"
-                          :error-message="$errorMessage(errors, 'transport')" type="number" @input="calculateSubTotal" />
-                      </div>
-
-                      <div class="mb-3">
-                        <label>Unpacking</label>
-                        <app-input class="margin-right-8" v-model="formData.unpacking"
-                          :error-message="$errorMessage(errors, 'unpacking')" type="number" @input="calculateSubTotal" />
-                      </div>
-
-                      <div class="mb-3">
-                        <label>Car Transport</label>
-                        <app-input class="margin-right-8" v-model="formData.car_transport" :error-message="$errorMessage(errors, 'car_transport')
-                          " type="number" @input="calculateSubTotal" />
-                      </div>
-                    </div>
-                    <div class="col col-lg-4">
-                      <div class="mb-3">
-                        <label>Loading</label>
-                        <app-input class="margin-right-8" v-model="formData.loading"
-                          :error-message="$errorMessage(errors, 'loading')" type="number" @input="calculateSubTotal" />
-                      </div>
-
-                      <div class="mb-3">
-                        <label>AC</label>
-                        <app-input class="margin-right-8" v-model="formData.ac"
-                          :error-message="$errorMessage(errors, 'ac')" type="number" @input="calculateSubTotal" />
-                      </div>
-
-                      <div class="mb-3">
-                        <label>Insuarance</label>
-                        <app-input class="margin-right-8" v-model="formData.insuarance"
-                          :error-message="$errorMessage(errors, 'insuarance')" type="number" @input="calculateSubTotal" />
-                      </div>
-
-                      <div class="mb-3">
-                        <label>Sub Total</label>
-                        <app-input class="margin-right-8" v-model="formData.sub_total"
-                          :error-message="$errorMessage(errors, 'sub_total')" disabled type="number" />
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
           </div>
+          <!-- Charges breakdown with hiding charges functionalty-->
+          <div class="card border-0 card-with-shadow" style="margin-bottom: 20px">
+            <div class="card-body" style="
+                  border-bottom: 2px solid red;
+                  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+                  padding-top: 1px;">
+              <div class="row border-bottom mt-2 mb-3">
+                <div class="col-6">
+                  <h5>Payment Breakdown</h5>
+                </div>
+                <div class="col-6 d-flex align-items-center justify-content-end">
+                  <label class="mr-2">Hide Breakdown</label>
+                  <app-input class="margin-right-8" style="display: inline-block;" v-model="formData.is_hide_charges"
+                    :placeholder="$t('text_hide_break_down')" :error-message="$errorMessage(errors, 'is_hide_charges')"
+                    type="switch" />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-6 col-md-3">
+                  <div class="mb-3">
+                    <label>Packing</label>
+                    <app-input class="margin-right-8" v-model="formData.packing"
+                      :error-message="$errorMessage(errors, 'packing')" placeholder="" type="number"
+                      @input="calculateSubTotal" />
+                  </div>
+                  <div class="mb-3">
+                    <label>Local</label>
+                    <app-input class="margin-right-8" v-model="formData.local"
+                      :error-message="$errorMessage(errors, 'local')" type="number" @input="calculateSubTotal" />
+                  </div>
+                  <div class="mb-3">
+                    <label>GST</label>
+                    <app-input class="margin-right-8" v-model="formData.gst" :error-message="$errorMessage(errors, 'gst')"
+                      type="number" @input="calculateSubTotal" />
+                  </div>
+                </div>
+                <div class="col-6 col-md-3">
+                  <div class="mb-3">
+                    <label>Unpacking</label>
+                    <app-input class="margin-right-8" v-model="formData.unpacking"
+                      :error-message="$errorMessage(errors, 'unpacking')" type="number" @input="calculateSubTotal" />
+                  </div>
+
+                  <div class="mb-3">
+                    <label>Transport</label>
+                    <app-input class="margin-right-8" v-model="formData.transport"
+                      :error-message="$errorMessage(errors, 'transport')" type="number" @input="calculateSubTotal" />
+                  </div>
+                  <div class="mb-3">
+                    <label>Insurance</label>
+                    <app-input class="margin-right-8" v-model="formData.insuarance"
+                      :error-message="$errorMessage(errors, 'insuarance')" type="number" @input="calculateSubTotal" />
+                  </div>
+                </div>
+                <div class="col-6 col-md-3">
+                  <div class="mb-3">
+                    <label>Loading</label>
+                    <app-input class="margin-right-8" v-model="formData.loading"
+                      :error-message="$errorMessage(errors, 'loading')" type="number" @input="calculateSubTotal" />
+                  </div>
+                  <div class="mb-3">
+                    <label>AC</label>
+                    <app-input class="margin-right-8" v-model="formData.ac" :error-message="$errorMessage(errors, 'ac')"
+                      type="number" @input="calculateSubTotal" />
+                  </div>
+
+
+                </div>
+                <div class="col-6 col-md-3">
+                  <div class="mb-3">
+                    <label>Unloading</label>
+                    <app-input class="margin-right-8" v-model="formData.unloading"
+                      :error-message="$errorMessage(errors, 'unloading')" type="number" @input="calculateSubTotal" />
+                  </div>
+                  <div class="mb-3">
+                    <label>Carpentry</label>
+                    <app-input class="margin-right-8" v-model="formData.car_transport"
+                      :error-message="$errorMessage(errors, 'car_transport')" type="number" @input="calculateSubTotal" />
+                  </div>
+                  <div class="mb-3">
+                    <label>Sub Total</label>
+                    <app-input class="margin-right-8" v-model="formData.sub_total"
+                      :error-message="$errorMessage(errors, 'sub_total')" disabled type="number" />
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
         </div>
+      </div>
+      <!-- Notes , Terms, Payment summary card  and discount calculations -->
+      <div class="row">
         <div class="col-12 col-md-6 col-lg-9">
           <!-- other information card -->
           <div class="card border-0 card-with-shadow">
             <div class="card-body">
-              <h5 class="text-muted mb-3 border-bottom pb-2">
+              <h5 class=" mb-3 border-bottom pb-2">
                 {{ $t("other_information") }}
               </h5>
               <div class="note note-warning px-4 py-2 mb-4">
@@ -602,6 +536,7 @@ export default {
       ],
     };
   },
+
   computed: {
     productDetailsCalculated() {
       if (!this.productDetails.length) return [];
@@ -617,6 +552,7 @@ export default {
         return { ...product, total_amount: productTotalAmount };
       });
     },
+
     totalDiscountAmount() {
       if (
         this.formData.discount_type === "fixed" &&
