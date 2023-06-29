@@ -9,11 +9,7 @@
             <app-icon class="size-20 mr-2" name="download" />
             {{ $t('action_invoice_download') }}
           </button>
-          <!-- <button v-if="$can('invoice_send')" class="btn btn-success btn-with-shadow" type="button"
-            @click="openSendInvoiceModal">
-            <app-icon class="size-20 mr-2" name="send" />
-            {{ $t('send') }}
-          </button> -->
+          
         </div>
       </div>
       <!-- Invoice design-->
@@ -57,9 +53,10 @@
 
                     <!-- Invoice date -->
                     <th class="cus-w-25 cus-text-right">
-                    <td class="cus-bold cus-text-right">{{ $t('date') }}</td>
-                    <td>:</td>
-                    <td class="cus-text-right">{{ formatDateToLocal(formData.date) }}</td>
+                    <td class="cus-bold cus-text-right">{{ "Date : " }}</td>
+                    
+                    <td class="cus-text-right">{{ formData.date }}</td>
+
                     </th>
                   </tr>
                 </thead>
@@ -421,6 +418,22 @@ export default {
       return returnedValue;
     },
   },
+  formatDate(date) {
+    const formattedDate = new Date(date);
+    const day = String(formattedDate.getDate()).padStart(2, '0');
+    const month = String(formattedDate.getMonth() + 1).padStart(2, '0');
+    const year = formattedDate.getFullYear();
+
+    return `${day}/${month}/${year}`;
+  },
+
+  formatTime(date) {
+    const formattedTime = new Date(date);
+    const hours = String(formattedTime.getHours()).padStart(2, '0');
+    const minutes = String(formattedTime.getMinutes()).padStart(2, '0');
+
+    return `${hours}:${minutes}`;
+  }
 };
 </script>
 <style scoped>
