@@ -89,12 +89,7 @@
                 </div>
                 <div class="col-12 col-md-3 mb-4">
                   <label>Time</label>
-                  <app-input
-                    id="time"
-                    v-model="formData.time"
-                    :error-message="$errorMessage(errors, 'date')"
-                    type="time"
-                  />
+                  <app-input id="time" v-model="timeOnly" type="time" />
                 </div>
                 <div class="col-12 col-md-3 mb-4">
                   <label>Packaging</label>
@@ -262,6 +257,13 @@
               <h5 class="text-muted mb-3 border-bottom pb-2">
                 {{ "Items to Pack and Move" }}
               </h5>
+
+              <span
+                v-if="$errorMessage(errors, 'products')"
+                class="text-danger validation-error"
+              >
+                {{ $errorMessage(errors, "products") }}
+              </span>
 
               <div v-if="tempSelectedProducts">
                 <div class="accordion">
@@ -761,6 +763,7 @@ export default {
           ],
         },
       ],
+      timeOnly: "06:00 AM",
       formData: {
         client_name: "",
         client_email: "",
@@ -769,8 +772,8 @@ export default {
         recurring: 2,
         invoice_number: null,
         date: DateFunction.getDateFormat(new Date(), "YYYY-MM-DD"),
-        time: DateFunction.getDateTimeFormatForBackend(new Date()),
-        packaging_type: "",
+        time: "06:00 AM",
+        packaging_type: "none",
         discount_type: "none",
         discount: null,
         received_amount: null,
@@ -974,19 +977,22 @@ export default {
         this.$toastr.e(this.$t("your_cart_is_empty"));
       }
     },
-    convertTo12Hour(time24) {
-      const regex = /^([01]\d|2[0-3]):[0-5]\d$/;
-      if (regex.test(time24)) {
-        return new Date("1970-01-01T" + time24 + "Z").toLocaleTimeString(
-          "en-US",
-          {
-            hour: "numeric",
-            minute: "numeric",
-            hour12: true,
-          }
-        );
+    convertTo12Hour(time24hr) {
+      const regexPattern = /^(?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d)$/;
+
+      if (!regexPattern.test(time24hr)) {
+        return time24hr;
       }
-      return time24;
+
+      const [hours, minutes, seconds] = time24hr.split(":");
+      let hours12hr = (parseInt(hours) % 12).toString();
+      if (hours12hr === "0") {
+        hours12hr = "12";
+      }
+      const period = parseInt(hours) < 12 ? "AM" : "PM";
+      const time12hr = `${hours12hr}:${minutes} ${period}`;
+
+      return time12hr;
     },
     generateDateAndTime(dateStr, timeStr) {
       // Create a new Date object with the date string
@@ -997,36 +1003,19 @@ export default {
       const [time, period] = _timeStr.split(" ");
       let [hours, minutes] = time.split(":");
 
-      // Adjust hours if it's PM
       if (period === "PM") {
         hours = String(Number(hours) + 12);
       }
 
-      // Set the time components to the date object
       dateObj.setHours(hours);
       dateObj.setMinutes(minutes);
 
-      // Get the combined datetime value to UTC
-      // const datetimeValue = dateObj
-      //   .toISOString()
-      //   .slice(0, 19)
-      //   .replace("T", " ");
+      const year = dateObj.getFullYear();
+      const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+      const day = String(dateObj.getDate()).padStart(2, "0");
+      const formattedTime = `${hours}:${minutes}:00`;
 
-      // Get the combined datetime value to local timezone
-      const options = {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: false,
-      };
-      const datetimeValue = dateObj
-        .toLocaleString("en-US", options)
-        .replace(/[/]/g, "-")
-        .replace(",", "");
-
+      const datetimeValue = `${year}-${month}-${day} ${formattedTime}`;
       return datetimeValue;
     },
     submitData() {
@@ -1046,10 +1035,7 @@ export default {
         products = updatedProducts;
       }
 
-      const date = this.generateDateAndTime(
-        this.formData.date,
-        this.formData.time
-      );
+      const date = this.generateDateAndTime(this.formData.date, this.timeOnly);
       const formData = {
         ...this.formData,
         date,
@@ -1064,14 +1050,15 @@ export default {
         products,
       };
 
-      for (const [key, value] of Object.entries(formData)) {
-        if (!isNaN(value)) {
-          formData[key] = Number(value);
-        }
-      }
+      // for (const [key, value] of Object.entries(formData)) {
+      //   if (!isNaN(value)) {
+      //     formData[key] = Number(value);
+      //   }
+      // }
 
       formData.recurring_cycle_id = null;
-      // console.log("Submit: ", formData);
+      delete formData.time;
+      console.log("Submit: ", this.formData.time, formData);
       this.save(formData);
     },
     resetData() {
@@ -1086,9 +1073,16 @@ export default {
     afterSuccessFromGetEditData(response) {
       if (response) {
         this.formData = response.data;
-        this.formData.time = DateFunction.getDateTimeFormatForBackend(
-          new Date(response.data.date)
+
+        // Convert the time to 12-hour format
+        const timeValue = this.convertTo12Hour(
+          DateFunction.getDateTimeFormatForBackend(
+            new Date(response.data.date)
+          ).split(" ")[1]
         );
+
+        // Update the time value in a separate variable
+        this.timeOnly = timeValue;
 
         let groupedProducts = [];
         response.data.invoice_details.forEach((item) => {
