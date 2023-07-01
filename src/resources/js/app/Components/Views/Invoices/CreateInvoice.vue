@@ -821,107 +821,96 @@ export default {
   },
   methods: {
     handleClientNumber(inputValue) {
-      // Check if the input value starts with the country code
       if (!inputValue.startsWith(this.formData.country_code)) {
-        // If not, set the input value to the country code prepended with the entered value
         this.formData.client_number = this.formData.country_code + inputValue;
       }
     },
     changeCategory() {
-      this.selectCategoryName = this.categoryData.filter(
+      const selectedCategory = this.categoryData.find(
         (product) => product.id === this.selectCategoryId
-      )[0]?.name;
-
+      );
+      this.selectCategoryName = selectedCategory?.name;
       this.editCategoryProductsOpenModal = false;
       this.isCategoryProductsModalActive = true;
     },
     checkAndReplaceData(array, name, newProducts) {
-      for (let i = 0; i < array.length; i++) {
-        if (array[i].name === name) {
-          array[i].products = newProducts;
-          return array;
+      const updatedArray = array.map((item) => {
+        if (item.name === name) {
+          return { ...item, products: newProducts };
         }
-      }
-      return array;
-    },
-
-    updateCategoryProductsByName(oldArray, newData) {
-      const updatedArray = [...oldArray]; // Create a copy of the oldArray to avoid modifying the original array
-
-      newData.forEach((updatedCategory) => {
-        // Find the category object with the matching name in the updatedArray
-        const categoryObj = updatedArray.find(
-          (category) => category.name === updatedCategory.name
-        );
-
-        // If category object is found, update its products
-        if (categoryObj) {
-          categoryObj.products = updatedCategory.products;
-        }
+        return item;
       });
-
-      // console.log("updatedArray: ", updatedArray);
-      return updatedArray; // Return the updated array
+      return updatedArray;
+    },
+    updateCategoryProductsByName(oldArray, newData) {
+      const updatedArray = oldArray.map((category) => {
+        const updatedCategory = newData.find(
+          (updatedCategory) => updatedCategory.name === category.name
+        );
+        if (updatedCategory) {
+          return { ...category, products: updatedCategory.products };
+        }
+        return category;
+      });
+      console.log("updatedArray: ", updatedArray);
+      return updatedArray;
     },
     handleSelectedProductsList(products) {
       this.editCategoryProductsOpenModal = false;
-
       const categoryAndProducts = {
         name: this.selectCategoryName,
         products,
       };
-
-      const checkIfCategoryExists = this.tempSelectedProducts.filter(
+      const categoryIndex = this.tempSelectedProducts.findIndex(
         (category) => category.name === this.selectCategoryName
-      ).length;
-
-      if (checkIfCategoryExists) {
+      );
+      if (categoryIndex !== -1) {
         const updatedProducts = this.checkAndReplaceData(
           this.tempSelectedProducts,
           this.selectCategoryName,
           products
         );
-
         this.tempSelectedProducts = updatedProducts;
       } else {
         this.tempSelectedProducts.push(categoryAndProducts);
       }
       this.selectedProductsDetails = products;
-      // console.log("tempSelectedProducts: ", this.tempSelectedProducts);
+      console.log("tempSelectedProducts: ", this.tempSelectedProducts);
     },
     handleEditCategoryAndProducts(name) {
-      const getNewSelectCategory = this.categoryData.filter(
+      const selectedCategory = this.categoryData.find(
         (category) => category.name === name
-      )[0];
-      const newSelectedProductDetails = this.tempSelectedProducts.filter(
+      );
+      const selectedProductDetails = this.tempSelectedProducts.find(
         (category) => category.name === name
-      )[0];
-
-      this.selectCategoryId = getNewSelectCategory.id;
-      this.selectCategoryName = getNewSelectCategory.name;
-      this.selectedProductsDetails = newSelectedProductDetails.products;
-
+      );
+      this.selectCategoryId = selectedCategory.id;
+      this.selectCategoryName = selectedCategory.name;
+      this.selectedProductsDetails = selectedProductDetails.products;
       this.editCategoryProductsOpenModal = true;
       this.isCategoryProductsModalActive = true;
     },
     calculateSubTotal() {
-      const subTotal =
-        Number(this.formData.packing) +
-        Number(this.formData.unloading) +
-        Number(this.formData.local) +
-        Number(this.formData.gst) +
-        Number(this.formData.transport) +
-        Number(this.formData.unpacking) +
-        Number(this.formData.car_transport) +
-        Number(this.formData.loading) +
-        Number(this.formData.ac) +
-        Number(this.formData.insuarance);
-
+      const fieldsToSum = [
+        "packing",
+        "unloading",
+        "local",
+        "gst",
+        "transport",
+        "unpacking",
+        "car_transport",
+        "loading",
+        "ac",
+        "insuarance",
+      ];
+      const subTotal = fieldsToSum.reduce(
+        (sum, field) => sum + Number(this.formData[field]),
+        0
+      );
       this.formData.sub_total = subTotal;
     },
     computeTotal() {
-      const total = this.formData.sub_total - this.totalDiscountAmount;
-      return total;
+      return this.formData.sub_total - this.totalDiscountAmount;
     },
     afterError({ data }) {
       this.errors = data.errors;
@@ -931,11 +920,9 @@ export default {
     },
     convertTo12Hour(time24hr) {
       const regexPattern = /^(?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d)$/;
-
       if (!regexPattern.test(time24hr)) {
         return time24hr;
       }
-
       const [hours, minutes, seconds] = time24hr.split(":");
       let hours12hr = (parseInt(hours) % 12).toString();
       if (hours12hr === "0") {
@@ -943,61 +930,43 @@ export default {
       }
       const period = parseInt(hours) < 12 ? "AM" : "PM";
       const time12hr = `${hours12hr}:${minutes} ${period}`;
-
       return time12hr;
     },
     generateDateAndTime(dateStr, timeStr) {
-      // Create a new Date object with the date string
       const _timeStr = this.convertTo12Hour(timeStr);
       const dateObj = new Date(dateStr);
-
-      // Extract the hours and minutes from the time string
       const [time, period] = _timeStr.split(" ");
       let [hours, minutes] = time.split(":");
-
       if (period === "PM") {
         hours = String(Number(hours) + 12);
       }
-
-      // dateObj.setHours(hours);
       dateObj.setUTCHours(hours);
-      // dateObj.setMinutes(minutes);
       dateObj.setUTCMinutes(minutes);
-
-      // const year = dateObj.getFullYear();
       const year = dateObj.getUTCFullYear();
-      // const month = String(dateObj.getMonth() + 1).padStart(2, "0");
       const month = String(dateObj.getUTCMonth() + 1).padStart(2, "0");
-      // const day = String(dateObj.getDate()).padStart(2, "0");
       const day = String(dateObj.getUTCDate()).padStart(2, "0");
       const formattedTime = `${hours}:${minutes}:00`;
-
       const datetimeValue = `${year}-${month}-${day} ${formattedTime}`;
       return datetimeValue;
     },
     submitData() {
       let products = this.tempSelectedProducts.flatMap((obj) => obj.products);
-
       if (this.selectedUrl) {
-        const updatedProducts = products.map((item) => {
+        products = products.map((item) => {
           const matchingItem = this.formData.invoice_details.find(
             (a) => a.product_id === item.product_id
           );
           if (matchingItem) {
-            item.id = matchingItem.id;
+            return { ...item, id: matchingItem.id };
           }
           return item;
         });
-
-        products = updatedProducts;
       }
-
       const date = this.generateDateAndTime(this.formData.date, this.timeOnly);
       const formData = {
         ...this.formData,
         date,
-        // date: formatDateForServer(this.formData.date),
-        discount: this.formData.discount ? this.formData.discount : 0,
+        discount: this.formData.discount || 0,
         sub_total: this.formData.sub_total,
         total: this.totalAmount,
         received_amount: this.formData.received_amount
@@ -1006,13 +975,6 @@ export default {
         due_amount: this.deuAmount,
         products,
       };
-
-      // for (const [key, value] of Object.entries(formData)) {
-      //   if (!isNaN(value)) {
-      //     formData[key] = Number(value);
-      //   }
-      // }
-
       formData.recurring_cycle_id = null;
       delete formData.time;
       console.log("Submit: ", this.formData.time, formData);
@@ -1030,69 +992,59 @@ export default {
     afterSuccessFromGetEditData(response) {
       if (response) {
         this.formData = response.data;
-
-        // Convert the time to 12-hour format
+        this.formData.country_code = "+91";
+        console.log("Data: ", this.formData);
         const timeValue = this.convertTo12Hour(
           DateFunction.getDateTimeFormatForBackend(
             new Date(response.data.date)
           ).split(" ")[1]
         );
-
-        // Update the time value in a separate variable
         this.timeOnly = timeValue;
-
-        let groupedProducts = [];
-        response.data.invoice_details.forEach((item) => {
-          const { category_name, product_id, product_name, quantity } = item;
-
-          let category = groupedProducts.find(
-            (category) => category.name === category_name
-          );
-
-          if (!category) {
-            category = {
-              name: category_name,
-              products: [],
-            };
-            groupedProducts.push(category);
-          }
-
-          category.products.push({
-            product_id,
-            name: product_name,
-            quantity,
-          });
-        });
-
-        this.groupedProducts = groupedProducts;
-        this.productDetails = this.formData.invoice_details.map((item) => {
-          return {
-            id: item.id,
-            product_id: item.product_id,
-            name: item.product?.name,
-            quantity: item.quantity,
-            price: item.price,
-            tax_id: item.tax ? item.tax_id : null,
-            amount: item.quantity * item.price,
-            packages: item.packages,
-          };
-        });
+        const groupedProducts = response.data.invoice_details.reduce(
+          (groups, item) => {
+            const { category_name, product_id, product_name, quantity } = item;
+            if (!groups[category_name]) {
+              groups[category_name] = {
+                name: category_name,
+                products: [],
+              };
+            }
+            groups[category_name].products.push({
+              product_id,
+              name: product_name,
+              quantity,
+            });
+            return groups;
+          },
+          {}
+        );
+        this.groupedProducts = Object.values(groupedProducts);
+        this.productDetails = this.formData.invoice_details.map((item) => ({
+          id: item.id,
+          product_id: item.product_id,
+          name: item.product?.name,
+          quantity: item.quantity,
+          price: item.price,
+          tax_id: item.tax ? item.tax_id : null,
+          amount: item.quantity * item.price,
+          packages: item.packages,
+        }));
         this.preloader = false;
       }
     },
     getInvoiceCount() {
-      this.axiosGet(`invoice-number`).then((response) => {
-        let invoice = response.data.id != undefined ? response.data.id : 0;
+      this.axiosGet("invoice-number").then((response) => {
+        const invoice = response.data.id !== undefined ? response.data.id : 0;
         this.formData.invoice_number =
           Number(invoice) + Number(window.settings.invoice_starting_number);
       });
     },
     confirmDeleteInvoiceProduct() {
       axiosPost(
-        this.deletedInvoiceProductContext["payload"].url,
-        this.deletedInvoiceProductContext["payload"].data
+        this.deletedInvoiceProductContext.payload.url,
+        this.deletedInvoiceProductContext.payload.data
       ).then((response) => {
-        this.deletedInvoiceProductContext["callBack"]();
+        this.deletedInvoiceProductContext.callBack();
         this.$toastr.s(response.data.message);
         this.deletedInvoiceProductContext = null;
         this.closeInvoiceDeleteModal();
@@ -1109,25 +1061,17 @@ export default {
       this.isProductModalActive = false;
     },
     getCategories() {
-      let categories = [];
-      let tempSelectedProducts = [];
       axiosGet("all-category?search=&page=1&per_page=10").then((response) => {
-        const _categories = response.data.data;
-        categories = _categories;
-        _categories.map((category) => {
-          tempSelectedProducts.push({
-            name: category.name,
-            products: [],
-          });
-        });
-
+        const categories = response.data.data;
+        const tempSelectedProducts = categories.map((category) => ({
+          name: category.name,
+          products: [],
+        }));
         this.categoryData = categories;
         this.tempSelectedProducts = this.updateCategoryProductsByName(
           tempSelectedProducts,
           this.groupedProducts
         );
-
-        return categories;
       });
     },
   },
