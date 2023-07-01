@@ -39,21 +39,21 @@ export default {
 					// 	option: [],
 					// 	permission: this.$can('show_all_data') ? true : false
 					// },
-					// {
-					// 	title: this.$t("clients"),
-					// 	type: "search-and-select-filter",
-					// 	key: "clients",
-					// 	settings: {
-					// 		url: urlGenerator('client-users'),
-					// 		modifire: (item) => {
-					// 			return { id: item.id, value: item.full_name }
-					// 		},
-					// 		per_page: 10,
-					// 		loader: 'app-pre-loader',
-					// 		multiple: true,
-					// 	},
-					// 	permission: this.$can('show_all_data') ? true : false
-					// },
+					{
+						title: this.$t("clients"),
+						type: "search-and-select-filter",
+						key: "clients",
+						settings: {
+							url: urlGenerator('client-users'),
+							modifire: (item) => {
+								return { id: item.id, value: item.full_name }
+							},
+							per_page: 10,
+							loader: 'app-pre-loader',
+							multiple: true,
+						},
+						permission: this.$can('show_all_data') ? true : false
+					},
 					{
 						title: this.$t("amount"),
 						type: "range-filter",
@@ -200,7 +200,7 @@ export default {
 				responsive: true,
 				showHeader: true,
 				showFilter: true,
-				showSearch: true,
+				showSearch: false,
 				showAction: true,
 				tableShadow: true,
 				actionType: 'dropdown',

@@ -492,7 +492,7 @@
                         {{ "Packing:" }}
                         @endif
                     </td>
-                    <td class="p-1 col-md-6 text-right">
+                    <td class="p-1 col-md-6 text-right currency-symbol">
                         @if($invoice->is_hide_charges == 0)
                         {{ number_with_currency_symbol($invoice->packing) }}
                         @endif
@@ -502,7 +502,7 @@
                         {{ "Transport:" }}
                         @endif
                     </td>
-                    <td class="p-1 col-md-6 text-right">
+                    <td class="p-1 col-md-6 text-right currency-symbol">
                         @if($invoice->is_hide_charges == 0)
                         {{ number_with_currency_symbol($invoice->transport) }}
                         @endif
@@ -515,13 +515,13 @@
                     <td colspan="2" class="bold">
                         {{"Loading:"}}
                     </td>
-                    <td class="p-1 col-md-6 text-right">
+                    <td class="p-1 col-md-6 text-right currency-symbol">
                         {{number_with_currency_symbol($invoice->loading)}}
                     </td>
                     <td colspan="2" class="bold">
                         {{"Unloading:"}}
                     </td>
-                    <td class="p-1 col-md-6 text-right">
+                    <td class="p-1 col-md-6 text-right currency-symbol">
                         {{number_with_currency_symbol($invoice->unloading)}}
                     </td>
                 </tr>
@@ -530,13 +530,13 @@
                     <td colspan="2" class="bold">
                         {{"Unpacking:"}}
                     </td>
-                    <td class="p-1 col-md-6 text-right">
+                    <td class="p-1 col-md-6 text-right currency-symbol">
                         {{number_with_currency_symbol($invoice->unpacking)}}
                     </td>
                     <td colspan="2" class="bold">
                         {{"AC:"}}
                     </td>
-                    <td class="p-1 col-md-6 text-right">
+                    <td class="p-1 col-md-6 text-right currency-symbol">
                         {{number_with_currency_symbol($invoice->ac)}}
                     </td>
                 </tr>
@@ -545,32 +545,32 @@
                     <td colspan="2" class="bold">
                         {{"Local:"}}
                     </td>
-                    <td class="p-1 col-md-6 text-right">
+                    <td class="p-1 col-md-6 text-right currency-symbol">
                         {{number_with_currency_symbol($invoice->local)}}
                     </td>
                     <td colspan="2" class="bold">
                         {{"Carpentery:"}}
                     </td>
-                    <td class="p-1 col-md-6 text-right">
+                    <td class="p-1 col-md-6 text-right currency-symbol">
                         {{number_with_currency_symbol($invoice->car_transport)}}
                     </td>
                 </tr>
 
-                <tr class="bg-transparent text-black">
+                <tr class="bg-transparent text-black currency-symbol">
                     <td colspan="2" class="bold">
                         {{"Insurance:"}}
                     </td>
-                    <td class="p-1 col-md-6 text-right">
+                    <td class="p-1 col-md-6 text-right currency-symbol">
                         {{number_with_currency_symbol($invoice->insuarance)}}
                     </td>
                     <td colspan="2" class="bold">
                         {{"GST:"}}
                     </td>
-                    <td class="p-1 col-md-6 text-right">
+                    <td class="p-1 col-md-6 text-right currency-symbol">
                         {{number_with_currency_symbol($invoice->gst)}}
                     </td>
                 </tr>
-                @endif
+                
                 <!-- End of if condition -->
 
                 <tr class="bg-transparent text-black">
@@ -578,6 +578,7 @@
                         <div class="hr mt-2"></div>
                     </td>
                 </tr>
+                @endif
                 <!-- Remaining table rows -->
             </tbody>
         </table>
@@ -593,7 +594,7 @@
                             <tr>   
                                 <td></td> <!-- First column blank -->
                                 <td colspan="2" class="bold p-1">{{ __t('sub_total') }} :</td>
-                                <td class="text-right p-1">{{ number_with_currency_symbol($invoice->sub_total) }}</td>
+                                <td class="text-right p-1 currency-symbol">{{ number_with_currency_symbol($invoice->sub_total) }}</td>
                             </tr>
                             <tr class="bg-transparent text-black">
                                 <td></td> <!-- First column blank -->
@@ -603,7 +604,7 @@
                                     {{ $invoice->discount }}
                                     @endif
                                 </td>
-                                <td class="text-right p-1">{{ number_with_currency_symbol($invoice->discount_amount) }}</td>
+                                <td class="text-right p-1 currency-symbol">{{ number_with_currency_symbol($invoice->discount_amount) }}</td>
                             </tr>
                             <tr>
                                 <td></td> <!-- First column blank -->
