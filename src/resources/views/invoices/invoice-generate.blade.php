@@ -582,7 +582,7 @@
                         {{number_with_currency_symbol($invoice->gst)}}
                     </td>
                 </tr>
-                @endif
+                
                 <!-- End of if condition -->
 
                 <tr class="bg-transparent text-black">
@@ -591,6 +591,7 @@
                     </td>
                 </tr>
                 <!-- Remaining table rows -->
+                @endif
             </tbody>
         </table>
     </div>
