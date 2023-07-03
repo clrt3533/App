@@ -447,8 +447,20 @@
     </div>
     <div class="invoice_container__item px-5">
         <table class="w-100 font-xm table-strip" border="0" cellspacing="0" cellpadding="0">
-            <thead>
-               
+        <thead>
+                <tr class="bg-dark text-light">
+                    <!-- Client name -->
+                    <th class="w-25 p-1 text-left bold">{{"Product"}}</th>
+
+                    <!-- Client contact -->
+                    <th class="w-25 p-1  text-right bold">{{"Quantity"}}</th>
+
+                    <!-- Invoice number -->
+                    <th class="w-25 p-1 text-left bold">{{"Product"}}</th>
+
+                    <!-- Invoice date -->
+                    <th class="w-25 p-1 text-right bold">{{"Quantity"}}</th>
+                </tr>
             </thead>
             <tbody>
               @foreach($invoice->invoiceDetails->chunk(2) as $items)
@@ -492,7 +504,7 @@
                         {{ "Packing:" }}
                         @endif
                     </td>
-                    <td class="p-1 col-md-6 text-right">
+                    <td class="p-1 col-md-6 text-right currency-symbol">
                         @if($invoice->is_hide_charges == 0)
                         {{ number_with_currency_symbol($invoice->packing) }}
                         @endif
@@ -502,7 +514,7 @@
                         {{ "Transport:" }}
                         @endif
                     </td>
-                    <td class="p-1 col-md-6 text-right">
+                    <td class="p-1 col-md-6 text-right currency-symbol">
                         @if($invoice->is_hide_charges == 0)
                         {{ number_with_currency_symbol($invoice->transport) }}
                         @endif
@@ -515,28 +527,28 @@
                     <td colspan="2" class="bold">
                         {{"Loading:"}}
                     </td>
-                    <td class="p-1 col-md-6 text-right">
+                    <td class="p-1 col-md-6 text-right currency-symbol">
                         {{number_with_currency_symbol($invoice->loading)}}
                     </td>
                     <td colspan="2" class="bold">
                         {{"Unloading:"}}
                     </td>
-                    <td class="p-1 col-md-6 text-right">
+                    <td class="p-1 col-md-6 text-right currency-symbol">
                         {{number_with_currency_symbol($invoice->unloading)}}
                     </td>
                 </tr>
 
-                <tr class="bg-transparent text-black">
+                <tr class="bg-transparent text-black currency-symbol">
                     <td colspan="2" class="bold">
                         {{"Unpacking:"}}
                     </td>
-                    <td class="p-1 col-md-6 text-right">
+                    <td class="p-1 col-md-6 text-right currency-symbol">
                         {{number_with_currency_symbol($invoice->unpacking)}}
                     </td>
                     <td colspan="2" class="bold">
                         {{"AC:"}}
                     </td>
-                    <td class="p-1 col-md-6 text-right">
+                    <td class="p-1 col-md-6 text-right currency-symbol">
                         {{number_with_currency_symbol($invoice->ac)}}
                     </td>
                 </tr>
@@ -545,28 +557,28 @@
                     <td colspan="2" class="bold">
                         {{"Local:"}}
                     </td>
-                    <td class="p-1 col-md-6 text-right">
+                    <td class="p-1 col-md-6 text-right currency-symbol">
                         {{number_with_currency_symbol($invoice->local)}}
                     </td>
                     <td colspan="2" class="bold">
                         {{"Carpentery:"}}
                     </td>
-                    <td class="p-1 col-md-6 text-right">
+                    <td class="p-1 col-md-6 text-right currency-symbol">
                         {{number_with_currency_symbol($invoice->car_transport)}}
                     </td>
                 </tr>
 
-                <tr class="bg-transparent text-black">
+                <tr class="bg-transparent text-black ">
                     <td colspan="2" class="bold">
                         {{"Insurance:"}}
                     </td>
-                    <td class="p-1 col-md-6 text-right">
+                    <td class="p-1 col-md-6 text-right currency-symbol">
                         {{number_with_currency_symbol($invoice->insuarance)}}
                     </td>
                     <td colspan="2" class="bold">
                         {{"GST:"}}
                     </td>
-                    <td class="p-1 col-md-6 text-right">
+                    <td class="p-1 col-md-6 text-right currency-symbol">
                         {{number_with_currency_symbol($invoice->gst)}}
                     </td>
                 </tr>
@@ -592,18 +604,18 @@
                         <tbody>
                             <tr>   
                                 <td></td> <!-- First column blank -->
-                                <td colspan="2" class="bold p-1">{{ __t('sub_total') }} :</td>
-                                <td class="text-right p-1">{{ number_with_currency_symbol($invoice->sub_total) }}</td>
+                                <td colspan="2" class="bold p-1 ">{{ __t('sub_total') }} :</td>
+                                <td class="text-right p-1 currency-symbol">{{ number_with_currency_symbol($invoice->sub_total) }}</td>
                             </tr>
                             <tr class="bg-transparent text-black">
                                 <td></td> <!-- First column blank -->
-                                <td colspan="2" class="bold p-1">
+                                <td colspan="2" class="bold p-1 currency-symbol">
                                     {{ __t('discount') }} :
                                     @if($invoice->discount_type == "percentage")
                                     {{ $invoice->discount }}
                                     @endif
                                 </td>
-                                <td class="text-right p-1">{{ number_with_currency_symbol($invoice->discount_amount) }}</td>
+                                <td class="text-right p-1 currency-symbol">{{ number_with_currency_symbol($invoice->discount_amount) }}</td>
                             </tr>
                             <tr>
                                 <td></td> <!-- First column blank -->

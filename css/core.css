@@ -9345,7 +9345,7 @@ h3 {
   margin-left: 0.9rem;
   display: inline-block;
   vertical-align: middle;
-  font-size: 0.935rem;
+  font-size: 1.025rem;
 }
 .sidebar .nav .nav-item .nav-link i {
   color: #707887;
@@ -10299,7 +10299,7 @@ h3 {
   border: 0;
   left: inherit;
   margin-top: 0.75rem;
-  font-size: 0.935rem;
+  font-size: 1.025rem;
   color: var(--default-font-color);
   background-color: var(--dropdown-menu-bg);
   box-shadow: var(--default-box-shadow);
@@ -10366,7 +10366,7 @@ h3 {
   background-color: var(--icon-hover-bg);
 }
 .dropdown.btn-tenant-dropdown .btn {
-  font-size: 0.935rem;
+  font-size: 1.025rem;
   border-radius: 0.25rem;
   box-shadow: none !important;
   background-color: var(--base-color);
@@ -11538,7 +11538,7 @@ body, html {
   overflow-x: hidden;
   font-family: "Poppins", sans-serif;
   padding-right: 0 !important;
-  font-size: 0.935rem;
+  font-size: 1.025rem;
   color: var(--default-font-color);
 }
 body::-webkit-scrollbar, html::-webkit-scrollbar {
@@ -11571,7 +11571,7 @@ hr {
 }
 
 span {
-  font-size: 0.935rem;
+  font-size: 1.025rem;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -37600,7 +37600,7 @@ textarea:focus {
   width: 100%;
   border: none;
   height: 300px;
-  font-size: 0.935rem;
+  font-size: 1.025rem;
   box-shadow: var(--default-box-shadow);
   border-radius: 0.25rem;
   transition: 0.25s;
@@ -46252,7 +46252,7 @@ textarea:focus {
 }
 
 .font-size-default {
-  font-size: 0.935rem !important;
+  font-size: 1.025rem !important;
 }
 
 .font-size-70 {
