@@ -35,7 +35,7 @@
                       <p class="m-1">{{ $t("setup_email_address") }}</p>
                     </div> -->
                     <h5 class="mb-3 border-bottom mt-2">
-                      {{ "Client details and date" }}
+                      {{ "Client details" }}
                     </h5>
                     <!-- Hidden Invoice number-->
                     <div class="col-12 col-md-3 mb-4" :hidden="true">
@@ -129,7 +129,7 @@
               "
             >
               <h5 class="mb-3 border-bottom mt-2">
-                {{ "Origin and Destination address details" }}
+                {{ "Origin and Destination" }}
               </h5>
 
               <div class="row">
@@ -237,7 +237,7 @@
               "
             >
               <h5 class="mb-3 border-bottom mt-2">
-                {{ "Select products for transport" }}
+                {{ "Inventory List" }}
               </h5>
 
               <span
@@ -368,6 +368,16 @@
                 </div>
                 <div class="col-6 col-md-3">
                   <div class="mb-3">
+                    <label>Transport</label>
+                    <app-input
+                      class="margin-right-8"
+                      v-model="formData.transport"
+                      :error-message="$errorMessage(errors, 'transport')"
+                      type="number"
+                      @input="calculateSubTotal"
+                    />
+                  </div>
+                  <div class="mb-3">
                     <label>Unpacking</label>
                     <app-input
                       class="margin-right-8"
@@ -378,16 +388,6 @@
                     />
                   </div>
 
-                  <div class="mb-3">
-                    <label>Transport</label>
-                    <app-input
-                      class="margin-right-8"
-                      v-model="formData.transport"
-                      :error-message="$errorMessage(errors, 'transport')"
-                      type="number"
-                      @input="calculateSubTotal"
-                    />
-                  </div>
                   <div class="mb-3">
                     <label>Insurance</label>
                     <app-input
