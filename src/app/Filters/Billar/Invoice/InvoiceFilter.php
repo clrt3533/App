@@ -26,13 +26,13 @@ class InvoiceFilter extends BaseFilter
         });
     }
 
-    public function due($dueDate = null)
-    {
-        $dueDate = json_decode(htmlspecialchars_decode($dueDate), true);
-        $this->builder->when($dueDate, function (Builder $builder) use ($dueDate) {
-            $builder->whereBetween(\DB::raw('DATE(due_date)'), array_values($dueDate));
-        });
-    }
+    // public function due($dueDate = null)
+    // {
+    //     $dueDate = json_decode(htmlspecialchars_decode($dueDate), true);
+    //     $this->builder->when($dueDate, function (Builder $builder) use ($dueDate) {
+    //         $builder->whereBetween(\DB::raw('DATE(due_date)'), array_values($dueDate));
+    //     });
+    // }
 
     public function amountRange($value = null)
     {
@@ -40,7 +40,6 @@ class InvoiceFilter extends BaseFilter
         return $this->builder->when($value, function (Builder $builder) use ($value) {
             $builder->whereBetween('sub_total', array_values($value));
         });
-
     }
 
     public function paidRange($value = null)
@@ -56,6 +55,13 @@ class InvoiceFilter extends BaseFilter
         $value = json_decode(htmlspecialchars_decode($value), true);
         return $this->builder->when($value, function (Builder $builder) use ($value) {
             $builder->whereBetween('due_amount', array_values($value));
+        });
+    }
+
+    public function search($value = null)
+    {
+        return $this->builder->when($value, function (Builder $builder) use ($value) {
+            $builder->where('client_name', 'like', '%' . $value . '%');
         });
     }
 }
