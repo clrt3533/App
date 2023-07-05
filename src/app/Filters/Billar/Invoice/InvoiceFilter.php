@@ -61,7 +61,10 @@ class InvoiceFilter extends BaseFilter
     public function search($value = null)
     {
         return $this->builder->when($value, function (Builder $builder) use ($value) {
-            $builder->where('client_name', 'like', '%' . $value . '%');
+            $builder->where(function ($query) use ($value) {
+                $query->where('client_name', 'like', '%' . $value . '%')
+                    ->orWhere('id', '=', $value);
+            });
         });
     }
 }

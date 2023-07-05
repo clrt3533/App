@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Billar\Invoice;
 use App\Http\Controllers\Controller;
 use App\Jobs\InvoiceAttachmentJob;
 use App\Jobs\SendInvoiceJob;
+use App\Jobs\SendMessageJob;
 use App\Models\Billar\Invoice\Invoice;
 use App\Repositories\Core\Setting\SettingRepository;
 use App\Services\Billar\Invoice\InvoiceService;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class InvoiceMailController extends Controller
 {
@@ -47,16 +49,18 @@ class InvoiceMailController extends Controller
 
         $invoiceInfo->invoice_note = @$invoiceNote['invoice_note'];
 
+        $date = Carbon::createFromFormat('Y-m-d H:i:s', $invoiceInfo->date)->format('d-m-y');
+
         $this->service
             ->setAttribute('file_path', 'public/pdf/invoice_' . $invoice->id . '.pdf')
             ->pdfGenerate($invoiceInfo);
 
         InvoiceAttachmentJob::dispatch($invoiceInfo)->onQueue('high');
+        SendMessageJob::dispatch('book-confirmation-message', $invoiceInfo->client_number, $invoiceInfo->received_amount, $date);
 
         return response()->json([
             'status' => true,
             'message' => trans('default.invoice_send_success'),
         ], 200);
     }
-
 }
