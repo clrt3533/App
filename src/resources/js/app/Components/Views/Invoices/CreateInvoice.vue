@@ -29,9 +29,9 @@
               "
             >
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12" style="font-weight: bold" >
                   <div>
-                    <!-- <div class="note note-warning p-4 mb-primary clearfix">
+                    <!--  <div class="note note-warning p-4 mb-primary clearfix">
                       <p class="m-1">{{ $t("setup_email_address") }}</p>
                     </div> -->
                     <h5 class="mb-3 border-bottom mt-2">
@@ -51,7 +51,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-12 col-md-5 mb-4">
+                <div class="col-12 col-md-5 mb-4" style="font-weight: bold">
                   <label>{{ $t("client_name") }}</label>
                   <app-input
                     class="margin-right-8"
@@ -61,7 +61,7 @@
                     type="text"
                   />
                 </div>
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-12 col-md-4 mb-4" style="font-weight: bold">
                   <label>{{ $t("Email") }}</label>
                   <app-input
                     class="margin-right-8"
@@ -71,7 +71,7 @@
                     type="text"
                   />
                 </div>
-                <div class="col-12 col-md-3 mb-4">
+                <div class="col-12 col-md-3 mb-4" style="font-weight: bold">
                   <label>{{ $t("client_number") }}</label>
                   <app-input
                     type="text"
@@ -85,7 +85,7 @@
               </div>
 
               <div class="row">
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-12 col-md-4 mb-4" style="font-weight: bold">
                   <label>{{ $t("issue_date") }}</label>
                   <app-input
                     id="date"
@@ -96,12 +96,12 @@
                   />
                 </div>
 
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-12 col-md-4 mb-4" style="font-weight: bold">
                   <label>Time</label>
 
                   <app-input id="time" v-model="timeOnly" type="time" />
                 </div>
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-12 col-md-4 mb-4" style="font-weight: bold">
                   <label>Packaging</label>
                   <app-input
                     class="margin-right-8"
@@ -223,7 +223,7 @@
       </div>
       <!-- Origin and destination address details-->
       <div class="row">
-        <div class="col-12">
+        <div class="col-12" style="font-weight: bold">
           <div
             class="card border-0 card-with-shadow"
             style="margin-bottom: 20px"
@@ -460,7 +460,7 @@
       </div>
       <!-- Notes , Terms, Payment summary card  and discount calculations -->
       <div class="row">
-        <div class="col-12 col-md-6 col-lg-9">
+        <div class="col-12 col-md-6 col-lg-9" style="font-weight: bold">
           <!-- other information card -->
           <div class="card border-0 card-with-shadow">
             <div class="card-body">
