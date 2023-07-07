@@ -54,8 +54,11 @@
                     <!-- Invoice date -->
                     <th class="cus-w-25 cus-text-right">
                     <td class="cus-bold cus-text-right">{{ "Date : " }}</td>
+                      
+                    <td class="cus-text-right"> {{ formatTime(formData.date) }}</td>
                     
-                    <td class="cus-text-right">{{ formData.date }}</td>
+
+
 
                     </th>
                   </tr>
@@ -417,7 +420,7 @@ export default {
       }
       return returnedValue;
     },
-  },
+  
   formatDate(date) {
     const formattedDate = new Date(date);
     const day = String(formattedDate.getDate()).padStart(2, '0');
@@ -428,11 +431,23 @@ export default {
   },
 
   formatTime(date) {
-    const formattedTime = new Date(date);
-    const hours = String(formattedTime.getHours()).padStart(2, '0');
-    const minutes = String(formattedTime.getMinutes()).padStart(2, '0');
+  const formattedTime = new Date(date);
+  let hours = formattedTime.getHours();
+  const minutes = String(formattedTime.getMinutes()).padStart(2, '0');
+  let period = 'AM';
 
-    return `${hours}:${minutes}`;
+  if (hours === 0) {
+    hours = 12;
+  } else if (hours === 12) {
+    period = 'PM';
+  } else if (hours > 12) {
+    hours -= 12;
+    period = 'PM';
+  }
+
+  return `${hours}:${minutes} ${period}`;
+},
+  
   }
 };
 </script>
