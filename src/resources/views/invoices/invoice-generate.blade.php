@@ -30,7 +30,7 @@
         }
 
         .bg-blue{
-            background-color: #211356 !important;
+            background-color: #fff4cc !important;
         }
 
         .bg-secondary {
@@ -285,6 +285,10 @@
             color: #000;
         }
 
+        .text-red {
+            color: #d9251c;
+        }
+
         .text-capital {
             text-transform: uppercase;
         }
@@ -398,8 +402,8 @@
     <!-- Address details -->
     <div class="invoice_container__item px-5 mb-2 text-black">
         <table class="w-100 font-xm px-5 table-strip" border="0" cellspacing="1" cellpadding="0">
-            <thead>
-                <tr class="bg-blue text-light">
+            <thead class="">
+                <tr class="text-black bg-blue bold t">
                     <!-- Origin address -->
                     <th class="w-50 p-1 text-left bold">{{ "Origin" }}</th>
                     <!-- Destination address -->
@@ -417,6 +421,9 @@
                 </tr>
                 <tr class="text-black">
                     <td>
+                        <span class="bold">{{ "Floor" }}:</span>
+                        {{ $invoice->floor_from_address }}
+
                         <span class="bold">{{ "Lift" }}:</span>
                         @if($invoice->lift_from_address)
                             Available
@@ -424,10 +431,12 @@
                             N/A
                         @endif
 
-                        <span class="bold">{{ "Floor" }}:</span>
-                        {{ $invoice->floor_from_address }}
+                        
                     </td>
                     <td>
+                       <span class="bold">{{ "Floor" }}:</span>
+                        {{ $invoice->floor_to_address }}
+
                         <span class="bold">{{ "Lift" }}:</span>
                         @if($invoice->lift_to_address)
                             Available
@@ -435,8 +444,7 @@
                             N/A
                         @endif
                         
-                        <span class="bold">{{ "Floor" }}:</span>
-                        {{ $invoice->floor_to_address }}
+                        
                     </td>
                 </tr>
             </tbody>
@@ -464,7 +472,7 @@
                     <th class="w-25 p-1 text-left bold">{{"Product"}}</th>
 
                     <!-- Client contact -->
-                    <th class="w-25 p-1  text-left bold">{{"Quantity"}}</th>
+                    <th class="w-25 p-1  text-right bold">{{"Quantity"}}</th>
 
                     <!-- Invoice number -->
                     <th class="w-25 p-1 text-left bold">{{"Product"}}</th>
