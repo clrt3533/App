@@ -141,6 +141,9 @@ class FrontendController extends Controller
         return view('estimates.edit', compact('status','taxs','id'));
     }
 
-
+    public function receiptView()
+    {
+        return view('receipts.index');
+    }
 
 }

@@ -32,28 +32,6 @@ export default {
 						'key': 'date',
 						'option': ['today', 'thisMonth', 'last7Days', 'nextYear']
 					},
-					// {
-					// 	title: this.$t("status"),
-					// 	type: "checkbox",
-					// 	key: "status",
-					// 	option: [],
-					// 	permission: this.$can('show_all_data') ? true : false
-					// },
-					// {
-					// 	title: this.$t("clients"),
-					// 	type: "search-and-select-filter",
-					// 	key: "clients",
-					// 	settings: {
-					// 		url: urlGenerator('client-users'),
-					// 		modifire: (item) => {
-					// 			return { id: item.id, value: item.full_name }
-					// 		},
-					// 		per_page: 10,
-					// 		loader: 'app-pre-loader',
-					// 		multiple: true,
-					// 	},
-					// 	permission: this.$can('show_all_data') ? true : false
-					// },
 					{
 						title: this.$t("amount"),
 						type: "range-filter",
@@ -96,15 +74,6 @@ export default {
 								;
 						}
 					},
-					// {
-					// 	title: this.$t('status'),
-					// 	type: 'custom-html',
-					// 	key: 'status',
-					// 	modifier: (value) => {
-					// 		return `<span class="badge badge-${value.class} badge-pill mr-2">${value.translated_name}</span>`
-					// 	}
-					// },
-
 					{
 						title: this.$t('client'),
 						type: 'object',
@@ -116,13 +85,8 @@ export default {
 						title: this.$t('issue_date'),
 						type: 'object',
 						key: 'date',
-						modifier: (date => formatDateToLocal(date))
-					}, /* {
-						title: this.$t('due_date'),
-						type: 'object',
-						key: 'due_date',
-						modifier: (due_date => formatDateToLocal(due_date))
-					}, */
+						modifier: (date => formatDateToLocal(date, false, false))
+					},
 					{
 						title: this.$t('total'),
 						type: 'object',
