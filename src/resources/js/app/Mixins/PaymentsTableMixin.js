@@ -107,11 +107,6 @@ export default {
         ],
         actions: [
           {
-            title: "Receipt",
-            type: "receipt",
-            modifier: () => this.$can("update_payment_histories"),
-          },
-          {
             title: this.$t("edit"),
             type: "edit",
             modifier: () => this.$can("update_payment_histories"),

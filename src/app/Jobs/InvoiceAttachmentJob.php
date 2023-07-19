@@ -29,10 +29,9 @@ class InvoiceAttachmentJob implements ShouldQueue
 
     public function handle()
     {
-        Mail::to($this->invoice->client_email)
+        Mail::to(optional($this->invoice->client)->email)
             ->send(
-                (new InvoiceAttachmentMail($this->invoice, $this->notificationEventName))
-            );
+                (new InvoiceAttachmentMail($this->invoice, $this->notificationEventName)));
 
         Storage::delete('public/pdf/invoice_' . $this->invoice->id . '.pdf');
     }

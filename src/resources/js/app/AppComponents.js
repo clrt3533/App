@@ -122,6 +122,3 @@ Vue.component('estimates-details', require('./Components/Views/Estimates/Estimat
 Vue.component('send-estimates-modal', require('./Components/Views/Estimates/SendEstimatesModal').default);
 Vue.component('estimates-add-edit-modal', require('./Components/Views/Estimates/EstimatesAddEdit').default);
 
-// Receipts
-Vue.component('receipts', require('./Components/Views/Receipts/Index').default);
-Vue.component('receipt-add-edit-modal', require('./Components/Views/Receipts/ReceiptAddEditModal').default);

@@ -49,22 +49,18 @@ class InvoiceMailController extends Controller
 
         $invoiceInfo->invoice_note = @$invoiceNote['invoice_note'];
 
-        $date = Carbon::createFromFormat('Y-m-d H:i:s', $invoiceInfo->date)->format('d-m-y h:i A');
+        $date = Carbon::createFromFormat('Y-m-d H:i:s', $invoiceInfo->date)->format('d-m-y');
 
         $this->service
             ->setAttribute('file_path', 'public/pdf/invoice_' . $invoice->id . '.pdf')
             ->pdfGenerate($invoiceInfo);
 
         InvoiceAttachmentJob::dispatch($invoiceInfo)->onQueue('high');
-        if ($invoiceInfo->received_amount) {
-            SendMessageJob::dispatch('book-confirmation-message', $invoiceInfo->client_number, $invoiceInfo->received_amount, $date);
-        }
+        SendMessageJob::dispatch('book-confirmation-message', $invoiceInfo->client_number, $invoiceInfo->received_amount, $date);
 
         return response()->json([
             'status' => true,
             'message' => trans('default.invoice_send_success'),
-            'date' => $date,
-            'invoice' => $invoiceInfo
         ], 200);
     }
 }

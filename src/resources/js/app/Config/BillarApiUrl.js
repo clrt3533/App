@@ -30,6 +30,3 @@ export const PAYMENTHISTORY = 'payment-histories';
 export const EXPENSE_LIST = 'expenses';
 //Expense
 export const PURPOSE_LIST = 'purposes';
-
-//Payment History
-export const RECEIPTHISTORY = 'receipt-histories';
