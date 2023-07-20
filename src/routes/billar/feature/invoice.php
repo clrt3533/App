@@ -5,6 +5,7 @@ use App\Http\Controllers\Billar\Invoice\InvoiceDownloadController;
 use App\Http\Controllers\Billar\Invoice\InvoiceMailController;
 use App\Http\Controllers\Billar\PaymentHistory\InvoicePaymentController;
 use App\Http\Controllers\Billar\PaymentHistory\PaymentHistoryController;
+use App\Http\Controllers\Billar\ReceiptHistory\ReceiptHistoryController;
 use App\Http\Controllers\Billar\PaymentHistory\PaypalController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,7 @@ Route::group(['middleware' => ['admin', 'individual_behavior']], function () {
     Route::post('checkout', [InvoicePaymentController::class, 'checkout'])
         ->name('checkout.invoice');
     Route::get('invoice-export', [InvoiceController::class, 'invoiceExport'])->name('invoice.export');
+    Route::apiResource('receipt-histories', ReceiptHistoryController::class);
 });
 
 

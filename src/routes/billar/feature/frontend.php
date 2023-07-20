@@ -65,4 +65,7 @@ Route::group(['middleware' => ['auth', 'authorize']], function () {
 
     Route::get('estimates/{id}/details', [FrontendController::class, 'invoiceDetails'])
         ->middleware('can:view_estimates');
+
+    Route::get('receipts/list/view', [FrontendController::class, 'receiptView'])
+        ->middleware('can:view_payment_histories');
 });

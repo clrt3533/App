@@ -768,6 +768,7 @@ return array_merge([
     'update_payment_histories' => 'Can update payment histories',
     'delete_payment_histories' => 'Can delete payment histories',
     'create_payment_method' => 'Can create payment method',
+    'payment_number' => 'Payment no.',
 
     // Product
     'create_products' => 'Can create products',
@@ -842,6 +843,7 @@ return array_merge([
     'razorpay' => 'Razorpay',
     'key_id' => 'Key id',
     'update_payment' => 'Update payment',
+    'update_receipt' => 'Update receipt',
 
     // Test email
     'test_email' => 'Test email',

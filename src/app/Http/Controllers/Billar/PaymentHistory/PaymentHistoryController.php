@@ -21,7 +21,7 @@ class PaymentHistoryController extends Controller
     {
         return $this->service
            ->with(['paymentMethod:id,name', 'invoice' => function ($query) {
-                    $query->select('id', 'invoice_number', 'client_name');
+                    $query->select('id', 'invoice_number', 'client_name', "client_number");
                 }]
             )->filters($this->filter)
             ->orderBy('id', request()->get('orderBy'))

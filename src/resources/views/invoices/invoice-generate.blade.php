@@ -29,10 +29,6 @@
             background-color: #d9251c !important;
         }
 
-        .bg-blue{
-            background-color: #211356 !important;
-        }
-
         .bg-secondary {
             background-color: #dddddd !important;
         }
@@ -45,7 +41,7 @@
             font-family: Arial, Helvetica, sans-serif;
             margin: 0;
             padding: 0;
-            
+            color: #211356;
         }
 
         /*common*/
@@ -363,88 +359,82 @@
                     <th class="w-25 p-1 text-left bold">{{__t('name')}}: {{$invoice->client_name}}</th>
 
                     <!-- Client contact -->
-                    <th class="w-25 p-1  text-left bold">{{__t('contact')}}: {{$invoice->client_number}}</th>
+                    <th class="w-25 p-1  text-center bold">{{__t('contact')}}: {{$invoice->client_number}}</th>
 
                     <!-- Invoice number -->
-                    <th class="w-25 p-1 text-left bold">{{__t('invoice_no')}}: {{ $invoice->is_from_estimate ? 'EST-' :'' }}{{$invoice->invoice_number}}</th>
+                    <th class="w-25 p-1 text-center bold">{{__t('invoice_no')}}: {{ $invoice->is_from_estimate ? 'EST-' :'' }}{{$invoice->invoice_number}}</th>
 
                     <!-- Invoice date -->
-                    <th class="w-25 p-1 text-right bold">
-                        {{__t('date')}}: {{ $invoice->updated_at->format('d/m/Y') }} 
-                    </th>
-
+                    <th class="w-25 p-1 text-right bold">{{__t('date')}}:{{ ($invoice->date) }} </th>
                 </tr>
             </thead>
         </table>
     </div>
-   
-    <div class="invoice_container__item px-5 m-1 text-black">
-        <div class="w-50 f-left px-5 font-xm">
-            <p class="cus-mt-3">
-            <span class="bold">  {{ "Move Date" }}: </span>
-                {{ \Carbon\Carbon::parse($invoice->date)->format('d/m/Y') }}
-                {{ \Carbon\Carbon::parse($invoice->date)->format('g:i A') }}
-            </p>
-        </div>
 
-        <div class="w-50 f-right font-xm">
-            <p class="cus-mt-3 ">
-            <span class="bold">  {{"Email"}}:</span>
-                {{ $invoice->client_email }}</p>
-        </div>
     </div>
-    <div class="f-clear"></div>
+    </div>
    
     <!-- Address details -->
-    <div class="invoice_container__item px-5 mb-2 text-black">
-        <table class="w-100 font-xm px-5 table-strip" border="0" cellspacing="1" cellpadding="0">
-            <thead>
-                <tr class="bg-blue text-light">
-                    <!-- Origin address -->
-                    <th class="w-50 p-1 text-left bold">{{ "Origin" }}</th>
-                    <!-- Destination address -->
-                    <th class="w-50 p-1 text-left bold">{{ "Destination" }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="text-black">
-                    <td>
-                        {{ $invoice->from_address }}
-                    </td>
-                    <td>
-                        {{ $invoice->to_address }}
-                    </td>
-                </tr>
-                <tr class="text-black">
-                    <td>
-                        <span class="bold">{{ "Lift" }}:</span>
-                        @if($invoice->lift_from_address)
-                            Available
-                        @else
-                            N/A
-                        @endif
+    <div class="invoice_container__item p-5 text-black">
+        <div class="w-50 f-left font-xm">
 
-                        <span class="bold">{{ "Floor" }}:</span>
-                        {{ $invoice->floor_from_address }}
-                    </td>
-                    <td>
-                        <span class="bold">{{ "Lift" }}:</span>
+            @if($invoice->from_address)
+
+            <div class="row text-left">
+                <div class="mt-3 col-12 col-md-4">
+                    <p class="cus-mt-3 bold">{{ __t('from_address') }}:{{$invoice->from_address}}</p>
+                </div>
+
+                <div class="mt-3  col-md-4">
+                    <p class="cus-mt-3 bold">{{ "Lift" }}:
+                    @if($invoice->lift_from_address)
+                     Available 
+
+                    @else
+                    N/A
+
+                    @endif
+                </div>
+                <div class="mt-3  col-md-4">
+                    <p class="cus-mt-3 bold">{{"Floor"}}:{{ $invoice->floor_from_address }}</p>
+                </div>
+            </div>
+            @endif
+        </div>
+
+        <div class="w-50 f-left font-xm">
+            <div class="w-100 f-left">
+                @if($invoice->to_address)
+
+                <div class="row ">
+                    <div class=" mt-3 col-md-4">
+                     <p class="cus-mt-3 bold">{{ __t('to_address') }}:{{$invoice->to_address}}</p>
+                    </div>
+
+                    <div class="mt-3  col-md-4">
+                        <p class="cus-mt-3 bold">{{"Lift"}}:
                         @if($invoice->lift_to_address)
-                            Available
+                        Available 
+
                         @else
-                            N/A
+                        N/A
+
                         @endif
-                        
-                        <span class="bold">{{ "Floor" }}:</span>
-                        {{ $invoice->floor_to_address }}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                    </div>
+
+                    <div class="mt-3  col-md-4">
+                        <p class="cus-mt-3 bold">{{"Floor"}}    :{{ $invoice->floor_to_address }}</p>
+                    </div>
+                </div>
+            @endif
+
+        </div>
+        <div class="f-clear"></div>
     </div>
     
     <div class="f-clear"></div>
-   
+    <div class="hr mt-2"></div>
+    </div>
     
     <!-- Message -->
     <div class="invoice_container__item px-5 font-xm">
@@ -464,7 +454,7 @@
                     <th class="w-25 p-1 text-left bold">{{"Product"}}</th>
 
                     <!-- Client contact -->
-                    <th class="w-25 p-1  text-left bold">{{"Quantity"}}</th>
+                    <th class="w-25 p-1  text-right bold">{{"Quantity"}}</th>
 
                     <!-- Invoice number -->
                     <th class="w-25 p-1 text-left bold">{{"Product"}}</th>

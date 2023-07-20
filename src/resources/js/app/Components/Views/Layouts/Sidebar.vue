@@ -1,32 +1,32 @@
 <template>
-    <sidebar :data="data"
-             :logo-url="urlGenerator('/')"
-             :logo-src="urlGenerator(logo)"
-             :logo-icon-src="urlGenerator(logoIcon)"
-    />
-
+  <sidebar
+    :data="data"
+    :logo-url="urlGenerator('/')"
+    :logo-src="urlGenerator(logo)"
+    :logo-icon-src="urlGenerator(logoIcon)"
+  />
 </template>
 
 <script>
-import {urlGenerator} from "../../../Helpers/AxiosHelper";
+import { urlGenerator } from "../../../Helpers/AxiosHelper";
 
 export default {
-    name: 'DashboardSidebar',
-    props: {
-        data: {
-            required: true
-        },
-        logo: {
-            type: String,
-        },
-        logoIcon: {
-            type: String,
-        }
+  name: "DashboardSidebar",
+  props: {
+    data: {
+      required: true,
     },
-    data() {
-        return {
-            urlGenerator
-        }
-    }
-}
+    logo: {
+      type: String,
+    },
+    logoIcon: {
+      type: String,
+    },
+  },
+  data() {
+    return {
+      urlGenerator,
+    };
+  },
+};
 </script>
