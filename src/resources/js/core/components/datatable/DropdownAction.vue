@@ -13,7 +13,7 @@
              class="dropdown-menu dropdown-menu-right py-2 mt-1">
             <a v-for="(action, index) in visibleActions"
                :key="index"
-               class="dropdown-item px-4 py-4"
+               class="dropdown-item px-3 py-3"
                :class="action.className"
                @click.prevent="callMethod('',action)"
                href="#">
