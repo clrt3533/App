@@ -5930,7 +5930,7 @@ button.bg-dark:focus {
   display: inline !important;
 }
 
-.options-dropdown {
+.d-inline-block {
   display: inline-block !important;
 }
 

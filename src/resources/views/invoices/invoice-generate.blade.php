@@ -310,6 +310,9 @@
         .text-black {
             color: #000;
         }
+        .text-red {
+            color: #d9251c;
+        }
 
         .text-capital {
             text-transform: uppercase;
@@ -674,8 +677,8 @@
                             </tr>
                             <tr>
                                 <td></td> <!-- First column blank -->
-                                <td colspan="1" class="bold p-1">{{ __t('due_amount') }} :</td>
-                                <td colspan="2" class="text-right p-1 bold currency-symbol">{{ number_with_currency_symbol($invoice->due_amount) }}</td>
+                                <td colspan="1" class="bold p-1 text-red">{{ __t('due_amount') }} :</td>
+                                <td colspan="2" class="text-right p-1 bold currency-symbol text-red">{{ number_with_currency_symbol($invoice->due_amount) }}</td>
                             </tr>
                         </tbody>
                     </table>
