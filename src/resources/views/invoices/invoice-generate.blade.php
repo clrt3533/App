@@ -675,10 +675,10 @@
                                     <div class="hr mt-2"></div>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr class="bg-dark text-light"> 
                                 <td></td> <!-- First column blank -->
-                                <td colspan="1" class="bold p-1 text-red">{{ __t('due_amount') }} :</td>
-                                <td colspan="2" class="text-right p-1 bold currency-symbol text-red">{{ number_with_currency_symbol($invoice->due_amount) }}</td>
+                                <td colspan="1" class="bold p-1" >{{ __t('due_amount') }} :</td>
+                                <td colspan="2" class="text-right p-1 bold currency-symbol">{{ number_with_currency_symbol($invoice->due_amount) }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -709,5 +709,5 @@
         </div>
     </div>
 
-    {{--@include('layouts.includes.footer')--}}
+   
 </body>
