@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\Billar\Frontend\FrontendController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['auth', 'authorize']], function () {
@@ -32,7 +33,7 @@ Route::group(['middleware' => ['auth', 'authorize']], function () {
     Route::get('categories/list/view', [FrontendController::class, 'categoryView'])
         ->middleware('can:view_categories');
 
-//    Route::get('general-summary', [FrontendController::class, 'generalSummaryView']);
+    //    Route::get('general-summary', [FrontendController::class, 'generalSummaryView']);
     Route::get('payment-summary', [FrontendController::class, 'paymentSummaryView'])
         ->middleware('can:payment_summary_reports');
     Route::get('client-statement', [FrontendController::class, 'clientStatementView'])
@@ -67,5 +68,14 @@ Route::group(['middleware' => ['auth', 'authorize']], function () {
         ->middleware('can:view_estimates');
 
     Route::get('receipts/list/view', [FrontendController::class, 'receiptView'])
+        ->middleware('can:view_payment_histories');
+
+    Route::get('receipt/{id}/details', [FrontendController::class, 'receiptDetails'])
+        ->middleware('can:view_invoices');
+
+    Route::get('bills/list/view', [FrontendController::class, 'billView'])
+        ->middleware('can:view_payment_histories');
+
+    Route::get('bill/{id}/details', [FrontendController::class, 'billDetails'])
         ->middleware('can:view_payment_histories');
 });

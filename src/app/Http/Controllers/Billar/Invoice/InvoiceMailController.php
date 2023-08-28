@@ -67,4 +67,30 @@ class InvoiceMailController extends Controller
             'invoice' => $invoiceInfo
         ], 200);
     }
+
+    public function thankyouInvoice(Invoice $invoice): \Illuminate\Http\JsonResponse
+    {
+        $invoiceInfo = $this->service->loadInvoiceInfo($invoice);
+
+        $invoiceNote = resolve(SettingRepository::class)->getFormattedSettings('app');
+
+        $invoiceInfo->invoice_note = @$invoiceNote['invoice_note'];
+
+        $date = Carbon::createFromFormat('Y-m-d H:i:s', $invoiceInfo->date)->format('d-m-y h:i A');
+
+        $this->service
+            ->setAttribute('file_path', 'public/pdf/invoice_' . $invoice->id . '.pdf')
+            ->pdfGenerate($invoiceInfo);
+
+        InvoiceAttachmentJob::dispatch($invoiceInfo)->onQueue('high');
+        if ($invoiceInfo->received_amount) {
+            SendMessageJob::dispatch('onboard-message', $invoiceInfo->client_number, $invoiceInfo->received_amount, $date);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => trans('default.invoice_thank_you_success'),
+            'invoice' => $invoiceInfo
+        ], 200);
+    }
 }

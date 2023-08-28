@@ -2,7 +2,7 @@ import AppFunction from "../../core/helpers/app/AppFunction";
 import { formatDateToLocal, numberWithCurrencySymbol } from "../Helpers/Helpers";
 import { FormMixin } from "../../core/mixins/form/FormMixin";
 import { DeleteMixins } from "./billar/DeleteMixins";
-import { INVOICES, STOP_RECURRING_INVOICES } from "../Config/BillarApiUrl";
+import { BILLHISTORY, INVOICES, STOP_RECURRING_INVOICES } from "../Config/BillarApiUrl";
 import { mapGetters } from "vuex";
 import { axiosGet, axiosPatch, urlGenerator } from "../Helpers/AxiosHelper";
 import { status } from "./FilterMixin";
@@ -16,6 +16,7 @@ export default {
 			productList: [],
 			isInvoicePaymentModalActive: false,
 			clientModalActive: false,
+			isModalActive: false,
 			options: {
 				url: INVOICES,
 				name: this.$t('invoices_table'),
@@ -117,6 +118,11 @@ export default {
 						modifier: () => this.$can("invoice_resend"),
 					},
 					{
+						title: "Thank You",
+						type: 'thank-you',
+						modifier: () => this.$can("invoice_resend"),
+					},
+					{
 						title: this.$t('action_invoice_download'),
 						type: 'download',
 						modifier: () => this.$can("invoice_download"),
@@ -126,6 +132,11 @@ export default {
 						type: 'view',
 						url: AppFunction.getAppUrl('/invoice-details'),
 						modifier: () => this.$can('show_all_data') ? true : false
+					},
+					{
+						title: "Bill",
+						type: 'bill',
+						modifier: () => this.$can("invoice_download"),
 					},
 					{
 						title: this.$t('add_payment'),
@@ -192,11 +203,16 @@ export default {
 		getListAction(rowData, actionObj) {
 			if (actionObj.type === 'resend') {
 				this.resendInvoice(rowData);
+			} else if (actionObj.type === 'thank-you') {
+				this.thankyouInvoice(rowData);
 			} else if (actionObj.type === 'download') {
 				window.open(AppFunction.getAppUrl(`invoice-download/${rowData.id}`))
 			} else if (actionObj.type === 'view') {
 				this.selectUrl = AppFunction.getAppUrl(`/invoices/${rowData.id}/details`);
 				window.location = this.selectUrl;
+			} else if (actionObj.type === 'bill') {
+				this.selectUrl = `${BILLHISTORY}/${rowData.id}?invoice=true`;
+				this.isModalActive = true;
 			} else if (actionObj.type === 'add_payment') {
 				console.log(this.$can('is_app_admin'))
 				if (this.$can('is_app_admin') || this.$can('create_invoices')) {
@@ -224,6 +240,15 @@ export default {
 		},
 		resendInvoice(rowData) {
 			axiosGet(`invoice-resend/${rowData.id}`).then((response) => {
+				this.$toastr.s(response.data.message);
+				this.$hub.$emit('reload-' + this.tableId);
+
+			}).catch((error) => {
+				console.log(error)
+			})
+		},
+		thankyouInvoice(rowData) {
+			axiosGet(`invoice-thankyou/${rowData.id}`).then((response) => {
 				this.$toastr.s(response.data.message);
 				this.$hub.$emit('reload-' + this.tableId);
 
@@ -314,6 +339,9 @@ export default {
 			});
 			$("#client-add-edit-modal").modal("hide");
 		},
+		closeModal() {
+			this.isModalActive = false;
+		}
 	},
 	mounted() {
 		this.getTableMediaAction();

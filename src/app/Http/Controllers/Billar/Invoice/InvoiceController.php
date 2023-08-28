@@ -16,6 +16,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
+use Spatie\GoogleCalendar\Event;
 
 class InvoiceController extends Controller
 {
@@ -67,6 +68,13 @@ class InvoiceController extends Controller
 
         // Send SMS to client about order confirmation
         SendMessageJob::dispatch('book-confirmation-message', $this->service->model->client_number, $this->service->model->received_amount, $date);
+
+        $event = new Event();
+        $event->name = "#" .  $this->service->model->client_name;
+        $event->description = 'Move Address: ' . $this->service->model->from_address . "\nPhone: " . $this->service->model->client_number;
+        $event->startDateTime = Carbon::parse($this->service->model->date);
+        $event->endDateTime = Carbon::parse($this->service->model->date)->addHour();
+        $event->save();
 
         return created_responses('invoices');
     }

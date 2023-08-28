@@ -3,8 +3,6 @@ import Vue from 'vue';
 // Helpers Component
 import './Components/Helpers/HelperComponent';
 
-Vue.component('example', require('./Components/Views/Auth/Example').default);
-
 /**
  * All Component of Billar
  */
@@ -125,3 +123,9 @@ Vue.component('estimates-add-edit-modal', require('./Components/Views/Estimates/
 // Receipts
 Vue.component('receipts', require('./Components/Views/Receipts/Index').default);
 Vue.component('receipt-add-edit-modal', require('./Components/Views/Receipts/ReceiptAddEditModal').default);
+Vue.component('receipt-details', require('./Components/Views/Receipts/ReceiptDetails').default);
+
+// Bills
+Vue.component('bills', require('./Components/Views/Bills/Index').default);
+Vue.component('bill-add-edit-modal', require('./Components/Views/Bills/BillAddEditModal').default);
+Vue.component('bill-details', require('./Components/Views/Bills/BillDetails').default);

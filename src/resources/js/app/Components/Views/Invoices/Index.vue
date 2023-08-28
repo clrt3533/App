@@ -114,6 +114,14 @@
       :table-id="tableId"
       @closeModal="closeClientModal"
     />
+
+    <!-- BILL Add/Edit Modal -->
+    <bill-add-edit-modal
+      v-if="isModalActive"
+      :table-id="tableId"
+      :selected-url="selectUrl"
+      @closeModal="closeModal"
+    />
   </div>
 </template>
 

@@ -13,7 +13,7 @@
       </button>
     </div>
 
-    <app-table :id="tableId" :options="options" @action="getListAction"/>
+    <app-table :id="tableId" :options="options" @action="getListAction" />
 
     <!-- Receipt Add/Edit Modal -->
     <receipt-add-edit-modal
@@ -21,6 +21,15 @@
       :table-id="tableId"
       :selected-url="selectUrl"
       @closeModal="closeModal"
+    />
+
+    <!-- Payment Delete Modal -->
+    <app-delete-modal
+      v-if="confirmationModalActive"
+      modal-id="delete-confirm-modal"
+      :message="$t('are_you_sure_to_delete_this_receipt')"
+      @confirmed="confirmDelete"
+      @cancelled="cancelledDelete"
     />
   </div>
 </template>    

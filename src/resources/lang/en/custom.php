@@ -758,6 +758,7 @@ return array_merge([
     'delete_invoice_details_product' => 'Can delete invoice details for product',
     'resend' => 'Resend',
     'invoice_send_success' => 'Invoice send successfully',
+    'invoice_thank_you_success' => 'Invoice thank you message send',
     'invoice_resend' => 'Can resend invoice',
     'discount_will_applicable_with_subtotal_amount' => 'Discount will be applicable on subtotal amount',
 

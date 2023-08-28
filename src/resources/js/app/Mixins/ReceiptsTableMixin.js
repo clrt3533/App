@@ -33,20 +33,6 @@ export default {
             option: [],
             permission: this.$can("show_all_data") ? true : false,
           },
-          // {
-          // 	title: this.$t("clients"),
-          // 	type: "search-and-select-filter",
-          // 	key: "clients",
-          // 	settings: {
-          // 		url: urlGenerator('client-users'),
-          // 		modifire: (item) => {
-          // 			return {id: item.id, value: item.full_name}
-          // 		},
-          // 		per_page: 10,
-          // 		loader: 'app-pre-loader',
-          // 		multiple: true,
-          // 	},
-          // },
           {
             title: this.$t("amount"),
             type: "range-filter",
@@ -103,6 +89,17 @@ export default {
             modifier: () => this.$can("update_payment_histories"),
           },
           {
+            title: this.$t("view"),
+            type: "view",
+            url: AppFunction.getAppUrl("/receipt-details"),
+            modifier: () => (this.$can("show_all_data") ? true : false),
+          },
+          {
+            title: this.$t("action_invoice_download"),
+            type: "download",
+            modifier: () => this.$can("invoice_download"),
+          },
+          {
             title: this.$t("delete"),
             type: "delete",
             modifier: () => this.$can("delete_payment_histories"),
@@ -127,6 +124,13 @@ export default {
       this.selectUrl = `${RECEIPTHISTORY}/${rowData.id}`;
       if (actionObj.title === this.$t("edit")) {
         this.isModalActive = true;
+      } else if (actionObj.type === "view") {
+        this.selectUrl = AppFunction.getAppUrl(
+          `/receipt/${rowData.id}/details`
+        );
+        window.location = this.selectUrl;
+      } else if (actionObj.type === "download") {
+        window.open(AppFunction.getAppUrl(`receipt-download/${rowData.id}`));
       } else if (actionObj.title === this.$t("delete")) {
         this.confirmationModalActive = true;
       }

@@ -156,7 +156,7 @@ import { RECEIPTHISTORY } from "../../../Config/BillarApiUrl";
 export default {
   name: "ReceiptAddEditModal",
   mixins: [SubmitFormMixins],
-  props: ["invoiceId"],
+  props: ["paymentId"],
   data() {
     return {
       RECEIPTHISTORY,
@@ -294,9 +294,20 @@ export default {
       this.formData.amount = payment.amount;
       this.formData.amount_words = this.amountInWords(payment.amount);
     },
+    afterSuccessFromGetEditData(response) {
+      this.formData = response.data;
+      this.formData.invoice_id = response.data.payment_id;
+      ;
+
+      this.editorShow = false;
+      setTimeout(() => {
+        this.editorShow = true;
+      });
+      this.preloader = false;
+    },
     submit() {
       let payload = this.formData;
-      payload.date = moment(this.formData.date).format('YYYY-MM-DD');
+      payload.date = moment(this.formData.date).format("YYYY-MM-DD");
 
       this.save(payload);
     },

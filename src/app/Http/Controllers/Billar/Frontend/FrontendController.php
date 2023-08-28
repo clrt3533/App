@@ -146,4 +146,18 @@ class FrontendController extends Controller
         return view('receipts.index');
     }
 
+    public function receiptDetails($id)
+    {
+        return view('receipts.receipt-details', compact('id'));
+    }
+
+    public function billView()
+    {
+        return view('bills.index');
+    }
+
+    public function billDetails($id)
+    {
+        return view('bills.bill-details', compact('id'));
+    }
 }

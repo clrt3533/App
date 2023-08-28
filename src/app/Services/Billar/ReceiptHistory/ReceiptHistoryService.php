@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\Billar\ReceiptHistory;
 
 use App\Models\Billar\ReceiptHistory\ReceiptHistory;
@@ -6,7 +7,8 @@ use App\Services\Billar\ApplicationBaseService;
 use PDF;
 use Illuminate\Support\Facades\Storage;
 
-class ReceiptHistoryService extends ApplicationBaseService {
+class ReceiptHistoryService extends ApplicationBaseService
+{
     public function __construct(ReceiptHistory $receiptHistory)
     {
         $this->model = $receiptHistory;
@@ -32,7 +34,7 @@ class ReceiptHistoryService extends ApplicationBaseService {
         return $this;
     }
 
-    public function pdfGenerate($receiptInfo):self
+    public function pdfGenerate($receiptInfo): self
     {
         $pdf = PDF::loadView('receipts.receipt-generate', [
             'receipt' => $receiptInfo
@@ -42,5 +44,10 @@ class ReceiptHistoryService extends ApplicationBaseService {
         $filePath = $this->getAttribute('file_path');
         Storage::put($filePath, $output);
         return $this;
+    }
+
+    public function findWithPaymentMethod($id): ReceiptHistory
+    {
+        return $this->model->with('paymentMethod:id,name')->findOrFail($id);
     }
 }

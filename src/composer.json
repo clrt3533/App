@@ -25,6 +25,7 @@
         "paypal/rest-api-sdk-php": "*",
         "razorpay/razorpay": "^2.8",
         "spatie/laravel-activitylog": "^3.9",
+        "spatie/laravel-google-calendar": "^3.6",
         "stripe/stripe-php": "^7.77"
     },
     "require-dev": {
@@ -115,7 +116,7 @@
     "repositories": [
         {
             "type": "path",
-            "url":  "./package/installer",
+            "url":  "../package/installer",
             "options": {
                 "symlink": false
             }

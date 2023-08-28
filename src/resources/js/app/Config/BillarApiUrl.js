@@ -33,3 +33,6 @@ export const PURPOSE_LIST = 'purposes';
 
 //Payment History
 export const RECEIPTHISTORY = 'receipt-histories';
+
+//Bill History
+export const BILLHISTORY = 'bill-histories';
