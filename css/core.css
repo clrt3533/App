@@ -10301,7 +10301,7 @@ h3 {
   margin-top: 0.75rem;
   font-size: 1.025rem;
   color: var(--default-font-color);
-  background-color: aqua;
+  background-color: #D3D3D3;
   box-shadow: var(--default-box-shadow);
   width: 250px;
 }
