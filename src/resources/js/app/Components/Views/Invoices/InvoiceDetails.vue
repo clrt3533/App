@@ -109,13 +109,9 @@
             <div class="cus-invoice_container__item cus-p-5">
               <div class="cus-w-100 cus-f-left">
                 <div class="cus-w-100 cus-f-left">
-                  <p class="cus-bold">{{ $t('Dear ') }}{{ formData.client_name
-                  }},</p>
-                  <p>Thank you for choosing our services. We greatly appreciate your business and the
-                    trust you have placed in us. We are committed to providing you with exceptional
-                    services.</p>
-                  <p><br></p>
-                  <p class="cus-bold"> Please find the details of your invoice below:</p>
+                  <p class="cus-bold">Dear Sir/Madam,</p>
+                  <p>We thank you for giving us the opportunity to quote for relocation and shifting of your valuable goods. We are pleased to quote you our best rate offer for the same as under:</p>
+               
 
                 </div>
                 <div class="cus-f-clear"></div>
