@@ -3,8 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>{{ config('app.name') }}</title>
     <link rel="shortcut icon" href="{{ env('APP_URL').config('settings.application.company_icon') }}" />
@@ -17,336 +16,370 @@
 
     {{-- @include('layouts.includes.header')--}}
     <style>
+
+
+        .box-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .box {
+            border: 1px solid #000; /* Set your desired border style and color here */
+           
+        }
+
+        .address-info {
+            text-align: left;
+        }
+
+        .address-header {
+            font-weight: bold;
+        }
+
+        .info-item {
+            margin-top: 5px;
+        }
+
+
+        /* dev */
         .t {
             border: 1px solid red;
         }
 
-        .invoice_preview {
-            width: 100%;
-            max-width: 800px;
-            min-height: 700px;
+        .bg-t {
+            background-color: #e1e5e1;
         }
 
-        .cus-bg-t {
-            background-color: #00660050;
-        }
-
-        .cus-bg-dark {
+        .bg-dark {
             background-color: #d9251c !important;
         }
 
-        .cus-bg-secondary {
+        .bg-blue{
+            background-color: #fff0bb !important;
+        }
+
+        .bg-secondary {
             background-color: #dddddd !important;
         }
 
-        .cus-bg-transparent {
+        .bg-transparent {
             background-color: transparent !important;
         }
 
-        .invoice_preview * {
+        * {
             font-family: Arial, Helvetica, sans-serif;
             margin: 0;
             padding: 0;
+            
         }
 
         /*common*/
-        .cus-m-0 {
+        .m-0 {
             margin: 0;
         }
 
-        .cus-m-1 {
+        .m-1 {
             margin: 5px;
         }
 
-        .cus-m-2 {
+        .m-2 {
             margin: 10px;
         }
 
-        .cus-m-3 {
+        .m-3 {
             margin: 15px;
         }
 
-        .cus-m-4 {
+        .m-4 {
             margin: 20px;
         }
 
-        .cus-m-5 {
+        .m-5 {
             margin: 25px;
         }
 
-        .cus-mx-1 {
+        .mx-1 {
             margin: 0 5px;
         }
 
-        .cus-mx-2 {
+        .mx-2 {
             margin: 0 10px;
         }
 
-        .cus-mx-3 {
+        .mx-3 {
             margin: 0 15px;
         }
 
-        .cus-mx-4 {
+        .mx-4 {
             margin: 0 20px;
         }
 
-        .cus-mx-5 {
+        .mx-5 {
             margin: 0 25px;
         }
 
-        .cus-my-1 {
+        .my-1 {
             margin: 5px 0;
         }
 
-        .cus-my-2 {
+        .my-2 {
             margin: 10px 0;
         }
 
-        .cus-my-3 {
+        .my-3 {
             margin: 15px 0;
         }
 
-        .cus-my-4 {
+        .my-4 {
             margin: 20px 0;
         }
 
-        .cus-my-5 {
+        .my-5 {
             margin: 25px 0;
         }
 
-        .cus-mt-1 {
-            margin-top: 5px;
+        .mt-1 {
+            margin-top: 5px
         }
 
-        .cus-mt-2 {
-            margin-top: 10px;
+        .mt-2 {
+            margin-top: 10px
         }
 
-        .cus-mt-3 {
-            margin-top: 15px;
+        .mt-3 {
+            margin-top: 15px
         }
 
-        .cus-mt-4 {
-            margin-top: 20px;
+        .mt-4 {
+            margin-top: 20px
         }
 
-        .cus-mt-5 {
-            margin-top: 25px;
+        .mt-5 {
+            margin-top: 25px
         }
 
-        .cus-mb-1 {
-            margin-bottom: 5px;
+        .mb-1 {
+            margin-bottom: 5px
         }
 
-        .cus-mb-2 {
-            margin-bottom: 10px;
+        .mb-2 {
+            margin-bottom: 10px
         }
 
-        .cus-mb-3 {
-            margin-bottom: 15px;
+        .mb-3 {
+            margin-bottom: 15px
         }
 
-        .cus-mb-4 {
-            margin-bottom: 20px;
+        .mb-4 {
+            margin-bottom: 20px
         }
 
-        .cus-mb-5 {
-            margin-bottom: 25px;
+        .mb-5 {
+            margin-bottom: 25px
         }
 
-        .cus-p-0 {
+        .p-0 {
             padding: 0;
         }
 
-        .cus-p-1 {
+        .p-1 {
             padding: 5px;
         }
 
-        .cus-p-2 {
+        .p-2 {
             padding: 10px;
         }
 
-        .cus-p-3 {
+        .p-3 {
             padding: 15px;
         }
 
-        .cus-p-4 {
+        .p-4 {
             padding: 20px;
         }
 
-        .cus-p-5 {
+        .p-5 {
             padding: 25px;
         }
 
-        .cus-px-1 {
+        .px-1 {
             padding: 0 5px;
         }
 
-        .cus-px-2 {
+        .px-2 {
             padding: 0 10px;
         }
 
-        .cus-px-3 {
+        .px-3 {
             padding: 0 15px;
         }
 
-        .cus-px-4 {
+        .px-4 {
             padding: 0 20px;
         }
 
-        .cus-px-5 {
+        .px-5 {
             padding: 0 25px;
         }
 
-        .cus-py-1 {
+        .py-1 {
             padding: 5px 0;
         }
 
-        .cus-py-2 {
+        .py-2 {
             padding: 10px 0;
         }
 
-        .cus-py-3 {
+        .py-3 {
             padding: 15px 0;
         }
 
-        .cus-py-4 {
+        .py-4 {
             padding: 20px 0;
         }
 
-        .cus-py-5 {
+        .py-5 {
             padding: 25px 0;
         }
 
-        .cus-w-10 {
+        .w-10 {
             width: 10%;
         }
 
-        .cus-w-15 {
+        .w-15 {
             width: 15%;
         }
 
-        .cus-w-45 {
+        .w-45 {
             width: 45%;
         }
 
-        .cus-w-25 {
+        .w-25 {
             width: 25%;
         }
 
-        .cus-w-50 {
+        .w-50 {
             width: 50%;
         }
 
-        .cus-w-75 {
+        .w-75 {
             width: 75%;
         }
 
-        .cus-w-100 {
+        .w-100 {
             width: 100%;
         }
 
-        .cus-h-100 {
+        .h-100 {
             height: 100%;
         }
 
-        .cus-f-left {
+        .f-left {
             float: left;
         }
 
-        .cus-f-right {
+        .f-right {
             float: right;
         }
 
-        .cus-f-clear {
+        .f-clear {
             clear: both;
         }
 
-        .cus-text-left {
+        .text-left {
             text-align: left;
         }
 
-        .cus-text-right {
+        .text-right {
             text-align: right;
         }
 
-        .cus-text-center {
+        .text-center {
             text-align: center;
         }
 
-        .cus-text-secondary {
+        .text-secondary {
             color: #666666;
         }
 
-        .cus-text-black {
-            color: #000 !important;
-        }
-
-        .cus-text-light {
+        .text-light {
             color: #fff;
         }
 
-        .cus-text-capital {
+        .text-black {
+            color: #000;
+        }
+        .text-red {
+            color: #d9251c;
+        }
+
+        .text-capital {
             text-transform: uppercase;
         }
 
-        .cus-thin {
+        .thin {
             font-weight: lighter;
         }
 
-        .cus-bold {
+        .bold {
             font-weight: bold;
         }
 
-        .cus-font-xm {
-            font-size: small;
+        .font-xm {
+            font-size: x-small
         }
 
-        .cus-font-md {
-            font-size: medium;
+        .font-md {
+            font-size: medium
         }
 
-        .cus-font-lg {
-            font-size: large;
+        .font-lg {
+            font-size: large
         }
 
-        .cus-table-strip tr:nth-child(even) {
-            background-color: #66666610;
+        .table-strip {}
+
+        .table-strip tr:nth-child(even) {
+            background-color: #f8f8f8;
         }
 
+        /*layout*/
+        .invoice_container {}
 
-        .cus-invoice_container * {
+        .invoice_container * {
             box-sizing: content-box;
         }
 
-        .cus-logo {
+        .invoice_container__item {}
+
+        .logo {
             width: 96px;
         }
 
-        .cus-hr {
+        .hr {
             background-color: #999999;
             border: none;
             height: 1px;
         }
 
-        table tbody tr td {
-            padding: 5px !important;
-            border: 2px solid #000;
+        .currency-symbol {
+            font-family: DejaVu Sans;
+            font-size: 11px;
+            line-height: 1;
         }
-
-        table thead tr th:last-of-type,
-        table tbody tr td:last-of-type {
-            text-align: right;
-        }
+       
     </style>
 </head>
 
+
 <body>
+   
     <div class="invoice_container">
         <div class="invoice_container__item px-5 text-black">
             <div class="w-100 f-left p-1">
                 <div>
-                    <img style="width:100%" src="{{public_path('card.jpeg')}}" alt="Sai Packers And Movers">
+                    <img style="width:100%" src="{{public_path('card.jpeg')}}" alt="bill">
                 </div>
             </div>
         </div>
@@ -355,117 +388,193 @@
 
 
     <!-- Invoice details -->
-    <div class="cus-invoice_container__item cus-px-5">
-        <table class="cus-w-100 cus-font-xm cus-table-strip" border="0" cellspacing="0" cellpadding="0">
+    <div class="invoice_container__item mx-5 box ">
+        <table class="w-100 font-xm" border="1" cellspacing="0" cellpadding="0">
             <thead>
-                <tr class="cus-bg-dark cus-text-light">
-
-                    <!-- Invoice number -->
-                    <th class="cus-w-25 cus-p-1 cus-text-left">
-                    <td class="cus-bold">{{ __t('invoice_no') }}</td>
-                    <td class="cus-text-right">{{ $bill->invoice->invoice_number }}</td>
-                    </th>
-
+                <tr class="bg-secondary text-dark">
                     <!-- Client name -->
-                    <th class="cus-w-25 cus-p-1 cus-text-left">
-                        <p class="cus-bold">{{ __t('Name') }}: {{
-                        $bill->invoice->client_name }}</p>
-                    </th>
+                    <th class="w-50 p-1 text-center bold">{{"BILL TO PARTY"}} </th>
 
                     <!-- Client contact -->
-                    <th class="cus-w-25 cus-p-1 cus-text-center">
-                        <p>{{ __t('contact') }}: {{
-                        $bill->invoice->client_number }}</p>
+                    <th class="w-50 p-1  text-center bold">{{"SHIP TO PARTY"}}</th>
                     </th>
 
-                    <!-- Invoice date -->
-                    <th class="cus-w-25 cus-text-right">
-                    <td class="cus-bold cus-text-right">{{ "Date : " }}</td>
-
-                    <td class="cus-text-right">{{ $bill->invoice->date}}</td>
-                    </th>
-                </tr>
-            </thead>
-        </table>
-
-        <table class="cus-w-100">
-            <thead>
-                <tr>
-                    <th class="cus-w-33 cus-p-1 cus-text-left">SN No.</th>
-                    <th class="cus-w-33 cus-p-1 cus-text-left">Particulars</th>
-                    <th class="cus-w-33 cus-p-1 cus-text-left">Amount</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
+                    <td>
+                        <div class="invoice_container__item m-1 text-black w-50 px-5 font-xm">
+                            <p class="cus-mt-3">
+                                <span class="bold"> {{__t('name')}}: </span> {{ $bill->invoice->client_name }}</br>
+                                <span class="bold"> Pickup Address: </span> {{ $bill->invoice->from_address }}
+                            </p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="invoice_container__item m-1 text-black w-50 px-5 font-xm">
+                            <p class="cus-mt-3">
+                                <span class="bold"> {{__t('name')}}: </span> {{ $bill->invoice->client_name }}</br>
+                                <span class="bold"> Drop Address: </span> {{ $bill->invoice->to_address }}
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+        <table class="w-100 font-xm" border="1" cellspacing="0" cellpadding="0">
+            <thead>
+                <tr class="text-dark">
+                    <!-- Invoice number -->
+                    <th class="w-25 p-1 text-left bold">{{__t('invoice_no')}}: {{ $bill->invoice->invoice_number}}</th>
+
+                    <!-- Client contact -->
+                    <th class="w-25 p-1  text-left bold">{{__t('contact')}}: {{$bill->invoice->client_number}}</th>
+
+                    <!-- Client name -->
+                    <th class="w-25 p-1 text-left bold">{{__t('name')}}: {{ $bill->invoice->client_name}}</th>
+
+                    <!-- Invoice date -->
+                    <th class="w-25 p-1 text-right bold">
+                        {{__t('date')}}: {{ \Carbon\Carbon::parse($bill->invoice->date)->format('d/m/Y') }}
+
+                    </th>
+
+                </tr>
+            </thead>
+        </table>
+        <table class="w-100 font-xm" border="1" cellspacing="0" cellpadding="0">
+            <thead>
+                <tr class="bg-dark text-light ">
+                    <th class="w-10 p-1 text-left">SR No.</th>
+                    <th class="w-65 p-1">Particulars</th>
+                    <th class="w-25 p-1 ">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="cus-p-1 cus-text-left">
                     <td></td>
-                    <td>Bill description</td>
+                    <td>Bill Description from Challan No.</td>
                     <td></td>
                 </tr>
 
-                <tr>
-                    <td>1</td>
+                <tr class="cus-p-1 cus-text-left">
+                    <td class="text-center">1</td>
                     <td>Transport charges</td>
                     <td class="currency-symbol">{{ number_with_currency_symbol($bill->transport) }}</td>
                 </tr>
 
-                <tr>
-                    <td>2</td>
+                <tr class="cus-p-1 cus-text-left">
+                    <td class="text-center">2</td>
                     <td>Packing charges</td>
                     <td class="currency-symbol">{{ number_with_currency_symbol($bill->packing) }}</td>
                 </tr>
 
-                <tr>
-                    <td>3</td>
+                <tr class="cus-p-1 cus-text-left">
+                    <td class="text-center">3</td>
                     <td>Loading charges</td>
                     <td class="currency-symbol">{{ number_with_currency_symbol($bill->loading) }}</td>
                 </tr>
 
-                <tr>
-                    <td>4</td>
+                <tr class="cus-p-1 cus-text-left">
+                    <td class="text-center">4</td>
                     <td>Unloading charges</td>
                     <td class="currency-symbol">{{ number_with_currency_symbol($bill->unloading) }}</td>
                 </tr>
 
-                <tr>
-                    <td>5</td>
+                <tr class="cus-p-1 cus-text-left">
+                    <td class="text-center">5</td>
                     <td>Unpacking charges</td>
                     <td class="currency-symbol">{{ number_with_currency_symbol($bill->unpacking) }}</td>
                 </tr>
 
-                <tr>
-                    <td>6</td>
+                <tr class="cus-p-1 cus-text-left">
+                    <td class="text-center">6</td>
                     <td>GST charges</td>
                     <td class="currency-symbol">{{ number_with_currency_symbol($bill->gst) }}</td>
                 </tr>
 
-                <tr>
-                    <td>7</td>
+                <tr class="cus-p-1 cus-text-left">
+                    <td class="text-center">7</td>
                     <td>Local charges</td>
                     <td class="currency-symbol">{{ number_with_currency_symbol($bill->local) }}</td>
                 </tr>
 
                 <tr>
-                    <td>8</td>
+                    <td class="text-center">8</td>
                     <td>Car Transport charges</td>
                     <td class="currency-symbol">{{ number_with_currency_symbol($bill->car_transport) }}</td>
                 </tr>
 
-                <tr>
-                    <td>9</td>
+                <tr class="cus-p-1 cus-text-left">
+                    <td class="text-center">9</td>
                     <td>Insuarance charges</td>
                     <td class="currency-symbol">{{ number_with_currency_symbol($bill->insuarance) }}</td>
                 </tr>
 
-                <tr>
-                    <td>10</td>
+                <tr class="cus-p-1 cus-text-left">
+                    <td class="text-center">10</td>
                     <td>AC</td>
                     <td class="currency-symbol">{{ number_with_currency_symbol($bill->ac) }}</td>
                 </tr>
+                <tr class="cus-p-1 cus-text-left">
+                    <td class="text-center">11</td>
+                    <td>Other</td>
+                    <td class="currency-symbol">{{ number_with_currency_symbol($bill->ac) }}</td>
+                </tr>
+                @php
+                 $total = $bill->transport + $bill->packing + $bill->loading + $bill->unloading + $bill->unpacking + $bill->gst + $bill->local + $bill->car_transport + $bill->insuarance + $bill->ac;
+                @endphp
+                <tr class="cus-p-1 cus-text-left">
+                    <td></td>
+                    <td class="text-right"><strong>Grand Total :</strong></td>
+                    <td class="currency-symbol">{{ number_with_currency_symbol($total) }}</td>
+                </tr>
             </tbody>
         </table>
+        <table class="w-100 font-xm" border="1" cellspacing="0" cellpadding="0">
+            <thead>
+                <tr class="bg-secondary text-dark">
+                    <!-- These two cells will occupy 75% of the row width combined -->
+                    <th class="w-37-5 p-1 text-center bold">{{ "Loading Date" }}:</th>
+                    <th class="w-37-5 p-1 text-center bold">{{ "Unloading Date" }}:</th>
+                    <!-- This cell will occupy the remaining 25% of the row width -->
+                    <th class="w-25 p-1 text-center bold" style="background-color: transparent;"></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <!-- Merged cell for the paragraph -->
+                    <td colspan="2">
+                        <div class="invoice_container__item m-1 text-black font-xm">
+                            <p class="cus-mt-3">
+                                <span class="bold">{{ "Notes" }}: </span><br>
+                                <span class="bold">Pickup Address:<br> None of it</span>
+                            </p>
+                        </div>
+                    </td>
+                    <!-- Cell for the image -->
+                    <td>
+                        <div class="invoice_container__item m-1 text-black font-xm">
+                            <div class="f-left p-1">
+                                <img style="width:100%" src="{{ public_path('card.jpeg') }}" alt="bill">
+                            </div>
+                            <p class="cus-mt-3">
+                                <span class="bold">{{ "SAI PACKERS AND MOVERS" }}</span>
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+   
     </div>
     <div class="cus-f-clear"></div>
 
+
+
     {{--@include('layouts.includes.footer')--}}
+    
 </body>
