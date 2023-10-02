@@ -34,6 +34,15 @@
 
 // available languages
   Route::get('languages', [LanguageController::class, 'index'])->name('languages.index');
+
+  Route::get('signatures/{fileName}', function ($fileName) {
+    $path = storage_path("app/public/signatures/{$fileName}");
+    if (file_exists($path)) {
+        return response()->file($path);
+    } else {
+        abort(404);
+    }
+});
   
   /*
    * All login related route will be go there

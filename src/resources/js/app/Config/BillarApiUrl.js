@@ -36,3 +36,7 @@ export const RECEIPTHISTORY = 'receipt-histories';
 
 //Bill History
 export const BILLHISTORY = 'bill-histories';
+
+// InvENTORY
+export const INVENTORY = 'inventory';
+export const INVENTORY_LIST = 'inventory/list/view';
