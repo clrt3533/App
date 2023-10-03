@@ -129,3 +129,9 @@ Vue.component('receipt-details', require('./Components/Views/Receipts/ReceiptDet
 Vue.component('bills', require('./Components/Views/Bills/Index').default);
 Vue.component('bill-add-edit-modal', require('./Components/Views/Bills/BillAddEditModal').default);
 Vue.component('bill-details', require('./Components/Views/Bills/BillDetails').default);
+
+// Inventory
+Vue.component('inventory', require('./Components/Views/Inventory/Index').default);
+Vue.component('add-inventory', require('./Components/Views/Inventory/CreateInventory').default);
+Vue.component('inventory-details', require('./Components/Views/Inventory/InventoryDetails').default);
+Vue.component('inventory-category-products-modal', require('./Components/Views/Inventory/CategoryProductsModal').default);

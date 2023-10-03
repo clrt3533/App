@@ -10,6 +10,8 @@ use App\Http\Controllers\Billar\ReceiptHistory\ReceiptHistoryDownloadController;
 use App\Http\Controllers\Billar\PaymentHistory\PaypalController;
 use App\Http\Controllers\Billar\BillHistory\BillHistoryController;
 use App\Http\Controllers\Billar\BillHistory\BillHistoryDownloadController;
+use App\Http\Controllers\Billar\Inventory\InventoryController;
+use App\Http\Controllers\Billar\Inventory\InventoryDownloadController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['admin', 'individual_behavior']], function () {
@@ -36,6 +38,10 @@ Route::group(['middleware' => ['admin', 'individual_behavior']], function () {
     Route::apiResource('bill-histories', BillHistoryController::class);
     Route::get('bill-download/{bill}', [BillHistoryDownloadController::class, 'download'])
     ->name('download.bill');
+
+    Route::apiResource('inventory', InventoryController::class);
+    Route::get('inventory-download/{inventory}', [InventoryDownloadController::class, 'download'])
+    ->name('download.inventory');
 });
 
 

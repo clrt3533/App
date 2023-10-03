@@ -78,4 +78,16 @@ Route::group(['middleware' => ['auth', 'authorize']], function () {
 
     Route::get('bill/{id}/details', [FrontendController::class, 'billDetails'])
         ->middleware('can:view_payment_histories');
+
+    Route::get('inventory/list/view', [FrontendController::class, 'inventoryView'])
+        ->middleware('can:update_invoices');
+
+    Route::get('inventory/create/view', [FrontendController::class, 'inventoryCreateView'])
+        ->middleware('can:view_invoices');
+
+    Route::get('inventory/{id}/edit', [FrontendController::class, 'inventoryEditView'])
+        ->middleware('can:update_invoices');
+
+    Route::get('inventory/{id}/details', [FrontendController::class, 'inventoryDetailsView'])
+        ->middleware('can:view_invoices');
 });

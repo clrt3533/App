@@ -88,6 +88,7 @@
         "vue-mobile-detection": "^2.0.1",
         "vue-organization-chart": "^1.1.6",
         "vue-rangedate-picker": "^1.0.0",
+        "vue-signature-pad": "^3.0.2",
         "vue-recaptcha": "^1.3.0",
         "vue-tel-input": "^4.3.0",
         "vue-toastr": "^2.1.2",

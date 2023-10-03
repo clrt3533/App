@@ -48,6 +48,12 @@ class SidebarComposer
                 'permission' => auth()->user()->can('view_payment_histories'),
             ],
             [
+                'icon' => 'file-text',
+                'name' => "Inventory",
+                'url' => request()->root() . '/inventory/list/view',
+                'permission' => auth()->user()->can('view_invoices'),
+            ],
+            [
                 'icon' => 'book',
                 'name' => trans('default.estimates'),
                 'url' => request()->root() . '/estimates/list/view',

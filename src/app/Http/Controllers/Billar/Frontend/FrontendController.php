@@ -160,4 +160,24 @@ class FrontendController extends Controller
     {
         return view('bills.bill-details', compact('id'));
     }
+
+    public function inventoryView()
+    {
+        return view('inventory.index');
+    }
+
+    public function inventoryCreateView()
+    {
+        return view('inventory.create');
+    }
+
+    public function inventoryEditView($id)
+    {
+        return view('inventory.edit', compact('id'));
+    }
+
+    public function inventoryDetailsView($id)
+    {
+        return view('inventory.inventory-details', compact('id'));
+    }
 }
