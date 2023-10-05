@@ -173,7 +173,7 @@ export default {
       );
     },
     getImageUrl(fileName) {
-      return `${window.location.origin}/swapnil/signatures/${fileName}`;
+      return `${window.location.origin}/signatures/${fileName}`;
     },
   },
 };

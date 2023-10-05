@@ -61,6 +61,43 @@ class InventoryController extends Controller
             ])->find($id);
     }
 
+    public function customUpdate(Request $request)
+    {
+        $inventory_id = $request->input('inventory_id');
+
+        $inventory = Inventory::find($inventory_id);
+
+        // Check if the inventory exists
+        if (!$inventory) {
+            // Handle the case where the inventory with the given ID is not found
+            return response()->json(['error' => 'Inventory not found'], 404);
+        }
+
+        $products = json_decode($request->input('products'), true);
+        $requestWithDecodedProducts = $request->merge(['products' => $products]);
+
+        $this->service
+            ->setModel($inventory)
+            ->setValidation()
+            ->setAttributes($request->only(
+                'invoice_id',
+                'notes',
+            ))
+            ->update();
+
+        $signatureFile = $requestWithDecodedProducts->file('signatureBase64');
+        $signatureFileName = $signatureFile->store('signatures', 'public');
+        // Extract the image file name from the stored path
+        $signatureName = basename($signatureFileName);
+
+        // Update the signature filename of the $inventory item
+        $inventory->signature = $signatureName;
+        $inventory->save();
+
+        $this->service->when($requestWithDecodedProducts->has('products'), fn (InventoryService $service) => $service->inventoryDetails());
+        return updated_responses('inventory');
+    }
+
     public function update(Request $request, Inventory $inventory)
     {
         $this->service

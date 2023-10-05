@@ -28,10 +28,10 @@ export default {
             modifier: (notes) => notes,
           },
           {
-            title: "Created",
+            title: "Created At",
             type: "object",
-            key: "date",
-            modifier: (date) => formatDateToLocal(date, false, false),
+            key: "created_at",
+            modifier: (created_at) => formatDateToLocal(created_at, false, false),
           },
           {
             title: this.$t("actions"),

@@ -60,6 +60,13 @@ export const FormMixin = {
             this.submitFromFixin(reqType, url, submitData);
         },
 
+        update(submitData) {
+
+            let url = this.$refs.form.dataset["url"],
+                reqType = "post";
+            this.submitFromFixin(reqType, url, submitData);
+        },
+
         /**
          * @param reqType
          * @param url

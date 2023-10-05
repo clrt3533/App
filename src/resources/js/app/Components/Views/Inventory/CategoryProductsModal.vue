@@ -109,11 +109,10 @@ export default {
       productDetails: [],
       numberWithCurrencySymbol,
       conditionList: [
-        { id: "none", name: "Choose condition" },
-        { id: "S", name: "Scratched" },
-        { id: "N", name: "New" },
-        { id: "D", name: "Damaged" },
         { id: "U", name: "Used" },
+        { id: "N", name: "New" },
+        { id: "S", name: "Scratched" },
+        { id: "D", name: "Damaged" },
       ],
     };
   },

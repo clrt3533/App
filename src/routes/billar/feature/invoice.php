@@ -40,6 +40,8 @@ Route::group(['middleware' => ['admin', 'individual_behavior']], function () {
     ->name('download.bill');
 
     Route::apiResource('inventory', InventoryController::class);
+    Route::post('inventory-update', [InventoryController::class, 'customUpdate'])
+        ->name('inventory.update_details');
     Route::get('inventory-download/{inventory}', [InventoryDownloadController::class, 'download'])
     ->name('download.inventory');
 });

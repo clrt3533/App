@@ -8,7 +8,7 @@
     <app-overlay-loader v-if="preloader" />
     <form
       v-else
-      :data-url="selectedUrl ? selectedUrl : INVENTORY"
+      :data-url="selectedUrl ? INVENTORY + '-update' : INVENTORY"
       ref="form"
       class="d-flex flex-column"
       style="gap: 25px"
@@ -54,6 +54,12 @@
               >
                 {{ $errorMessage(errors, "products") }}
               </span>
+              <span
+                v-if="$errorMessage(errors, 'products.0.condition')"
+                class="text-danger validation-error"
+              >
+                {{ $errorMessage(errors, "products.0.condition") }}
+              </span>
 
               <div v-if="tempSelectedProducts && formData.invoice_id">
                 <div class="accordion">
@@ -95,9 +101,24 @@
                           :key="`selected-product-item-${index}`"
                           class="mb-1"
                         >
-                          {{ product.name }}:
+                          {{ product.name }}
+                          <strong>{{ " : " }}</strong>
                           <span>
                             {{ product.quantity }}
+                          </span>
+                          <strong>{{ " : " }}</strong>
+                          <span>
+                            {{
+                              product.condition === "U"
+                                ? "Used"
+                                : product.condition === "N"
+                                ? "New"
+                                : product.condition === "D"
+                                ? "Damaged"
+                                : product.condition === "S"
+                                ? "Scratched"
+                                : "Unknown"
+                            }}
                           </span>
                         </li>
                       </ul>
@@ -121,8 +142,9 @@
         </div>
       </div>
 
-      <div style="max-width: 500px; border: 2px solid #ccc">
+      <div style="max-width: 500px; max-height: 500px; border: 2px solid #ccc">
         <VueSignaturePad width="500px" height="500px" ref="signaturePad" />
+        <button @click="clearSignature">Clear</button>
       </div>
       <div class="row">
         <div class="col mt-5">
@@ -360,19 +382,43 @@ export default {
     closeProductModal() {
       this.isProductModalActive = false;
     },
+    clearSignature(e) {
+      e.preventDefault();
+      this.$refs.signaturePad.undoSignature();
+    },
     dataURItoBlob(dataURI) {
-      const byteString = atob(dataURI.split(",")[1]);
-      const ab = new ArrayBuffer(byteString.length);
-      const ia = new Uint8Array(ab);
-      for (let i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
+      if (dataURI) {
+        const byteString = atob(dataURI.split(",")[1]);
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+        }
+        return new Blob([ab], { type: "image/png" });
       }
-      return new Blob([ab], { type: "image/png" });
+      return null;
+    },
+    async convertToBase64(imagePath) {
+      try {
+        const response = await fetch(imagePath);
+        const blob = await response.blob();
+        const reader = new FileReader();
+
+        reader.onload = () => {
+          this.$refs.signaturePad.fromDataURL(reader.result);
+        };
+
+        reader.readAsDataURL(blob);
+      } catch (error) {
+        console.error("Error fetching or converting the image:", error);
+      }
     },
     afterSuccessFromGetEditData(response) {
       if (response) {
         this.formData = response.data;
         console.log("Data: ", this.formData);
+        const signatureImg = `${window.location.origin}/signatures/${response.data.signature}`;
+        this.convertToBase64(signatureImg);
         const groupedProducts = response.data.inventory_details.reduce(
           (groups, item) => {
             const {
@@ -437,7 +483,14 @@ export default {
       formData.append("signatureBase64", imageBlob, "image.png");
       formData.append("products", JSON.stringify(products));
 
-      this.save(formData);
+      if (data) {
+        if (this.selectedUrl) {
+          formData.append("inventory_id", this.formData.id);
+          this.update(formData);
+        } else {
+          this.save(formData);
+        }
+      }
     },
     resetData() {
       window.location = urlGenerator(INVENTORY_LIST);

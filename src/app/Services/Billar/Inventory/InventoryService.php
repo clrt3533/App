@@ -35,7 +35,9 @@ class InventoryService extends ApplicationBaseService
             'products.*.quantity' => 'required',
             'products.*.condition' => 'required',
             'signature' => 'required',
-        ], [])->validate();
+        ], [
+            'products.*.condition.required' => 'Product condition is required.',
+        ])->validate();
 
         return $this;
     }
