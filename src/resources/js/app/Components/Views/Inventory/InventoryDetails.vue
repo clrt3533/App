@@ -123,6 +123,9 @@
                 <div class="cus-w-100 cus-f-left">
                   <img :src="getImageUrl(formData.signature)" alt="signature" style="max-width: 100%;" />
                 </div>
+                <div class="cus-w-100 cus-f-left">
+                  <img :src="getImageUrl(formData.delivery_signature)" alt="signature" style="max-width: 100%;" />
+                </div>
                 <div class="cus-f-clear"></div>
               </div>
               <div class="cus-f-clear"></div>

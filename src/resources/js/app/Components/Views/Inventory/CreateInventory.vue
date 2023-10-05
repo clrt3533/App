@@ -142,10 +142,29 @@
         </div>
       </div>
 
-      <div style="max-width: 500px; max-height: 500px; border: 2px solid #ccc">
-        <VueSignaturePad width="500px" height="500px" ref="signaturePad" />
-        <button @click="clearSignature">Clear</button>
+      <div class="row">
+        <div class="col-6">
+          <div
+            style="max-width: 500px; max-height: 500px; border: 2px solid #ccc"
+          >
+            <VueSignaturePad width="500px" height="500px" ref="signaturePad" />
+            <button @click="clearSignature">Clear</button>
+          </div>
+        </div>
+        <div class="col-6">
+          <div
+            style="max-width: 500px; max-height: 500px; border: 2px solid #ccc"
+          >
+            <VueSignaturePad
+              width="500px"
+              height="500px"
+              ref="deliverySignaturePad"
+            />
+            <button @click="clearDeliverySignature">Clear</button>
+          </div>
+        </div>
       </div>
+
       <div class="row">
         <div class="col mt-5">
           <button class="btn btn-primary ml-2" @click.prevent="submitData">
@@ -213,6 +232,7 @@ export default {
         inventory_details: [],
         notes: "",
         signature: "",
+        delivery_signature: "",
       },
       invoiceNumberOptions: {
         url: urlGenerator("all-invoice"),
@@ -386,6 +406,10 @@ export default {
       e.preventDefault();
       this.$refs.signaturePad.undoSignature();
     },
+    clearDeliverySignature(e) {
+      e.preventDefault();
+      this.$refs.deliverySignaturePad.undoSignature();
+    },
     dataURItoBlob(dataURI) {
       if (dataURI) {
         const byteString = atob(dataURI.split(",")[1]);
@@ -413,12 +437,29 @@ export default {
         console.error("Error fetching or converting the image:", error);
       }
     },
+    async deliveryConvertToBase64(imagePath) {
+      try {
+        const response = await fetch(imagePath);
+        const blob = await response.blob();
+        const reader = new FileReader();
+
+        reader.onload = () => {
+          this.$refs.deliverySignaturePad.fromDataURL(reader.result);
+        };
+
+        reader.readAsDataURL(blob);
+      } catch (error) {
+        console.error("Error fetching or converting the image:", error);
+      }
+    },
     afterSuccessFromGetEditData(response) {
       if (response) {
         this.formData = response.data;
         console.log("Data: ", this.formData);
         const signatureImg = `${window.location.origin}/signatures/${response.data.signature}`;
+        const deliverySignatureImg = `${window.location.origin}/signatures/${response.data.delivery_signature}`;
         this.convertToBase64(signatureImg);
+        this.deliveryConvertToBase64(deliverySignatureImg);
         const groupedProducts = response.data.inventory_details.reduce(
           (groups, item) => {
             const {
@@ -474,13 +515,29 @@ export default {
       }
 
       const { data } = this.$refs.signaturePad.saveSignature();
+      const { data: deliveryData } =
+        this.$refs.deliverySignaturePad.saveSignature();
       const imageBlob = this.dataURItoBlob(data);
+      const deliveryImageBlob = this.dataURItoBlob(deliveryData);
 
       let formData = new FormData();
       formData.append("invoice_id", this.formData.invoice_id);
       formData.append("notes", this.formData.notes);
-      formData.append("signature", "image.png");
-      formData.append("signatureBase64", imageBlob, "image.png");
+
+      if (imageBlob) {
+        formData.append("signature", "image.png");
+        formData.append("signatureBase64", imageBlob, "image.png");
+      }
+
+      if (deliveryImageBlob) {
+        formData.append("delivery_signature", "delivery_image.png");
+        formData.append(
+          "delivery_signatureBase64",
+          deliveryImageBlob,
+          "delivery_image.png"
+        );
+      }
+
       formData.append("products", JSON.stringify(products));
 
       if (data) {

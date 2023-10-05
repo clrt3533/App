@@ -428,6 +428,9 @@
                 <img src="{{ asset('signatures/' . $inventory->signature) }}" alt="signature"  style="max-width: 100%;">
             </div>
             <div class="cus-f-clear"></div>
+            <div class="cus-w-100 cus-f-left">
+                <img src="{{ asset('signatures/' . $inventory->delivery_signature) }}" alt="signature"  style="max-width: 100%;">
+            </div>
         </div>
         <div class="cus-f-clear"></div>
     </div>

@@ -35,17 +35,31 @@ class InventoryController extends Controller
             ->save();
 
         $signatureFile = $requestWithDecodedProducts->file('signatureBase64');
-        $signatureFileName = $signatureFile->store('signatures', 'public');
-        // Extract the image file name from the stored path
-        $signatureName = basename($signatureFileName);
+        $deliverySignatureFile = $requestWithDecodedProducts->file('delivery_signatureBase64');
 
-        // Update the signature filename of the $inventory item
-        $inventory->signature = $signatureName;
-        $inventory->save();
+        if ($signatureFile) {
+            $signatureFileName = $signatureFile->store('signatures', 'public');
+            // Extract the image file name from the stored path
+            $signatureName = basename($signatureFileName);
+            $inventory->signature = $signatureName;
+        }
+
+        if ($deliverySignatureFile) {
+            $deliverySignatureFileName = $deliverySignatureFile->store('signatures', 'public');
+            // Extract the image file name from the stored path
+            $deliverySignatureName = basename($deliverySignatureFileName);
+            $inventory->delivery_signature = $deliverySignatureName;
+        }
+
+        // Check if at least one of the signature files is available
+        if ($signatureFile || $deliverySignatureFile) {
+            $inventory->save();
+        }
 
         $this->service->when($requestWithDecodedProducts->has('products'), fn (InventoryService $service) => $service->inventoryDetails());
         return created_responses('inventory');
     }
+
 
 
     public function show($id)
@@ -86,13 +100,26 @@ class InventoryController extends Controller
             ->update();
 
         $signatureFile = $requestWithDecodedProducts->file('signatureBase64');
-        $signatureFileName = $signatureFile->store('signatures', 'public');
-        // Extract the image file name from the stored path
-        $signatureName = basename($signatureFileName);
+        $deliverySignatureFile = $requestWithDecodedProducts->file('delivery_signatureBase64');
 
-        // Update the signature filename of the $inventory item
-        $inventory->signature = $signatureName;
-        $inventory->save();
+        if ($signatureFile) {
+            $signatureFileName = $signatureFile->store('signatures', 'public');
+            // Extract the image file name from the stored path
+            $signatureName = basename($signatureFileName);
+            $inventory->signature = $signatureName;
+        }
+
+        if ($deliverySignatureFile) {
+            $deliverySignatureFileName = $deliverySignatureFile->store('signatures', 'public');
+            // Extract the image file name from the stored path
+            $deliverySignatureName = basename($deliverySignatureFileName);
+            $inventory->delivery_signature = $deliverySignatureName;
+        }
+
+        // Check if at least one of the signature files is available
+        if ($signatureFile || $deliverySignatureFile) {
+            $inventory->save();
+        }
 
         $this->service->when($requestWithDecodedProducts->has('products'), fn (InventoryService $service) => $service->inventoryDetails());
         return updated_responses('inventory');

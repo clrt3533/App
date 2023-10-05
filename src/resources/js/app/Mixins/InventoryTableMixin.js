@@ -3,6 +3,7 @@ import { INVENTORY } from "../Config/BillarApiUrl";
 import { FormMixin } from "../../core/mixins/form/FormMixin";
 import { DeleteMixins } from "./billar/DeleteMixins";
 import { formatDateToLocal } from "../Helpers/Helpers";
+import { urlGenerator } from "../Helpers/AxiosHelper";
 
 export default {
   mixins: [FormMixin, DeleteMixins],
@@ -16,11 +17,17 @@ export default {
         name: this.$t("inventory_table"),
         columns: [
           {
-            title: "Invoice",
-            type: "object",
-            key: "invoice_id",
-            modifier: (invoice_id) => invoice_id,
-          },
+						title: this.$t('invoice_number'),
+						type: 'custom-html',
+						key: 'invoice_id',
+						modifier: (value, row) => {
+							return this.$can('show_all_data') ?
+								`<a onclick="window.open(this.href,'_blank');return false;" href="${urlGenerator(`invoices/${row.invoice_id}/details`)}"> ${+row.invoice_id}</a>`
+								:
+								`<p> ${+row.invoice_id}</p>`
+								;
+						}
+					},
           {
             title: "Notes",
             type: "object",
