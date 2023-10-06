@@ -22,7 +22,7 @@ export default {
 						key: 'invoice_id',
 						modifier: (value, row) => {
 							return this.$can('show_all_data') ?
-								`<a onclick="window.open(this.href,'_blank');return false;" href="${urlGenerator(`invoices/${row.invoice_id}/details`)}"> ${+row.invoice_id}</a>`
+								`<a onclick="window.open(this.href,'_blank');return false;" href="${urlGenerator(`inventory/${row.invoice_id}/details`)}"> ${+row.invoice_id}</a>`
 								:
 								`<p> ${+row.invoice_id}</p>`
 								;

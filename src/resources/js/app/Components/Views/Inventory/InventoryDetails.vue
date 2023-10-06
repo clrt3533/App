@@ -66,44 +66,84 @@
                   </tr>
                 </thead>
               </table>
+              <div style="display: flex;">
+    <table class="cus-w-50 cus-font-xm cus-table-strip" border="0" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr>
+                <th class="cus-w-25 cus-p-1 cus-text-left">SN No.</th>
+                <th class="cus-w-25 cus-p-1 cus-text-left">Particulars</th>
+                <th class="cus-w-25 cus-p-1 cus-text-left">Condition</th>
+                <th class="cus-w-25 cus-p-1 cus-text-left">Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="(item, index) in formData.inventory_details.slice(0, Math.ceil(formData.inventory_details.length / 2))"
+                :key="index">
+                <td class="cus-p-1">{{ index + 1 }}</td>
+                <td class="cus-p-1">{{ item.product_name }}</td>
+                <td class="cus-p-1">
+                    {{ 
+                        (() => {
+                        const condition = item.condition;
+                        if (condition === 'S') {
+                            return 'Scratched';
+                        } else if (condition === 'D') {
+                            return 'Damaged';
+                        } else if (condition === 'N') {
+                            return 'New';
+                        } else if (condition === 'U') {
+                            return 'Used';
+                        } else {
+                            return 'Unknown';
+                        }
+                        })()
+                    }}
+                </td>
+                <td class="cus-p-1">{{ item.quantity }}</td>
+            </tr>
+        </tbody>
+    </table>
 
-              <table class="cus-w-100">
-                    <thead>
-                        <tr>
-                            <th class="cus-w-33 cus-p-1 cus-text-left">SN No.</th>
-                            <th class="cus-w-33 cus-p-1 cus-text-left">Particulars</th>
-                            <th class="cus-w-33 cus-p-1 cus-text-left">Condition</th>
-                            <th class="cus-w-33 cus-p-1 cus-text-left">Quantity</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="index in Math.ceil(formData.inventory_details.length / 2)" :key="index">
-                            <td class="cus-p-1">{{ index }}</td>
-                            <td class="cus-p-1">{{ formData.inventory_details[(index - 1) * 2].product_name }}</td>
-                            <td class="cus-p-1">
-                            {{ 
-                                (() => {
-                                const condition = formData.inventory_details[(index - 1) * 2].condition;
-                                if (condition === 'S') {
-                                    return 'Scratched';
-                                } else if (condition === 'D') {
-                                    return 'Damaged';
-                                } else if (condition === 'N') {
-                                    return 'New';
-                                } else if (condition === 'U') {
-                                    return 'Used';
-                                } else {
-                                    return 'Unknown';
-                                }
-                                })()
-                            }}
-                            </td>
-                            <td class="cus-p-1">{{ formData.inventory_details[(index - 1) * 2].quantity }}</td>
-                        </tr>
-                    </tbody>
-              </table>
-            </div>
-            <div class="cus-f-clear"></div>
+    <table class="cus-w-50 cus-font-xm cus-table-strip" border="0" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr>
+                <th class="cus-w-25 cus-p-1 cus-text-left">SN No.</th>
+                <th class="cus-w-25 cus-p-1 cus-text-left">Particulars</th>
+                <th class="cus-w-25 cus-p-1 cus-text-left">Condition</th>
+                <th class="cus-w-25 cus-p-1 cus-text-left">Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="(item, index) in formData.inventory_details.slice(Math.ceil(formData.inventory_details.length / 2))"
+                :key="index">
+                <td class="cus-p-1">{{ index + 1 }}</td>
+                <td class="cus-p-1">{{ item.product_name }}</td>
+                <td class="cus-p-1">
+                    {{ 
+                        (() => {
+                        const condition = item.condition;
+                        if (condition === 'S') {
+                            return 'Scratched';
+                        } else if (condition === 'D') {
+                            return 'Damaged';
+                        } else if (condition === 'N') {
+                            return 'New';
+                        }else if (condition === 'U') {
+                            return 'Used';
+                        } else {
+                            return 'Unknown';
+                        }
+                        })()
+                    }}
+                </td>
+                <td class="cus-p-1">{{ item.quantity }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>  
+  </div>
+<div class="cus-f-clear"></div>
 
             <!-- Notes -->
             <div class="cus-invoice_container__item cus-p-5">

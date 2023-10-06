@@ -354,36 +354,27 @@
 
     <!-- Inventory details -->
     <div class="cus-invoice_container__item cus-px-5">
-        <table class="cus-w-100 cus-font-xm cus-table-strip" border="0" cellspacing="0" cellpadding="0">
-            <thead>
-                <tr class="cus-bg-dark cus-text-light">
-                    <!-- Invoice number -->
-                    <th class="cus-w-25 cus-p-1 cus-text-left">
-                    <td class="cus-bold">{{ __t('invoice_no') }}</td>
-                    <td class="cus-text-right">{{ $inventory->invoice->invoice_number }}</td>
-                    </th>
+    <table class="cus-w-100 cus-font-xm cus-table-strip" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr class="bg-dark text-light">
+                        <!-- Client name -->
+                        <th class="w-25 p-1 text-left bold">{{__t('name')}}: {{$inventory->invoice->client_name}}</th>
 
-                    <!-- Client name -->
-                    <th class="cus-w-25 cus-p-1 cus-text-left">
-                        <p class="cus-bold">{{ __t('Name') }}: {{
-                        $inventory->invoice->client_name }}</p>
-                    </th>
+                        <!-- Client contact -->
+                        <th class="w-25 p-1  text-left bold">{{__t('contact')}}: {{$inventory->invoice->client_number}}</th>
 
-                    <!-- Client contact -->
-                    <th class="cus-w-25 cus-p-1 cus-text-center">
-                        <p>{{ __t('contact') }}: {{
-                        $inventory->invoice->client_number }}</p>
-                    </th>
+                        <!-- Invoice number -->
+                        <th class="w-25 p-1 text-left bold">{{__t('invoice_no')}}: {{$inventory->invoice->invoice_number}}</th>
 
-                    <!-- Invoice date -->
-                    <th class="cus-w-25 cus-text-right">
-                    <td class="cus-bold cus-text-right">{{ "Date : " }}</td>
+                        <!-- Invoice date -->
+                        <th class="w-25 p-1 text-right bold">
+                            {{__t('date')}}: {{  $inventory->invoice->date }} 
+                        </th>
 
-                    <td class="cus-text-right">{{ $inventory->invoice->date}}</td>
-                    </th>
-                </tr>
-            </thead>
-        </table>
+                    </tr>
+                </thead>
+             </table>
+    
 
         <table class="cus-w-100">
             <thead>
@@ -408,7 +399,7 @@
             </tbody>
         </table>
     </div>
-
+x
     <!-- Notes -->
     <div class="cus-invoice_container__item cus-p-5">
         <div class="cus-w-100 cus-f-left">
