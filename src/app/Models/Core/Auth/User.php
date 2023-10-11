@@ -51,4 +51,21 @@ class User extends BaseUser implements HasLocalePreference
             'event' => trans('default.'.$eventName)
         ]);
     }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class, 'role_user', 'user_id', 'role_id')
+            ->join('role_permission', 'permissions.id', '=', 'role_permission.permission_id')
+            ->select('permissions.*');
+    }
+
+    public function getPermissions()
+    {
+        return $this->permissions;
+    }
 }

@@ -379,7 +379,7 @@
         <div class="invoice_container__item px-5 text-black">
             <div class="w-100 f-left p-1">
                 <div>
-                    <img style="width:100%" src="{{public_path('card.jpeg')}}" alt="bill">
+                    <img style="width:100%" src="{{public_path('bill.jpg')}}" alt="bill">
                 </div>
             </div>
         </div>
@@ -558,8 +558,8 @@
                     <!-- Cell for the image -->
                     <td>
                         <div class="invoice_container__item m-1 text-black font-xm">
-                            <div class="f-left p-1">
-                                <img style="width:100%" src="{{ public_path('card.jpeg') }}" alt="bill">
+                            <div class="f-center p-1">
+                                <img style="width:100%" src="{{ public_path('Stamp.jpg') }}" alt="bill">
                             </div>
                             <p class="cus-mt-3">
                                 <span class="bold">{{ "SAI PACKERS AND MOVERS" }}</span>

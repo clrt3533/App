@@ -377,7 +377,7 @@
         <div class="invoice_container__item px-5 text-black">
             <div class="w-100 f-left p-1">
                 <div>
-                    <img style="width:100%" src="{{public_path('card.jpeg')}}" alt="Sai Packers And Movers">
+                    <img style="width:100%" src="{{public_path('invoice.jpg')}}" alt="Sai Packers And Movers">
                 </div>
             </div>
         </div>

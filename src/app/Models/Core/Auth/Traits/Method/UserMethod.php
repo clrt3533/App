@@ -52,6 +52,11 @@ trait UserMethod
         return $this->hasRole(config('access.users.app_admin_role'));
     }
 
+    public function isInventoryManager()
+    {
+        return $this->hasRole(config('access.users.inventory_manager_role'));
+    }
+
     public function assignRole($role)
     {
         if ($this->hasRole($role)) {

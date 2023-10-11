@@ -762,6 +762,14 @@ return array_merge([
     'invoice_resend' => 'Can resend invoice',
     'discount_will_applicable_with_subtotal_amount' => 'Discount will be applicable on subtotal amount',
 
+    // Inventory
+
+    'create_inventories' => 'Can create inventories',
+    'view_inventories' => 'Can view inventories',
+    'update_inventories' => 'Can update inventories',
+    'delete_inventories' => 'Can delete inventories',
+    'inventories_download' => 'Can download inventories',
+
     // Payment
 
     'create_payment_histories' => 'Can create payment histories',
@@ -896,4 +904,3 @@ return array_merge([
     'hide_break_down'=>'Break-Down (Hidden)',
     'text_hide_break_down' => 'Break-Down (Hidden)',
 ], include 'setup.php');
-

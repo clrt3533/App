@@ -8,6 +8,11 @@ class SidebarComposer
 {
     public function compose(View $view)
     {
+        $user = auth()->user(); // Retrieve the currently authenticated user.
+        $permissions = $user->roles->flatMap(function ($role) {
+            return $role->permissions;
+        });
+        
         $view->with(['data' => [
             [
                 'icon' => 'pie-chart',
@@ -51,7 +56,7 @@ class SidebarComposer
                 'icon' => 'file-text',
                 'name' => "Inventory",
                 'url' => request()->root() . '/inventory/list/view',
-                'permission' => auth()->user()->can('view_invoices'),
+                'permission' => auth()->user()->can('view_inventories'),
             ],
             [
                 'icon' => 'book',

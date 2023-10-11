@@ -7,6 +7,7 @@ import {
 import { DeleteMixins, ModalMixins } from "./billar/DeleteMixins";
 import { FormMixin } from "../../core/mixins/form/FormMixin";
 import { paymentMethods } from "./FilterMixin";
+import { urlGenerator } from "../Helpers/AxiosHelper";
 
 export default {
   mixins: [FormMixin, DeleteMixins, ModalMixins, paymentMethods],
@@ -39,9 +40,15 @@ export default {
         columns: [
           {
             title: this.$t("invoice_number"),
-            type: "object",
+            type: 'custom-html',
             key: "invoice",
-            modifier: (invoice) => (invoice ? invoice.invoice_number : ""),
+            modifier: (value, row) => {
+              return this.$can('show_all_data') ?
+                `<a onclick="window.open(this.href,'_blank');return false;" href="${urlGenerator(`bill/${row.id}/details`)}"> ${+row.invoice.invoice_number}</a>`
+                :
+                `<p> ${+row.invoice.invoice_number}</p>`
+                ;
+            }
           },
           {
             title: this.$t("client"),

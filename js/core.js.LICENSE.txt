@@ -19,6 +19,11 @@
  */
 
 /*!
+ * Signature Pad v3.0.0-beta.4 | https://github.com/szimek/signature_pad
+ * (c) 2020 Szymon Nowak | Released under the MIT license
+ */
+
+/*!
  * Sizzle CSS Selector Engine v2.3.3
  * https://sizzlejs.com/
  *

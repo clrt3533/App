@@ -57,6 +57,9 @@ return [
          * false is off which doesn't log password changes or check against them
          */
         'password_history' => env('PASSWORD_HISTORY', 3),
+
+        // The name of the super administrator role
+        'inventory_manager_role' => 'Inventory Manager',
     ],
 
     // Configuration for roles

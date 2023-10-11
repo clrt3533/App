@@ -21,8 +21,8 @@ export default {
 						type: 'custom-html',
 						key: 'invoice_id',
 						modifier: (value, row) => {
-							return this.$can('show_all_data') ?
-								`<a onclick="window.open(this.href,'_blank');return false;" href="${urlGenerator(`inventory/${row.invoice_id}/details`)}"> ${+row.invoice_id}</a>`
+							return this.$can('view_inventories') ?
+								`<a onclick="window.open(this.href,'_blank');return false;" href="${urlGenerator(`inventory/${row.id}/details`)}"> ${+row.invoice_id}</a>`
 								:
 								`<p> ${+row.invoice_id}</p>`
 								;
@@ -50,17 +50,17 @@ export default {
             title: this.$t("view"),
             type: "view",
             url: AppFunction.getAppUrl("/inventory-details"),
-            modifier: () => (this.$can("show_all_data") ? true : false),
+            modifier: () => (this.$can("view_inventories") ? true : false),
           },
           {
             title: this.$t("edit"),
             type: "edit",
-            modifier: () => this.$can("update_invoices"),
+            modifier: () => this.$can("update_inventories"),
           },
           {
             title: this.$t("delete"),
             type: "delete",
-            modifier: () => this.$can("delete_invoices"),
+            modifier: () => this.$can("delete_inventories"),
           },
         ],
         rowLimit: 10,
