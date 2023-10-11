@@ -499,7 +499,7 @@
                        <img src="{{ asset('signatures/' . $inventory->delivery_signature) }}" alt="drop" style="max-width: 100%; height: auto;">
                     </td>
                     <td>
-                        <img style="width: 100%; height: auto;" src="{{ asset('Stamp.jpg') }}" alt="signature">
+                        <img style="width: 100%; height: auto;" src="{{ public_path('Stamp.jpg') }}" alt="signature">
                     </td>
                 </tr>
             </tbody>
