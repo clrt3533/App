@@ -447,7 +447,7 @@
         <table class="w-100 font-xm" border="1" cellspacing="0" cellpadding="0">
             <thead>
                 <tr class="bg-dark text-light ">
-                    <th class="w-10 p-1 text-left">SR No.</th>
+                    <th class="w-10 p-1 text-left">Sr No.</th>
                     <th class="w-65 p-1">Particulars</th>
                     <th class="w-25 p-1 ">Amount</th>
                 </tr>
@@ -535,14 +535,14 @@
         </table>
         <table class="w-100 font-xm" border="1" cellspacing="0" cellpadding="0">
             <thead>
-                <tr class="bg-secondary text-dark">
-                    <!-- These two cells will occupy 75% of the row width combined -->
+                <!-- <tr class="bg-secondary text-dark">
+                    These two cells will occupy 75% of the row width combined 
                     <th class="w-37-5 p-1 text-center bold">{{ "Loading Date" }}:</th>
                     <th class="w-37-5 p-1 text-center bold">{{ "Unloading Date" }}:</th>
-                    <!-- This cell will occupy the remaining 25% of the row width -->
+                    This cell will occupy the remaining 25% of the row width 
                     <th class="w-25 p-1 text-center bold" style="background-color: transparent;"></th>
 
-                </tr>
+                </tr> -->
             </thead>
             <tbody>
                 <tr>
@@ -551,7 +551,7 @@
                         <div class="invoice_container__item m-1 text-black font-xm">
                             <p class="cus-mt-3">
                                 <span class="bold">{{ "Notes" }}: </span><br>
-                                <span class="bold">Pickup Address:<br> None of it</span>
+                               
                             </p>
                         </div>
                     </td>

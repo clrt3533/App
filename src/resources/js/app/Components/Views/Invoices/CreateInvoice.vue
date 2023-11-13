@@ -28,13 +28,11 @@
                 padding-top: 1px;
               "
             >
-              <div class="row">
-                <div class="col-md-12">
+              <div class="row" style="font-weight: bold">
+                <div class="col-md-12" >
                   <div>
-                    <!-- <div class="note note-warning p-4 mb-primary clearfix">
-                      <p class="m-1">{{ $t("setup_email_address") }}</p>
-                    </div> -->
-                    <h5 class="mb-3 border-bottom mt-2">
+                    
+                    <h5 class="mb-3 pb-2 border-bottom">
                       {{ "Client details" }}
                     </h5>
                     <!-- Hidden Invoice number-->
@@ -84,7 +82,7 @@
                 </div>
               </div>
 
-              <div class="row">
+              <div class="row" style="font-weight: bold">
                 <div class="col-12 col-md-4 mb-4">
                   <label>{{ $t("issue_date") }}</label>
                   <app-input
@@ -128,7 +126,7 @@
                 padding-top: 1px;
               "
             >
-              <h5 class="mb-3 border-bottom mt-2">
+              <h5 class="mb-3 pb-2 border-bottom">
                 {{ "Origin and Destination" }}
               </h5>
 
@@ -221,8 +219,8 @@
           </div>
         </div>
       </div>
-      <!-- Origin and destination address details-->
-      <div class="row">
+      <!-- Inventory List -->
+      <div class="row border-bottom mt-2 mb-3" style="font-weight: bold">
         <div class="col-12">
           <div
             class="card border-0 card-with-shadow"
@@ -236,7 +234,7 @@
                 padding-top: 1px;
               "
             >
-              <h5 class="mb-3 border-bottom mt-2">
+              <h5 class="mb-3 pb-2 border-bottom">
                 {{ "Inventory List" }}
               </h5>
 
@@ -459,7 +457,7 @@
         </div>
       </div>
       <!-- Notes , Terms, Payment summary card  and discount calculations -->
-      <div class="row">
+      <div class="row" style="font-weight: bold">
         <div class="col-12 col-md-6 col-lg-9">
           <!-- other information card -->
           <div class="card border-0 card-with-shadow">

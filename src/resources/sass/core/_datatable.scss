@@ -32,7 +32,7 @@
         &.datatable-th {
           border: 0;
           padding: 2rem 1rem;
-          color: #6c757d !important;
+          color: #0a0b0b !important;
           vertical-align: top !important;
 
           &:first-child {
@@ -62,9 +62,14 @@
 
     tbody {
       tr {
+          background-color: #e3e0e0; /* Set alternate background color for odd rows */
+
+          &:nth-child(even) {
+            background-color: #ffffff; /* Set background color for even rows */
+          }
         td {
           &.datatable-td {
-            vertical-align: middle;
+            vertical-align: center;
             padding: 1.5rem 1rem;
             border-color: var(--default-border-color);
 
@@ -112,17 +117,24 @@
     }
     tr {
       border: 1px solid var(--default-border-color);
+      background-color: #e3e0e0; /* Set alternate background color for odd rows */
+
+      &:nth-child(even) {
+        background-color: #ffffff; /* Set background color for even rows */
+      }
 
       &:first-child {
-        border-bottom: 0;
+        border-bottom: 1px;
         border-top-left-radius: $default-radius;
         border-top-right-radius: $default-radius;
+       
       }
 
       &:last-child {
         border-top: 0;
         border-bottom-left-radius: $default-radius;
         border-bottom-right-radius: $default-radius;
+       
       }
 
       td {

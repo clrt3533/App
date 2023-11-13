@@ -143,27 +143,24 @@
       </div>
 
       <div class="row">
-        <div class="col-6">
-          <div
-            style="max-width: 500px; max-height: 500px; border: 2px solid #ccc"
-          >
-            <VueSignaturePad width="500px" height="500px" ref="signaturePad" />
-            <button @click="clearSignature">Clear</button>
+          <div class="col-lg-6 col-12">
+              <div class="signature-container">
+                  <VueSignaturePad ref="signaturePad" />
+                  <label>Pick Up Signature</label>
+                  <button @click="clearSignature">Clear</button>
+              </div>
+          </div> <br/>
+          <div class="col-lg-6 col-12">
+              <div class="signature-container">
+                  <VueSignaturePad ref="deliverySignaturePad" />
+                  <label>Drop Signature</label>
+                  <button @click="clearDeliverySignature">Clear</button>
+              </div>
           </div>
-        </div>
-        <div class="col-6">
-          <div
-            style="max-width: 500px; max-height: 500px; border: 2px solid #ccc"
-          >
-            <VueSignaturePad
-              width="500px"
-              height="500px"
-              ref="deliverySignaturePad"
-            />
-            <button @click="clearDeliverySignature">Clear</button>
-          </div>
-        </div>
       </div>
+
+
+
 
       <div class="row">
         <div class="col mt-5">
@@ -598,6 +595,27 @@ export default {
 .accordion {
   // margin: 3em auto;
   // max-width: 30em;
+}
+
+.signature-container {
+    max-height: 200px;
+    border: 2px solid #090909;
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+    width: 90%; /* Set the width to 90% of the container */
+    display: inline-block; /* Ensures the container doesn't take the full width */
+    box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+    position: relative; /* Allows absolute positioning of the buttons */
+
+}
+
+.signature-container VueSignaturePad {
+    width: 100%; /* Set the width of the VueSignaturePad component to 100% */
+    height: 100%; /* Set the height of the VueSignaturePad component to 100% */
+    position: absolute; /* Allows the signature pad to be outside the box */
+    top: 0;
+    left: 0;
 }
 
 .accordion ul {

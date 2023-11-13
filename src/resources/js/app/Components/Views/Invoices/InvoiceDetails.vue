@@ -53,7 +53,7 @@
 
                     <!-- Invoice date -->
                     <th class="cus-w-25 cus-text-right">
-                    <td class="cus-bold cus-text-right">{{ "Date : " }}</td>
+                    <td class="cus-bold cus-text-right">{{ "Date: " }}</td>
                     
                     <td class="cus-text-right">{{ formData.date }}</td>
 
@@ -98,7 +98,7 @@
                     </td>
 
                   </tr>
-                </template>
+                </template> 
               </table>
               <div class="cus-hr cus-mt-2"></div>
             </div>
@@ -110,7 +110,8 @@
               <div class="cus-w-100 cus-f-left">
                 <div class="cus-w-100 cus-f-left">
                   <p class="cus-bold">Dear Sir/Madam,</p>
-                  <p>We thank you for giving us the opportunity to quote for relocation and shifting of your valuable goods. We are pleased to quote you our best rate offer for the same as under:</p>
+                  <p>We thank you for giving us the opportunity to quote for relocation and shifting of your valuable goods. We are pleased to quote you our
+best rate offer for the same as under:</p>
                
 
                 </div>
