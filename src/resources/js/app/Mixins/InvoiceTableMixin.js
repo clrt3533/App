@@ -77,7 +77,7 @@ export default {
 					},
 					{
 						title: this.$t('client'),
-						type: 'object',
+						type: 'text',
 						key: 'client_name',
 						isVisible: !!this.$can('show_all_data'),
 						modifier: (client => client)

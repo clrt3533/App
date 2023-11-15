@@ -46,10 +46,24 @@ export default {
         ],
         columns: [
           {
-            title: this.$t("payment_number"),
-            type: "text",
+            title: this.$t("invoice_number"),
+            type: 'custom-html',
             key: "payment_id",
+            modifier: (value, row) => {
+              console.log("Row: ", row);
+              return this.$can('show_all_data') ?
+                `<a onclick="window.open(this.href,'_blank');return false;" href="${urlGenerator(`receipt/${row.id}/details`)}"> ${+row.payment.invoice.invoice_number}</a>`
+                :
+                `<p> ${+row.payment.invoice.invoice_number}</p>`
+                ;
+            }
           },
+          {
+						title: this.$t('client'),
+						type: 'text',
+						key: 'client_name',
+						isVisible: !!this.$can('show_all_data')
+					},
           {
             title: this.$t("from"),
             type: "text",

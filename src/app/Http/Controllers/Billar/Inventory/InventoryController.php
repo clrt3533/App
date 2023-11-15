@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Billar\Inventory;
 
 use App\Http\Controllers\Controller;
+use App\Filters\Billar\Inventory\InventoryFilter;
 use App\Models\Billar\Inventory\Inventory;
 use App\Models\Billar\Inventory\InventoryDetail;
 use App\Services\Billar\Inventory\InventoryService;
@@ -10,15 +11,20 @@ use Illuminate\Http\Request;
 
 class InventoryController extends Controller
 {
-    public function __construct(InventoryService $service)
+    public function __construct(InventoryService $service, InventoryFilter $filter)
     {
         $this->service = $service;
+        $this->filter = $filter;
     }
 
 
     public function index()
     {
         return $this->service
+            ->with(['invoice' => function ($query) {
+                $query->select('id', 'invoice_number', 'client_name', "client_number");
+            }])
+            ->filters($this->filter)
             ->orderBy('id', request()->get('orderBy'))
             ->paginate(request('per_page', 10));
     }
@@ -29,6 +35,7 @@ class InventoryController extends Controller
         $products = json_decode($request->input('products'), true);
         $requestWithDecodedProducts = $request->merge(['products' => $products]);
 
+        // return response()->json($requestWithDecodedProducts);
         $inventory = $this->service
             ->setValidation()
             ->setAttributes($requestWithDecodedProducts->all())

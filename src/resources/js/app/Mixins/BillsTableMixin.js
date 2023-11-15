@@ -60,7 +60,7 @@ export default {
           {
             title: this.$t("date"),
             type: "object",
-            key: "createdAt",
+            key: "created_atx",
             modifier: (createdAt) => formatDateToLocal(createdAt),
           },
           {

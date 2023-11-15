@@ -14,9 +14,10 @@ class ReceiptHistoryFilter extends BaseFilter
     public function search($search = null)
     {
         return $this->builder->when($search, function (Builder $builder) use ($search) {
-            $builder->whereHas('payment', function (Builder $builder) use ($search) {
-                $builder->where('payment_id', 'LIKE', "%$search%");
-            });
+            $builder->where('client_name', 'like', '%' . $search . '%')
+                ->orWhereHas('payment', function (Builder $builder) use ($search) {
+                    $builder->where('invoice_id', 'LIKE', "%$search%");
+                });
         });
     }
 

@@ -19,11 +19,14 @@ class ReceiptHistoryController extends Controller
     public function index()
     {
         return $this->service
-            ->with(
-                ['paymentMethod:id,name', 'payment' => function ($query) {
-                    $query->select('id', 'amount');
-                }]
-            )->filters($this->filter)
+            ->with([
+                'paymentMethod:id,name',
+                'payment:id,amount,invoice_id',
+                'payment.invoice' => function ($query) {
+                    $query->select('id', 'invoice_number', 'client_name', 'client_number');
+                }
+            ])
+            ->filters($this->filter)
             ->orderBy('id', request()->get('orderBy'))
             ->paginate(request('per_page'));
     }

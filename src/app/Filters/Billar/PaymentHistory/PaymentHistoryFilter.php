@@ -17,6 +17,8 @@ class PaymentHistoryFilter extends BaseFilter
         return $this->builder->when($search, function (Builder $builder) use ($search) {
             $builder->whereHas('invoice', function (Builder $builder) use ($search) {
                 $builder->where('invoice_number', 'LIKE', "%$search%");
+            })->orWhereHas('invoice', function (Builder $builder) use ($search) {
+                $builder->where('client_name', 'LIKE', "%$search%");
             });
         });
     }
@@ -35,7 +37,5 @@ class PaymentHistoryFilter extends BaseFilter
         return $this->builder->when($value, function (Builder $builder) use ($value) {
             $builder->whereBetween('amount', array_values($value));
         });
-
     }
-
 }

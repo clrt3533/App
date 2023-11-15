@@ -15,6 +15,14 @@ export default {
       options: {
         url: INVENTORY,
         name: this.$t("inventory_table"),
+        filters: [
+          {
+            title: this.$t("created"),
+            type: "range-picker",
+            key: "date",
+            option: ["today", "thisMonth", "last7Days", "nextYear"],
+          },
+        ],
         columns: [
           {
 						title: this.$t('invoice_number'),
@@ -28,6 +36,13 @@ export default {
 								;
 						}
 					},
+          {
+            title: this.$t("client"),
+            type: "object",
+            key: "invoice",
+            isVisible: !!this.$can("show_all_data"),
+            modifier: (invoice) => (invoice ? invoice.client_name : ""),
+          },
           {
             title: "Notes",
             type: "object",
@@ -67,7 +82,7 @@ export default {
         orderBy: "desc",
         responsive: true,
         showHeader: true,
-        showFilter: false,
+        showFilter: true,
         showSearch: true,
         showAction: true,
         tableShadow: true,

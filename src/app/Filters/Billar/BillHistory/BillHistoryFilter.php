@@ -16,8 +16,13 @@ class BillHistoryFilter extends BaseFilter
     public function search($search = null)
     {
         return $this->builder->when($search, function (Builder $builder) use ($search) {
-            $builder->whereHas('invoice', function (Builder $builder) use ($search) {
-                $builder->where('invoice_number', 'LIKE', "%$search%");
+            $builder->where(function (Builder $builder) use ($search) {
+                $builder->whereHas('invoice', function (Builder $builder) use ($search) {
+                    $builder->where('invoice_number', 'LIKE', "%$search%");
+                })
+                    ->orWhereHas('invoice', function (Builder $builder) use ($search) {
+                        $builder->where('client_name', 'LIKE', "%$search%");
+                    });
             });
         });
     }
@@ -26,7 +31,7 @@ class BillHistoryFilter extends BaseFilter
     {
         $date = json_decode(htmlspecialchars_decode($date), true);
         return $this->builder->when($date, function (Builder $builder) use ($date) {
-            $builder->whereBetween(\DB::raw('DATE(createdAt)'), array_values($date));
+            $builder->whereBetween(\DB::raw('DATE(created_at)'), array_values($date));
         });
     }
 

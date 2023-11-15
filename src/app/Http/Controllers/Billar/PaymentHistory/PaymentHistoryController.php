@@ -20,10 +20,12 @@ class PaymentHistoryController extends Controller
     public function index()
     {
         return $this->service
-           ->with(['paymentMethod:id,name', 'invoice' => function ($query) {
-                    $query->select('id', 'invoice_number', 'client_name', "client_number");
-                }]
-            )->filters($this->filter)
+            ->with([
+                'paymentMethod:id,name',
+                'invoice' => function ($query) {
+                    $query->select('id', 'invoice_number', 'client_name', 'client_number');
+                }
+            ])->filters($this->filter)
             ->orderBy('id', request()->get('orderBy'))
             ->paginate(request('per_page'));
     }
