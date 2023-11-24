@@ -34,20 +34,33 @@
             </div>
 
             <!-- Receipt details -->
-            <div class="recipt-container">
-              <div class="rc-title-container">
-                <div class="rc-title">
-                  <h3>Money Receipt</h3>
-                </div>
-              </div>
-            </div>
+            <div class="cus-invoice_container__item cus-px-5">
+              <table class="cus-w-100 cus-font-xm cus-table-strip" border="0" cellspacing="0" cellpadding="0">
+                <thead>
+                  <tr class="cus-bg-dark cus-text-light">
+                    <!-- Client name -->
+                    <th class="cus-w-33 cus-p-1 cus-text-left">
+                      <p class="cus-bold">{{ "Reciept No. " }}: {{
+                      formData.id  }}</p>
+                    </th>
+                    <!-- Receipt date -->
+                    <th class="cus-w-33 cus-text-right">
+                    <td class="cus-bold cus-text-right">{{ "Date " }}:</td>   
+                    <td class="cus-text-right">{{ formData.date }}</td>
+                    </th>
+                    <th class="cus-w-33 cus-text-right">
+                    <td class="cus-bold cus-text-right">{{ "Paid In " }}:</td>   
+                    <td class="cus-text-right">{{ formData.payment_method_id}}</td>
+                    </th>
+                  </tr>
+                </thead>
+              </table>
 
-            <div class="cus-invoice_container__item cus-px-5 receipt-no-date">
-              <table
-                cellspacing="1"
-                cellpadding="0"
-                class="cus-w-100 cus-font-xm cus-table-strip"
-              >
+            </div>
+            <div class="cus-f-clear"></div>
+
+            <div class="cus-invoice_container__item cus-px-5 client-name-phone">
+              <table class="cus-w-100 cus-font-xm cus-table-strip" cellspacing="1" cellpadding="0">
                 <tr class="cus-bg-transparent">
                   <td
                     colspan="1"
@@ -55,69 +68,22 @@
                     style="width: 50%"
                   >
                     <p class="cus-mt-6">
-                      <span>Receipt No.</span>
-                      <span class="cus-bold">{{ formData.id }}</span>
+                      <span class="cus-bold">Received from M/S. :</span>
+                      {{ formData.client_name }}
                     </p>
                   </td>
-                  <td
-                    colspan="1"
-                    class="cus-p-1 cus-text-left"
-                    style="width: 50%; text-align: right"
-                  >
-                    <p class="cus-mt-6">
-                      <span class="cus-bold">Date:</span
-                      ><span>{{ formData.date }}</span>
-                    </p>
-                  </td>
-                </tr>
-              </table>
-            </div>
-
-            <div class="cus-invoice_container__item cus-px-5 client-name-phone">
-              <table
-                cellspacing="1"
-                cellpadding="0"
-                class="cus-w-100 cus-font-xm cus-table-strip"
-              >
-                <tr class="cus-bg-transparent">
-                  <td
-                    colspan="1"
-                    class="cus-p-1 cus-text-left"
-                    style="width: 40%"
-                  >
-                    <p class="cus-mt-6">
-                      <span>Received with thanks from M/S.</span>
-                    </p>
-                  </td>
-                  <td
-                    colspan="1"
-                    class="cus-p-1 cus-text-left cus-bold"
-                    style="width: 30%"
-                  >
-                    <p class="cus-mt-6">
-                      <span class="">{{ formData.client_name }}</span>
-                    </p>
-                  </td>
+                  
                   <td
                     colspan="1"
                     class="cus-p-1 cus-text-right"
-                    style="width: 30%"
+                    style="width: 50%"
                   >
                     <p class="cus-mt-6">
-                      <span>Phone:</span
-                      ><span class="cus-bold">{{ formData.client_phone }}</span>
+                      <span class="cus-bold">Phone:</span
+                      ><span>{{ formData.client_phone }}</span>
                     </p>
                   </td>
                 </tr>
-              </table>
-            </div>
-
-            <div class="cus-invoice_container__item cus-px-5 to-from">
-              <table
-                cellspacing="1"
-                cellpadding="0"
-                class="cus-w-100 cus-font-xm cus-table-strip"
-              >
                 <tr class="cus-bg-transparent">
                   <td
                     colspan="1"
@@ -125,44 +91,27 @@
                     style="width: 50%"
                   >
                     <p class="cus-mt-6">
-                      <span>From.</span>
-                      <span class="cus-bold">{{ formData.from }}</span>
+                      <span class="cus-bold">From :</span>
+                      {{ formData.from }}
                     </p>
                   </td>
+                  
                   <td
                     colspan="1"
-                    class="cus-p-1 cus-text-left"
+                    class="cus-p-1 cus-text-right"
                     style="width: 50%"
                   >
                     <p class="cus-mt-6">
-                      <span>To:</span>
-                      <span class="cus-bold">{{ formData.to }}</span>
+                      <span class="cus-bold">To :</span
+                      ><span>{{ formData.to }}</span>
                     </p>
                   </td>
                 </tr>
               </table>
+              <div class="cus-hr cus-mt-2"></div>
             </div>
+            <div class="cus-f-clear"></div>
 
-            <div class="cus-invoice_container__item cus-px-5 payment-method">
-              <table
-                cellspacing="1"
-                cellpadding="0"
-                class="cus-w-100 cus-font-xm cus-table-strip"
-              >
-                <tr class="cus-bg-transparent">
-                  <td
-                    colspan="1"
-                    class="cus-p-1 cus-text-left"
-                    style="width: 100%"
-                  >
-                    <p class="cus-mt-6">
-                      <span>Paid In:</span>
-                      <span class="cus-bold">Cash</span>
-                    </p>
-                  </td>
-                </tr>
-              </table>
-            </div>
 
             <div class="cus-invoice_container__item cus-px-5 amount-words">
               <table
@@ -174,32 +123,37 @@
                   <td
                     colspan="1"
                     class="cus-p-1 cus-text-left"
-                    style="width: 100%"
+                    style="width: 75%"
                   >
-                    <p class="cus-mt-6">
-                      <span>Rs.</span>
-                      <span class="cus-bold">{{ formData.amount_words }}</span>
+                  <p class="cus-mt-6">
+                      <span  class="cus-bold">Amount In Number :</span>
+                      <span >{{ formData.amount }}</span>
+                      <span>/-</span>
                     </p>
+                    <p class="cus-mt-6">
+                      <span class="cus-bold"> Amount In Words :</span> <br>
+                      <span>{{ formData.amount_words }}</span>
+                    </p>
+                  </td>
+                  <td
+                    colspan="1"
+                    class="cus-p-1 cus-text-left"
+                    style="width: 25%%"
+                  >
+                  <img
+                    style="width:100%"
+                    src="http://app.saipackersandmovers.com/images/card.jpeg"
+                    alt="Sai Packers and Movers Signature"
+                  />
                   </td>
                 </tr>
               </table>
             </div>
           </div>
-
-          <div class="amount-signature">
-            <div class="receipt-container">
-              <div class="rc-title-container">
-                <div class="rc-title">
-                  <h4>{{ numberWithCurrencySymbol(formData.amount) }}</h4>
-                </div>
-              </div>
-            </div>
-
-            <div class="signature">signature here</div>
           </div>
         </div>
       </div>
-    </div>
+    
   </div>
 </template>
 

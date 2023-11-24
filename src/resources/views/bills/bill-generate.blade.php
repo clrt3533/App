@@ -559,7 +559,7 @@
                     <td>
                         <div class="invoice_container__item m-1 text-black font-xm">
                             <div class="f-center p-1">
-                                <img style="width:100%" src="{{ public_path('Stamp.jpg') }}" alt="bill">
+                                <img style="width:100%" src="{{ public_path('Stamp.png') }}" alt="bill">
                             </div>
                             <p class="cus-mt-3">
                                 <span class="bold">{{ "SAI PACKERS AND MOVERS" }}</span>

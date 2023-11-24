@@ -20,7 +20,7 @@
             <div class="cus-invoice_container__item cus-px-5 cus-mt-5">
               <div class="cus-w-100">
                 <div>
-                  <img style="width: 100%;" src="http://app.saipackersandmovers.com/images/card.jpeg"
+                  <img style="width: 100%;" src="http://app.saipackersandmovers.com/images/invoice.jpeg"
                     alt="Sai Packers and Movers logo">
                 </div>
               </div>

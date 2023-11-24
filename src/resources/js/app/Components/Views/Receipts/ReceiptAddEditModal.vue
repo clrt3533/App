@@ -183,7 +183,7 @@ export default {
           this.paymentList.push(item);
           return {
             id: item.id,
-            value: `${item.id}`,
+            value: `${item.id}, ${item.amount} Rupees - #${item.invoice.invoice_number}`,
           };
         },
         loader: "app-pre-loader",

@@ -16,17 +16,47 @@
 
     {{-- @include('layouts.includes.header')--}}
     <style>
+
+
+        .box-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .box {
+            border: 1px solid #000; /* Set your desired border style and color here */
+        
+        }
+
+        .address-info {
+            text-align: left;
+        }
+
+        .address-header {
+            font-weight: bold;
+        }
+
+        .info-item {
+            margin-top: 5px;
+        }
+
+
         /* dev */
         .t {
             border: 1px solid red;
         }
 
         .bg-t {
-            background-color: #00660050;
+            background-color: #e1e5e1;
         }
 
         .bg-dark {
             background-color: #d9251c !important;
+        }
+
+        .bg-blue{
+            background-color: #fff0bb !important;
         }
 
         .bg-secondary {
@@ -41,7 +71,7 @@
             font-family: Arial, Helvetica, sans-serif;
             margin: 0;
             padding: 0;
-            color: #211356;
+            
         }
 
         /*common*/
@@ -221,14 +251,6 @@
             width: 15%;
         }
 
-        .w-30 {
-            width: 30%;
-        }
-
-        .w-40 {
-            width: 40%;
-        }
-
         .w-45 {
             width: 45%;
         }
@@ -288,6 +310,9 @@
         .text-black {
             color: #000;
         }
+        .text-red {
+            color: #d9251c;
+        }
 
         .text-capital {
             text-transform: uppercase;
@@ -313,13 +338,20 @@
             font-size: large
         }
 
+        .table-strip {}
+
         .table-strip tr:nth-child(even) {
             background-color: #f8f8f8;
         }
 
+        /*layout*/
+        .invoice_container {}
+
         .invoice_container * {
             box-sizing: content-box;
         }
+
+        .invoice_container__item {}
 
         .logo {
             width: 96px;
@@ -337,41 +369,6 @@
             line-height: 1;
         }
 
-        .rc-title-container .rc-title {
-            width: 50%;
-            margin: 0 auto;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            color: #fff;
-            background: #d9251c;
-            text-align: center;
-            height: 50px;
-            padding-top: 10px;
-        }
-
-        .cus-invoice_container__item {
-            padding-top: 15px;
-        }
-
-        .amount-signature {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .amount-signature .receipt-container {
-            width: 50%
-        }
-
-        .amount-signature .rc-title-container .rc-title {
-            width: 60%;
-            margin: unset;
-            margin-top: 20px;
-            margin-left: 20px;
-            text-align: left;
-            padding-left: 15px;
-            height: 40px;
-        }
     </style>
 </head>
 
@@ -388,113 +385,90 @@
     <div class="f-clear"> </div>
 
     <!-- Receipt details -->
-    <div class="recipt-container">
-        <div class="rc-title-container">
-            <div class="rc-title">
-                <h3>Money Receipt</h3>
-            </div>
-        </div>
-    </div>
+    <div class="invoice_container__item mx-5 box ">
+        <table class="w-100 font-xm" border="1" cellspacing="0" cellpadding="0">
+            <thead>
+                <tr class="bg-dark text-light ">
+                    <!-- Client name -->
+                    <th class="w-50 p-1 text-center bold">Receipt No. {{$receipt->id}} </th>
 
-    <div class="invoice_container__item p-5 text-black">
-        <div class="w-50 f-left font-xm">
-            <div class="row text-left">
-                <div class="mt-3 col-12 col-md-4">
-                    <p class="cus-mt-3 bold">Receipt No. {{$receipt->id}}</p>
-                </div>
-            </div>
-        </div>
+                    <!-- Client contact -->
+                    <th class="w-50 p-1  text-center bold"> {{ "Date" }}: {{ \Carbon\Carbon::parse($receipt->date)->format('d/m/Y')}}</th>
+                    </th>
 
-        <div class="w-50 f-left font-xm">
-            <div class="w-100 f-left">
-                <div class="row ">
-                    <div class="mt-3  col-md-4">
-                        <p class="cus-mt-3 bold">{{ "Date" }}: {{$receipt->date}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                </tr>
+            </thead>
+        </table>
+        <div class="f-clear"> </div>
 
-    <div class="invoice_container__item p-5 text-black">
-        <div class="w-40 f-left font-xm">
-            <div class="row text-left">
-                <div class="mt-3 col-12 col-md-4">
-                    <p class="cus-mt-3 bold">Received with thanks from M/S.</p>
-                </div>
-            </div>
-        </div>
+        <table class="w-100 font-xm" border="1" cellspacing="0" cellpadding="0">
+            <thead>
+                <tr>
+                    <!-- Client name -->
+                    <th class="w-50 p-1 text-center bold">Particulars </th>
 
-        <div class="w-30 f-left font-xm">
-            <div class="row text-left">
-                <div class="mt-3 col-12 col-md-4">
-                    <p class="cus-mt-3 bold">{{$receipt->client_name}}</p>
-                </div>
-            </div>
-        </div>
+                    <!-- Client contact -->
+                    <th class="w-50 p-1  text-center bold"> Details</th>
 
-        <div class="w-30 f-left font-xm">
-            <div class="w-100 f-left">
-                <div class="row ">
-                    <div class="mt-3  col-md-4">
-                        <p class="cus-mt-3 bold">{{ "Date" }}: {{$receipt->client_phone}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="p-1 text-left">
+                    <td class="bold"> Received From M/S </td>
+                    <td>{{$receipt->client_name}}</td> 
+                </tr>
+                <tr class="p-1 text-left">
+                    <td class="bold"> Phone </td>
+                    <td>{{$receipt->client_phone}}</td> 
+                </tr>
+                <tr class="p-1 text-left">
+                    <td class="bold"> From </td>
+                    <td>{{$receipt->from}}</td> 
+                </tr>
+                <tr class="p-1 text-left">
+                    <td class="bold"> To </td>
+                    <td>{{$receipt->to}}</td> 
+                </tr>
+            <tbody>
+        </table>
+        <div class="f-clear"> </div>
+        <table class="w-100 font-xm" border="1" cellspacing="0" cellpadding="0">
+           
+            <tbody>
+                <tr>
+                    <!-- Merged cell for the paragraph -->
+                    <td colspan="2">
+                        <div class="invoice_container__item m-1 text-black font-xm">
+                            <p class="cus-mt-3">
+                                <span class="bold">Paid In :</span> {{$receipt->paymentMethod}}<br>
+                               
+                            </p>
+                            <p class="cus-mt-3">
+                                <span class="bold">Amount In Words:  </span>{{$receipt->amount_words}}<br>
+                               
+                            </p>
+                            <p class="cus-mt-3">
+                                <span class="bold">Amount </span>{{ number_with_currency_symbol($receipt->amount) }} /-<br>
+                               
+                            </p>
+                        </div>
+                    </td>
+                    <!-- Cell for the image -->
+                    <td>
+                        <div class="invoice_container__item m-1 text-black font-xm">
+                            <div class="f-center p-1">
+                                <img style="width:100%" src="{{ public_path('Stamp.png') }}" alt="bill">
+                            </div>
+                            <p class="cus-mt-3">
+                                <span class="bold">{{ "SAI PACKERS AND MOVERS" }}</span>
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>      
+    </div> 
 
-    <div class="invoice_container__item p-5 text-black">
-        <div class="w-50 f-left font-xm">
-            <div class="row text-left">
-                <div class="mt-3 col-12 col-md-4">
-                    <p class="cus-mt-3 bold">From. {{$receipt->from}}</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="w-50 f-left font-xm">
-            <div class="w-100 f-left">
-                <div class="row ">
-                    <div class="mt-3  col-md-4">
-                        <p class="cus-mt-3 bold">To. {{$receipt->to}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="invoice_container__item p-5 text-black">
-        <div class="w-50 f-left font-xm">
-            <div class="row text-left">
-                <div class="mt-3 col-12 col-md-4">
-                    <p class="cus-mt-3 bold">Paid In. {{$receipt->paymentMethod}}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="invoice_container__item p-5 text-black">
-        <div class="w-100 f-left font-xm">
-            <div class="row text-left">
-                <div class="mt-3 col-12 col-md-4">
-                    <p class="cus-mt-3 bold">Rs. {{$receipt->amount_words}}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="amount-signature">
-        <div class="receipt-container">
-            <div class="rc-title-container">
-                <div class="rc-title">
-                    <h4>{{ number_with_currency_symbol($receipt->amount) }}</h4>
-                </div>
-            </div>
-        </div>
-
-        <div class="signature">signature here</div>
-    </div>
 
     {{--@include('layouts.includes.footer')--}}
 </body>
