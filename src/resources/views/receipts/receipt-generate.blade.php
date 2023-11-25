@@ -437,7 +437,7 @@
             <tbody>
                 <tr>
                     <!-- Merged cell for the paragraph -->
-                    <td colspan="2">
+                    <td class ="w-75" colspan="2">
                         <div class="invoice_container__item m-1 text-black font-xm">
                             <p class="cus-mt-3">
                                 <span class="bold">Paid In :</span> {{$receipt->paymentMethod}}<br>
@@ -447,17 +447,17 @@
                                 <span class="bold">Amount In Words:  </span>{{$receipt->amount_words}}<br>
                                
                             </p>
-                            <p class="cus-mt-3">
-                                <span class="bold">Amount </span>{{ number_with_currency_symbol($receipt->amount) }} /-<br>
+                            <p class="cus-mt-3" class="currency-symbol">
+                                <span class="bold">Amount :</span>{{ number_with_currency_symbol($receipt->amount) }} /-<br>
                                
                             </p>
                         </div>
                     </td>
                     <!-- Cell for the image -->
-                    <td>
+                    <td class ="w-25">
                         <div class="invoice_container__item m-1 text-black font-xm">
                             <div class="f-center p-1">
-                                <img style="width:100%" src="{{ public_path('Stamp.png') }}" alt="bill">
+                                <img style="width:75%" src="{{ public_path('Stamp.png') }}" alt="bill">
                             </div>
                             <p class="cus-mt-3">
                                 <span class="bold">{{ "SAI PACKERS AND MOVERS" }}</span>

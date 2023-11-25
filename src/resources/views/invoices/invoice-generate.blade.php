@@ -56,7 +56,7 @@
         }
 
         .bg-blue{
-            background-color: #fff0bb !important;
+            background-color: #f9c400 !important;
         }
 
         .bg-secondary {

@@ -142,7 +142,7 @@
                   >
                   <img
                     style="width:100%"
-                    src="http://app.saipackersandmovers.com/images/card.jpeg"
+                    src="http://app.saipackersandmovers.com/images/Stamp.png"
                     alt="Sai Packers and Movers Signature"
                   />
                   </td>

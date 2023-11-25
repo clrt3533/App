@@ -452,76 +452,96 @@
                     <th class="w-25 p-1 ">Amount</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr class="cus-p-1 cus-text-left">
+            <tbody >
+                <tr class="p-1 cus-text-left">
                     <td></td>
-                    <td>Bill Description from Challan No.</td>
+                    <td class ="p-1">Bill Description from Challan No.</td>
                     <td></td>
                 </tr>
 
-                <tr class="cus-p-1 cus-text-left">
+                <tr class="p-1 cus-text-left">
                     <td class="text-center">1</td>
-                    <td>Transport charges</td>
-                    <td class="currency-symbol">{{ number_with_currency_symbol($bill->transport) }}</td>
+                    <td class ="p-1">Transport charges</td>
+                    <td class="currency-symbol p-1 text-right">{{ number_with_currency_symbol($bill->transport) }}</td>
                 </tr>
 
                 <tr class="cus-p-1 cus-text-left">
                     <td class="text-center">2</td>
-                    <td>Packing charges</td>
-                    <td class="currency-symbol">{{ number_with_currency_symbol($bill->packing) }}</td>
+                    <td class ="p-1">Packing charges</td>
+                    <td class="currency-symbol p-1 text-right">{{ number_with_currency_symbol($bill->packing) }}</td>
                 </tr>
 
                 <tr class="cus-p-1 cus-text-left">
                     <td class="text-center">3</td>
-                    <td>Loading charges</td>
-                    <td class="currency-symbol">{{ number_with_currency_symbol($bill->loading) }}</td>
+                    <td class ="p-1">Loading charges</td>
+                    <td class="currency-symbol p-1 text-right">{{ number_with_currency_symbol($bill->loading) }}</td>
                 </tr>
 
                 <tr class="cus-p-1 cus-text-left">
                     <td class="text-center">4</td>
-                    <td>Unloading charges</td>
-                    <td class="currency-symbol">{{ number_with_currency_symbol($bill->unloading) }}</td>
+                    <td class ="p-1">Unloading charges</td>
+                    <td class="currency-symbol p-1 text-right">{{ number_with_currency_symbol($bill->unloading) }}</td>
                 </tr>
 
                 <tr class="cus-p-1 cus-text-left">
                     <td class="text-center">5</td>
-                    <td>Unpacking charges</td>
-                    <td class="currency-symbol">{{ number_with_currency_symbol($bill->unpacking) }}</td>
+                    <td class ="p-1">Unpacking charges</td>
+                    <td class="currency-symbol p-1 text-right">{{ number_with_currency_symbol($bill->unpacking) }}</td>
                 </tr>
 
                 <tr class="cus-p-1 cus-text-left">
                     <td class="text-center">6</td>
-                    <td>GST charges</td>
-                    <td class="currency-symbol">{{ number_with_currency_symbol($bill->gst) }}</td>
+                    <td class ="p-1">GST charges</td>
+                    <td class="currency-symbol p-1 text-right">{{ number_with_currency_symbol($bill->gst) }}</td>
                 </tr>
 
                 <tr class="cus-p-1 cus-text-left">
                     <td class="text-center">7</td>
-                    <td>Local charges</td>
-                    <td class="currency-symbol">{{ number_with_currency_symbol($bill->local) }}</td>
+                    <td class ="p-1">Local charges</td>
+                    <td class="currency-symbol p-1 text-right">{{ number_with_currency_symbol($bill->local) }}</td>
                 </tr>
 
                 <tr>
                     <td class="text-center">8</td>
-                    <td>Car Transport charges</td>
-                    <td class="currency-symbol">{{ number_with_currency_symbol($bill->car_transport) }}</td>
+                    <td class ="p-1">Car Transport charges</td>
+                    <td class="currency-symbol p-1 text-right">{{ number_with_currency_symbol($bill->car_transport) }}</td>
                 </tr>
 
                 <tr class="cus-p-1 cus-text-left">
                     <td class="text-center">9</td>
-                    <td>Insuarance charges</td>
-                    <td class="currency-symbol">{{ number_with_currency_symbol($bill->insuarance) }}</td>
+                    <td class ="p-1">Insuarance charges</td>
+                    <td class="currency-symbol p-1 text-right">{{ number_with_currency_symbol($bill->insuarance) }}</td>
                 </tr>
 
                 <tr class="cus-p-1 cus-text-left">
                     <td class="text-center">10</td>
-                    <td>AC</td>
-                    <td class="currency-symbol">{{ number_with_currency_symbol($bill->ac) }}</td>
+                    <td class ="p-1">AC</td>
+                    <td class="currency-symbol p-1 text-right">{{ number_with_currency_symbol($bill->ac) }}</td>
                 </tr>
                 <tr class="cus-p-1 cus-text-left">
                     <td class="text-center">11</td>
-                    <td>Other</td>
-                    <td class="currency-symbol">{{ number_with_currency_symbol($bill->ac) }}</td>
+                    <td class ="p-1">Other</td>
+                    <td class="currency-symbol p-1 text-right">{{ number_with_currency_symbol($bill->ac) }}</td>
+                </tr>
+                <tr class="cus-p-1 cus-text-left">
+                    <td class="text-center p-1">12</td>
+                    <td class ="p-1"></td>
+                    <td></td>
+                </tr>
+                <tr class="cus-p-1 cus-text-left">
+                    <td class="text-center p-1">13</td>
+                    <td class ="p-1"></td>
+                    <td></td>
+                </tr>
+                <tr class="cus-p-1 cus-text-left">
+                    <td class="text-center p-1">14</td>
+                    <td class ="p-1"></td>
+                    <td></td>
+                </tr>
+                <tr class="cus-p-1 cus-text-left">
+                    <td class="text-center p-1">15</td>
+                    <td class ="p-1"></td>
+                    <td></td>
                 </tr>
                 @php
                  $total = $bill->transport + $bill->packing + $bill->loading + $bill->unloading + $bill->unpacking + $bill->gst + $bill->local + $bill->car_transport + $bill->insuarance + $bill->ac;
@@ -529,25 +549,16 @@
                 <tr class="cus-p-1 cus-text-left">
                     <td></td>
                     <td class="text-right"><strong>Grand Total :</strong></td>
-                    <td class="currency-symbol">{{ number_with_currency_symbol($total) }}</td>
+                    <td class="currency-symbol p-1 text-right">{{ number_with_currency_symbol($total) }}</td>
                 </tr>
             </tbody>
         </table>
         <table class="w-100 font-xm" border="1" cellspacing="0" cellpadding="0">
-            <thead>
-                <!-- <tr class="bg-secondary text-dark">
-                    These two cells will occupy 75% of the row width combined 
-                    <th class="w-37-5 p-1 text-center bold">{{ "Loading Date" }}:</th>
-                    <th class="w-37-5 p-1 text-center bold">{{ "Unloading Date" }}:</th>
-                    This cell will occupy the remaining 25% of the row width 
-                    <th class="w-25 p-1 text-center bold" style="background-color: transparent;"></th>
-
-                </tr> -->
-            </thead>
+           
             <tbody>
                 <tr>
                     <!-- Merged cell for the paragraph -->
-                    <td colspan="2">
+                    <td class = "w-75" colspan="2">
                         <div class="invoice_container__item m-1 text-black font-xm">
                             <p class="cus-mt-3">
                                 <span class="bold">{{ "Notes" }}: </span><br>
@@ -556,10 +567,10 @@
                         </div>
                     </td>
                     <!-- Cell for the image -->
-                    <td>
+                    <td class = "w-25">
                         <div class="invoice_container__item m-1 text-black font-xm">
                             <div class="f-center p-1">
-                                <img style="width:100%" src="{{ public_path('Stamp.png') }}" alt="bill">
+                                <img style="width:75%, align: center" src="{{ public_path('Stamp.png') }}" alt="bill">
                             </div>
                             <p class="cus-mt-3">
                                 <span class="bold">{{ "SAI PACKERS AND MOVERS" }}</span>

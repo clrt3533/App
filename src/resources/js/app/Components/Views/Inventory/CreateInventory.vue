@@ -164,12 +164,13 @@
 
       <div class="row">
         <div class="col mt-5">
-          <button class="btn btn-primary ml-2" @click.prevent="submitData">
-            {{ $t("save") }}
-          </button>
           <button class="btn btn-secondary" @click.prevent="resetData">
             {{ $t("cancel") }}
           </button>
+          <button class="btn btn-primary ml-2" @click.prevent="submitData">
+            {{ $t("save") }}
+          </button>
+          
         </div>
       </div>
     </form>
