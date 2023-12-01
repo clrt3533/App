@@ -567,10 +567,10 @@
                         </div>
                     </td>
                     <!-- Cell for the image -->
-                    <td class = "w-25">
+                    <td class ="w-25">
                         <div class="invoice_container__item m-1 text-black font-xm">
                             <div class="f-center p-1">
-                                <img style="width:75%, align: center" src="{{ public_path('Stamp.png') }}" alt="bill">
+                                <img style="width:75%" src="{{ public_path('Stamp.png') }}" alt="bill">
                             </div>
                             <p class="cus-mt-3">
                                 <span class="bold">{{ "SAI PACKERS AND MOVERS" }}</span>
