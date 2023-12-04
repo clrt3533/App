@@ -116,33 +116,6 @@ export default {
       ],
     };
   },
-  computed: {
-    getCategoryProducts() {
-      if (this.categoryId) {
-        axiosGet(
-          `/products?categories=${this.categoryId}&orderBy=desc&per_page=50`
-        ).then(({ data }) => {
-          this.categoryProductsList = data.data;
-          return data.data;
-        });
-      }
-      return null;
-    },
-    productDetailsCalculated() {
-      if (!this.productDetails.length) return [];
-      return this.productDetails.map((product) => {
-        const productTaxPercentage = this.taxList.find(
-          (tax) => +tax.id === +product.tax_id
-        );
-        let productTaxValue = productTaxPercentage
-          ? +product.price * (+productTaxPercentage.value / 100)
-          : 0;
-        const productTotalAmount =
-          (+product.price + productTaxValue) * product.quantity;
-        return { ...product, total_amount: productTotalAmount };
-      });
-    },
-  },
   methods: {
     getProducts(id) {
       axiosGet(`/products?categories=${id}&orderBy=desc&per_page=50`).then(
@@ -150,10 +123,14 @@ export default {
           let _products = [];
           if (data && data.data) {
             _products = data.data.map((obj) => {
+              if (!obj.condition) {
+                obj.condition = "U";
+              }
               return {
                 product_id: obj.id,
                 name: obj.name,
                 quantity: 0,
+                condition: obj.condition,
               };
             });
           }

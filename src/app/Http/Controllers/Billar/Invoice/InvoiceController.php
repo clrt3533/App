@@ -70,8 +70,8 @@ class InvoiceController extends Controller
         SendMessageJob::dispatch('book-confirmation-message', $this->service->model->client_number, $this->service->model->received_amount, $date);
 
         $event = new Event();
-        $event->name = "New invoice #" . $this->service->model->invoice_number;
-        $event->description = 'Client: ' . $this->service->model->client_name . "\nPhone: " . $this->service->model->client_number;
+        $event->name = "Customer: " . $this->service->model->client_name;
+        $event->description = "Invoice No: ". $this->service->model->invoice_number. "\nPhone: " . $this->service->model->client_number;
         $event->startDateTime = Carbon::parse($this->service->model->date);
         $event->endDateTime = Carbon::parse($this->service->model->date)->addHour();
         $event->save();

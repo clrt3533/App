@@ -59,10 +59,10 @@ return array_merge([
     'this_role_will_be_deleted_permanently' => 'This role will be deleted permanently.',
 
     // Btn
-    'save' => 'Save',
-    'cancel' => 'Cancel',
-    'clear' => 'Clear',
-    'add' => 'Add',
+    'save' => 'SAVE',
+    'cancel' => 'CANCEL',
+    'clear' => 'CLEAR',
+    'add' => 'ADD',
     'add_role' => 'Add Role',
     'edit_role' => 'Edit Role',
     'user_s' => 'User(s)',

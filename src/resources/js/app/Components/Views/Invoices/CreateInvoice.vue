@@ -549,9 +549,9 @@
 
                       <tr>
                         <td>
-                          <span class="label">
+                          <span class="label" style="color: green;">
                             <!-- {{ $t("received_amount") }}: -->
-                            Advance Payment:
+                            ADVANCE PAYMENT:
                           </span>
                         </td>
                         <td>

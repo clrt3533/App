@@ -491,37 +491,36 @@
 
                 <tr class="cus-p-1 cus-text-left">
                     <td class="text-center">6</td>
-                    <td class ="p-1">GST charges</td>
-                    <td class="currency-symbol p-1 text-right">{{ number_with_currency_symbol($bill->gst) }}</td>
-                </tr>
-
-                <tr class="cus-p-1 cus-text-left">
-                    <td class="text-center">7</td>
                     <td class ="p-1">Local charges</td>
                     <td class="currency-symbol p-1 text-right">{{ number_with_currency_symbol($bill->local) }}</td>
                 </tr>
 
                 <tr>
-                    <td class="text-center">8</td>
+                    <td class="text-center">7</td>
                     <td class ="p-1">Car Transport charges</td>
                     <td class="currency-symbol p-1 text-right">{{ number_with_currency_symbol($bill->car_transport) }}</td>
                 </tr>
 
                 <tr class="cus-p-1 cus-text-left">
-                    <td class="text-center">9</td>
+                    <td class="text-center">8</td>
                     <td class ="p-1">Insuarance charges</td>
                     <td class="currency-symbol p-1 text-right">{{ number_with_currency_symbol($bill->insuarance) }}</td>
                 </tr>
 
                 <tr class="cus-p-1 cus-text-left">
-                    <td class="text-center">10</td>
-                    <td class ="p-1">AC</td>
+                    <td class="text-center">9</td>
+                    <td class ="p-1">AC charges </td>
                     <td class="currency-symbol p-1 text-right">{{ number_with_currency_symbol($bill->ac) }}</td>
                 </tr>
                 <tr class="cus-p-1 cus-text-left">
+                    <td class="text-center">10</td>
+                    <td class ="p-1">Other charges</td>
+                    <td class="currency-symbol p-1 text-right">{{ number_with_currency_symbol($bill->other) }}</td>
+                </tr>
+                <tr class="cus-p-1 cus-text-left">
                     <td class="text-center">11</td>
-                    <td class ="p-1">Other</td>
-                    <td class="currency-symbol p-1 text-right">{{ number_with_currency_symbol($bill->ac) }}</td>
+                    <td class ="p-1">GST charges</td>
+                    <td class="currency-symbol p-1 text-right">{{ number_with_currency_symbol($bill->gst) }}</td>
                 </tr>
                 <tr class="cus-p-1 cus-text-left">
                     <td class="text-center p-1">12</td>

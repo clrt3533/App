@@ -41,8 +41,7 @@
 
                     <!-- Invoice number -->
                     <th class="cus-w-25 cus-p-1 cus-text-left">
-                    <td class="cus-bold">{{ $t('invoice_no') }}</td>
-                    <td class="cus-text-right">{{ formData.bill.invoice.invoice_number }}</td>
+                    <td class="cus-bold">{{ $t('invoice_no') }}: {{ formData.bill.invoice.invoice_number }}</td>
                     </th>
 
                     <!-- Client name -->
@@ -59,9 +58,7 @@
 
                     <!-- Invoice date -->
                     <th class="cus-w-25 cus-text-right">
-                    <td class="cus-bold cus-text-right">{{ "Date : " }}</td>
-                    
-                    <td class="cus-text-right">{{ formData.bill.invoice.date}}</td>
+                    <td class="cus-bold cus-text-right">{{ "Date : " }} {{ formData.bill.invoice.date}}</td>
                     </th>
                   </tr>
                 </thead>
@@ -110,37 +107,72 @@
                         <td>5</td>
                         <td>Unpacking charges</td>
                         <td>{{ numberWithCurrencySymbol(formData.bill.unpacking) }}</td>
-                    </tr>
+                    </tr> 
 
                     <tr>
                         <td>6</td>
-                        <td>GST charges</td>
-                        <td>{{ numberWithCurrencySymbol(formData.bill.gst) }}</td>
-                    </tr>
-
-                    <tr>
-                        <td>7</td>
                         <td>Local charges</td>
                         <td>{{ numberWithCurrencySymbol(formData.bill.local) }}</td>
                     </tr>
 
                     <tr>
-                        <td>8</td>
+                        <td>7</td>
                         <td>Car Transport charges</td>
                         <td>{{ numberWithCurrencySymbol(formData.bill.car_transport) }}</td>
                     </tr>
 
                     <tr>
-                        <td>9</td>
+                        <td>8</td>
                         <td>Insuarance charges</td>
                         <td>{{ numberWithCurrencySymbol(formData.bill.insuarance) }}</td>
                     </tr>
 
                     <tr>
-                        <td>10</td>
-                        <td>AC</td>
+                        <td>9</td>
+                        <td>AC charges</td>
                         <td>{{ numberWithCurrencySymbol(formData.bill.ac) }}</td>
                     </tr>
+
+                    <tr>
+                        <td>10</td>
+                        <td>GST charges</td>
+                        <td>{{ numberWithCurrencySymbol(formData.bill.gst) }}</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>15</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    
+                    <tr>
+                        <td></td>
+                        <td style="text-align: right; font-weight: bold;">Grand Total: </td>
+                        <td style="font-weight: bold;">{{ numberWithCurrencySymbol(formData.bill.packing + formData.bill.loading+ formData.bill.unloading + formData.bill.unpacking + formData.bill.gst + formData.bill.local + formData.bill.car_transport + formData.bill.insuarance + formData.bill.ac )}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" style="text-align: left;">Notes: </td>
+                    </tr>
+
                 </tbody>    
               </table>
             </div>
