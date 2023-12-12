@@ -163,11 +163,17 @@
                         <td></td>
                         <td></td>
                     </tr>
-                    
                     <tr>
-                        <td></td>
-                        <td style="text-align: right; font-weight: bold;">Grand Total: </td>
-                        <td style="font-weight: bold;">{{ numberWithCurrencySymbol(formData.bill.packing + formData.bill.loading+ formData.bill.unloading + formData.bill.unpacking + formData.bill.gst + formData.bill.local + formData.bill.car_transport + formData.bill.insuarance + formData.bill.ac )}}</td>
+                        <td colspan="2" class="cus-text-right cus-bold cus-p-1">{{ $t('discount') }} :
+                          <template v-if="formData.invoice.discount_type === 'percentage'">
+                            {{ formData.invoice.discount }} %
+                          </template>
+                        </td>
+                        <td class="cus-text-right cus-p-1">{{ numberWithCurrencySymbol(formData.invoice.discount_amount) }}</td>
+                    </tr>
+                    <tr>
+                        <td  colspan="2" class="cus-text-right cus-bold cus-p-1">Grand Total: </td>
+                        <td class="cus-text-right cus-p-1">{{ numberWithCurrencySymbol(formData.bill.packing + formData.bill.loading+ formData.bill.unloading + formData.bill.unpacking + formData.bill.gst + formData.bill.local + formData.bill.car_transport + formData.bill.insuarance + formData.bill.ac + formData.bill.transport - formData.invoice.discount_amount)}}</td>
                     </tr>
                     <tr>
                         <td colspan="3" style="text-align: left;">Notes: </td>

@@ -542,12 +542,21 @@
                     <td class ="p-1"></td>
                     <td></td>
                 </tr>
+                <tr class="bg-transparent text-black">
+                    <td colspan="2" class="text-right">
+                    <strong>  {{ __t('discount') }} :</strong>
+                        @if($bill->invoice->discount_type == "percentage")
+                        {{ $bill->invoice->discount }}
+                        @endif
+                    </td>
+                    <td class="text-right p-1 currency-symbol">{{ number_with_currency_symbol($bill->invoice->discount_amount) }}</td>
+                </tr>
                 @php
-                 $total = $bill->transport + $bill->packing + $bill->loading + $bill->unloading + $bill->unpacking + $bill->gst + $bill->local + $bill->car_transport + $bill->insuarance + $bill->ac;
+                 $total = $bill->transport + $bill->packing + $bill->loading + $bill->unloading + $bill->unpacking + $bill->gst + $bill->local + $bill->car_transport + $bill->insuarance + $bill->ac - $bill->invoice->discount_amount;
                 @endphp
-                <tr class="cus-p-1 cus-text-left">
-                    <td></td>
-                    <td class="text-right"><strong>Grand Total :</strong></td>
+                <tr class="cus-p-1 cus-text-left"> 
+                    <td colspan="2" class="text-right">
+                    <strong>Grand Total : </strong></td>
                     <td class="currency-symbol p-1 text-right">{{ number_with_currency_symbol($total) }}</td>
                 </tr>
             </tbody>
@@ -560,7 +569,7 @@
                     <td class = "w-75" colspan="2">
                         <div class="invoice_container__item m-1 text-black font-xm">
                             <p class="cus-mt-3">
-                                <span class="bold">{{ "Notes" }}: </span><br>
+                                <span class="bold">{{ "Notes " }}: </span><br>
                                
                             </p>
                         </div>
