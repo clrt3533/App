@@ -56,7 +56,7 @@
         }
 
         .bg-blue{
-            background-color: #fff0bb !important;
+            background-color: #221357 !important;
         }
 
         .bg-secondary {
@@ -386,12 +386,11 @@
 
     <!-- Receipt details -->
     <div class="invoice_container__item mx-5 box ">
-        <table class="w-100 font-xm" border="1" cellspacing="0" cellpadding="0">
+        <table class="w-100 " border="1" cellspacing="0" cellpadding="0">
             <thead>
-                <tr class="bg-dark text-light ">
+                <tr class="bg-blue text-light ">
                     <!-- Client name -->
                     <th class="w-50 p-1 text-center bold">Receipt No. {{$receipt->id}} </th>
-
                     <!-- Client contact -->
                     <th class="w-50 p-1  text-center bold"> {{ "Date" }}: {{ \Carbon\Carbon::parse($receipt->date)->format('d/m/Y')}}</th>
                     </th>
@@ -401,34 +400,45 @@
         </table>
         <div class="f-clear"> </div>
 
-        <table class="w-100 font-xm" border="1" cellspacing="0" cellpadding="0">
-            <thead>
-                <tr>
-                    <!-- Client name -->
-                    <th class="w-50 p-1 text-center bold">Particulars </th>
-
-                    <!-- Client contact -->
-                    <th class="w-50 p-1  text-center bold"> Details</th>
-
-                </tr>
-            </thead>
+        <table class="w-100" border="0" cellspacing="0" cellpadding="2">
+            
             <tbody>
-                <tr class="p-1 text-left">
-                    <td class="bold"> Received From M/S </td>
-                    <td>{{$receipt->client_name}}</td> 
+                <tr><br></tr>
+                <tr>
+                    <td>
+                        <div class="invoice_container__item m-1 text-black px-5">
+                            <p class="cus-mt-3">
+                                <span class="bold"> Received From M/S: </span>  {{$receipt->client_name}}
+                            </p>
+                        </div>
+                    </td> 
+                    <td>
+                        <div class="invoice_container__item m-1 text-black px-5">
+                            <p class="cus-mt-3 text-right">
+                                <span class="bold"> Phone: </span> {{$receipt->client_phone}}
+                            </p>
+                        </div>
+                    </td> 
                 </tr>
-                <tr class="p-1 text-left">
-                    <td class="bold"> Phone </td>
-                    <td>{{$receipt->client_phone}}</td> 
+                <tr><br></tr>
+                <tr>
+                    <td>
+                        <div class="invoice_container__item m-1 text-black px-5">
+                            <p class="cus-mt-3">
+                                <span class="bold"> From: </span> {{$receipt->from}}
+                            </p>
+                        </div>
+                    </td> 
+                    <td>
+                        <div class="invoice_container__item m-1 text-black px-5">
+                            <p class="cus-mt-3 text-right">
+                                <span class="bold"> To: </span> {{$receipt->to}}
+                            </p>
+                        </div>
+                    </td> 
+                   
                 </tr>
-                <tr class="p-1 text-left">
-                    <td class="bold"> From </td>
-                    <td>{{$receipt->from}}</td> 
-                </tr>
-                <tr class="p-1 text-left">
-                    <td class="bold"> To </td>
-                    <td>{{$receipt->to}}</td> 
-                </tr>
+                <tr><br></tr>
             <tbody>
         </table>
         <div class="f-clear"> </div>
