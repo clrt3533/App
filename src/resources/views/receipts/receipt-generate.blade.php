@@ -365,7 +365,7 @@
 
         .currency-symbol {
             font-family: DejaVu Sans;
-            font-size: 11px;
+            font-size: 16px;
             line-height: 1;
         }
 
@@ -374,10 +374,10 @@
 
 <body>
     <div class="invoice_container">
-        <div class="invoice_container__item px-5 text-black">
+        <div class="invoice_container__item mx-5 text-black">
             <div class="w-100 f-left p-1">
                 <div>
-                    <img style="width:100%" src="{{public_path('card.jpeg')}}" alt="Sai Packers And Movers">
+                    <img style="width:99%" src="{{public_path('card.jpeg')}}" alt="Sai Packers And Movers">
                 </div>
             </div>
         </div>
@@ -388,7 +388,7 @@
     <div class="invoice_container__item mx-5 box ">
         <table class="w-100 " border="1" cellspacing="0" cellpadding="0">
             <thead>
-                <tr class="bg-blue text-light ">
+                <tr class="bg-dark text-light ">
                     <!-- Client name -->
                     <th class="w-50 p-1 text-center bold">Receipt No. {{$receipt->id}} </th>
                     <!-- Client contact -->
@@ -400,21 +400,21 @@
         </table>
         <div class="f-clear"> </div>
 
-        <table class="w-100" border="0" cellspacing="0" cellpadding="2">
+        <table class="w-100" border="0" cellspacing="0" cellpadding="1">
             
             <tbody>
                 <tr><br></tr>
                 <tr>
                     <td>
-                        <div class="invoice_container__item m-1 text-black px-5">
+                        <div class="invoice_container__item text-black px-5">
                             <p class="cus-mt-3">
                                 <span class="bold"> Received From M/S: </span>  {{$receipt->client_name}}
                             </p>
                         </div>
                     </td> 
                     <td>
-                        <div class="invoice_container__item m-1 text-black px-5">
-                            <p class="cus-mt-3 text-right">
+                        <div class="invoice_container__item  text-black px-5">
+                            <p class="cus-mt-3 ">
                                 <span class="bold"> Phone: </span> {{$receipt->client_phone}}
                             </p>
                         </div>
@@ -423,14 +423,14 @@
                 <tr><br></tr>
                 <tr>
                     <td>
-                        <div class="invoice_container__item m-1 text-black px-5">
+                        <div class="invoice_container__item  text-black px-5">
                             <p class="cus-mt-3">
                                 <span class="bold"> From: </span> {{$receipt->from}}
                             </p>
                         </div>
                     </td> 
                     <td>
-                        <div class="invoice_container__item m-1 text-black px-5">
+                        <div class="invoice_container__item  text-black px-5">
                             <p class="cus-mt-3 text-right">
                                 <span class="bold"> To: </span> {{$receipt->to}}
                             </p>
@@ -439,38 +439,63 @@
                    
                 </tr>
                 <tr><br></tr>
+                <tr>
+                    <td>
+                        <div class="invoice_container__item text-black px-5">
+                            <p class="cus-mt-3">
+                                <span class="bold"> Paid In: </span>  {{$receipt->paymentMethod}}
+                            </p>
+                        </div>
+                    </td> 
+                </tr>
+
+                <tr><br></tr>
+
+                <tr>    
+                    <td>
+                        <div class="invoice_container__item  text-black px-5">
+                            <p class="">
+                                <span class="bold"> Amount In Words: </span> {{$receipt->amount_words}}
+                            </p>
+                        </div>
+                    </td> 
+                   
+                </tr>
+
+                <tr><br></tr>
+
+                <tr>    
+                    <td>
+                        <div class="invoice_container__item text-black px-5">
+                            <p class="cus-mt-3 currency-symbol ">
+                                <span class="bold "> Amount: </span> {{ number_with_currency_symbol($receipt->amount) }}
+                            </p>
+                        </div>
+                    </td> 
+                   
+                </tr>
             <tbody>
         </table>
         <div class="f-clear"> </div>
         <table class="w-100 font-xm" border="1" cellspacing="0" cellpadding="0">
            
             <tbody>
+                
                 <tr>
-                    <!-- Merged cell for the paragraph -->
-                    <td class ="w-75" colspan="2">
-                        <div class="invoice_container__item m-1 text-black font-xm">
+                    <td>
+                        <div class="invoice_container__item m-1 text-black px-5">
                             <p class="cus-mt-3">
-                                <span class="bold">Paid In :</span> {{$receipt->paymentMethod}}<br>
-                               
-                            </p>
-                            <p class="cus-mt-3">
-                                <span class="bold">Amount In Words:  </span>{{$receipt->amount_words}}<br>
-                               
-                            </p>
-                            <p class="cus-mt-3" class="currency-symbol">
-                                <span class="bold">Amount :</span>{{ number_with_currency_symbol($receipt->amount) }} /-<br>
-                               
-                            </p>
+                                <span class="bold"> </span> 
                         </div>
-                    </td>
+                    </td> 
                     <!-- Cell for the image -->
                     <td class ="w-25">
                         <div class="invoice_container__item m-1 text-black font-xm">
                             <div class="f-center p-1">
-                                <img style="width:75%" src="{{ public_path('Stamp.png') }}" alt="bill">
+                                <img style="width:75%" src="{{ public_path('Stamp.png') }}" alt="receipt">
                             </div>
                             <p class="cus-mt-3">
-                                <span class="bold">{{ "SAI PACKERS AND MOVERS" }}</span>
+                                <span class="bold text-red">{{ "SAI PACKERS AND MOVERS" }}</span>
                             </p>
                         </div>
                     </td>

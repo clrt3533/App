@@ -379,7 +379,7 @@
         <div class="invoice_container__item px-5 text-black">
             <div class="w-100 f-left p-1">
                 <div>
-                    <img style="width:100%" src="{{public_path('bill.jpg')}}" alt="bill">
+                    <img style="width:99%" src="{{public_path('bill.jpg')}}" alt="bill">
                 </div>
             </div>
         </div>
@@ -543,7 +543,7 @@
                     <td></td>
                 </tr>
                 <tr class="bg-transparent text-black">
-                    <td colspan="2" class="text-right">
+                    <td colspan="2" class="text-right text-red">
                     <strong>  {{ __t('discount') }} :</strong>
                         @if($bill->invoice->discount_type == "percentage")
                         {{ $bill->invoice->discount }}
@@ -555,7 +555,7 @@
                  $total = $bill->transport + $bill->packing + $bill->loading + $bill->unloading + $bill->unpacking + $bill->gst + $bill->local + $bill->car_transport + $bill->insuarance + $bill->ac - $bill->invoice->discount_amount;
                 @endphp
                 <tr class="cus-p-1 cus-text-left"> 
-                    <td colspan="2" class="text-right">
+                    <td colspan="2" class="text-right text-red">
                     <strong>Grand Total : </strong></td>
                     <td class="currency-symbol p-1 text-right">{{ number_with_currency_symbol($total) }}</td>
                 </tr>
@@ -569,9 +569,22 @@
                     <td class = "w-75" colspan="2">
                         <div class="invoice_container__item m-1 text-black font-xm">
                             <p class="cus-mt-3">
-                                <span class="bold">{{ "Notes " }}: </span><br>
-                               
+                                <span class="bold">{{ "Bank Detail : " }} </span><br>
+                                Beneficiary Name : SAI PACKERS AND MOVERS <br>
+                                Bank Name : Union Bank Of India <br>
+                                Branch Name : Hadapsar Gaon - Pune <br>
+                                Bank A/C No : 499801010034496 <br>
+                                Bank IFSC Coad : UBIN0549983 <br>
                             </p>
+                            <p class="cus-mt-3">
+                                <span class="bold">{{ "Terms & Conditions :  " }} </span><br>
+                                1. Payment Should be In favour of SAI PACKERS & MOVERS <br>
+                                2. All disputes are subject to Pune Jurisdiction <br>
+                            </p>
+
+                            
+
+
                         </div>
                     </td>
                     <!-- Cell for the image -->
@@ -580,7 +593,7 @@
                             <div class="f-center p-1">
                                 <img style="width:75%" src="{{ public_path('Stamp.png') }}" alt="bill">
                             </div>
-                            <p class="cus-mt-3">
+                            <p class="cus-mt-3 text-red">
                                 <span class="bold">{{ "SAI PACKERS AND MOVERS" }}</span>
                             </p>
                         </div>
