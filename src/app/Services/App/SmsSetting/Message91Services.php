@@ -57,12 +57,8 @@ class Message91Services
         ]);
         return $response;
 
-        // return $this->client->post('/', [
-        //     "template_id" => "6040ca8e0fdf72715d773ec8",
-        //     "sender" => "SAIPKR",
-        //     "mobiles" => "$phone_number",
-        //     "var" => "$date",
-        // ]);
+       // Run a cron job which will check booking date within next 24 hrs return invoice ID 
+       // Based on the id mobile no., amount, date and pass to fuction for reminderSMSjob and 
     }
 
     public function sendReminderMessage($phone_number, $date)

@@ -45,7 +45,7 @@ class InvoiceController extends Controller
             ->orderBy('id', request()->get('orderBy'))
             ->paginate(request('per_page', 10));
     }
-
+// SMS functionality
 
     public function store(Request $request)
     {
