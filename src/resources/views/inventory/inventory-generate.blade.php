@@ -16,7 +16,13 @@
 
     {{-- @include('layouts.includes.header')--}}
     <style>
+        @page {
+            margin-top: 50px !important;
+        }
 
+        @page :first {
+            margin-top: 20px !important;
+        }
 
         .box-container {
             display: flex;
@@ -25,8 +31,9 @@
         }
 
         .box {
-            border: 1px solid #000; /* Set your desired border style and color here */
-           
+            border: 1px solid #000;
+            /* Set your desired border style and color here */
+
         }
 
         .address-info {
@@ -55,7 +62,7 @@
             background-color: #d9251c !important;
         }
 
-        .bg-blue{
+        .bg-blue {
             background-color: #fff0bb !important;
         }
 
@@ -71,7 +78,7 @@
             font-family: Arial, Helvetica, sans-serif;
             margin: 0;
             padding: 0;
-            
+
         }
 
         /*common*/
@@ -310,6 +317,7 @@
         .text-black {
             color: #000;
         }
+
         .text-red {
             color: #d9251c;
         }
@@ -368,7 +376,6 @@
             font-size: 11px;
             line-height: 1;
         }
-       
     </style>
 </head>
 
@@ -377,7 +384,7 @@
         <div class="invoice_container__item px-5 text-black">
             <div class="w-100 f-left p-1">
                 <div>
-                    <img style="width:100%" src="{{public_path('card.jpeg')}}" alt="inventory">
+                    <img style="width:100%" src="https://app.saipackersandmovers.com/images/card.jpeg" alt="inventory">
                 </div>
             </div>
         </div>
@@ -434,10 +441,10 @@
             </tbody>
 
         </table>
-      
+
         <table class="w-100 font-xm" border="0" cellspacing="0" cellpadding="0">
             <thead>
-                <tr class="bg-dark text-light ">          
+                <tr class="bg-dark text-light ">
                     <th class="w-33 p-1 text-left">Particulars</th>
                     <th class="w-33 p-1 text-left">Condition</th>
                     <th class="w-33 p-1 text-left">Quantity</th>
@@ -448,41 +455,41 @@
             </thead>
             <tbody>
                 @foreach($inventory->inventoryDetails->chunk(2) as $items)
-                    <tr class="text-black">
-                        @foreach($items as $index => $item)
-                            @if($index % 2 == 0)
-                                <td class="p-1 text-left">{{ $item->product->name }}</td>
-                                <td class="p-1 text-left">
-                                    {{ 
+                <tr class="text-black">
+                    @foreach($items as $index => $item)
+                    @if($index % 2 == 0)
+                    <td class="p-1 text-left">{{ $item->product->name }}</td>
+                    <td class="p-1 text-left">
+                        {{
                                         $item->condition === 'S' ? 'Scratched' : 
                                         ($item->condition === 'D' ? 'Damaged' : 
                                         ($item->condition === 'N' ? 'New' : 
                                         ($item->condition === 'U' ? 'Used' : 'Unknown')))
                                     }}
-                                </td>
+                    </td>
 
-                                <td class="p-1 text-left">{{ $item->quantity }}</td>
-                            @else
-                                <td class="p-1 text-left">{{ $item->product->name }}</td>
-                                <td class="p-1 text-left">
-                                    {{ 
+                    <td class="p-1 text-left">{{ $item->quantity }}</td>
+                    @else
+                    <td class="p-1 text-left">{{ $item->product->name }}</td>
+                    <td class="p-1 text-left">
+                        {{
                                         $item->condition === 'S' ? 'Scratched' : 
                                         ($item->condition === 'D' ? 'Damaged' : 
                                         ($item->condition === 'N' ? 'New' : 
                                         ($item->condition === 'U' ? 'Used' : 'Unknown')))
                                     }}
-                                </td>
-                                <td class="p-1 text-left">{{ $item->quantity }}</td>
-                            
-                            @endif
-                        @endforeach
-                    </tr>
+                    </td>
+                    <td class="p-1 text-left">{{ $item->quantity }}</td>
+
+                    @endif
                     @endforeach
-                </tbody>
-           
+                </tr>
+                @endforeach
+            </tbody>
+
         </table>
         <table class="w-100 font-xm" border="1" cellspacing="0" cellpadding="0">
-             <thead>
+            <thead>
                 <tr class="bg-secondary text-dark">
                     <!-- These two cells will occupy 75% of the row width combined -->
                     <th class="w-33 p-1 text-center bold">{{ "Customer Pickup Signature" }}:</th>
@@ -496,7 +503,7 @@
                         <img src="{{ asset('signatures/' . $inventory->signature) }}" alt="pickup" style="max-width: 100%; height: auto;">
                     </td>
                     <td>
-                       <img src="{{ asset('signatures/' . $inventory->delivery_signature) }}" alt="drop" style="max-width: 100%; height: auto;">
+                        <img src="{{ asset('signatures/' . $inventory->delivery_signature) }}" alt="drop" style="max-width: 100%; height: auto;">
                     </td>
                     <td>
                         <div class="invoice_container__item m-1 text-black font-xm">
@@ -516,14 +523,15 @@
         <table class="w-100 font-xm" border="1" cellspacing="0" cellpadding="0">
             <thead>
                 <tr class="bg-secondary text-dark">
-                    
+
                     <th class="w-100 p-1 text-left bold">{{ "Notes" }}: </br>
-                    {{ "$inventory->notes" }}</th>
+                        {{ "$inventory->notes" }}
+                    </th>
 
                 </tr>
             </thead>
         </table>
-   
+
     </div>
     <div class="f-clear"></div>
 

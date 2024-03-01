@@ -142,25 +142,29 @@
         </div>
       </div>
 
-      <div class="row">
-          <div class="col-lg-6 col-12">
-              <div class="signature-container">
-                  <VueSignaturePad ref="signaturePad" />
-                  <label>Pick Up Signature</label>
-                  <button @click="clearSignature">Clear</button>
-              </div>
-          </div> <br/>
-          <div class="col-lg-6 col-12">
-              <div class="signature-container">
-                  <VueSignaturePad ref="deliverySignaturePad" />
-                  <label>Drop Signature</label>
-                  <button @click="clearDeliverySignature">Clear</button>
-              </div>
+      <div class="row signaatures">
+        <div class="col-lg-6 col-12">
+          <div class="signature-container">
+            <VueSignaturePad ref="signaturePad" />
           </div>
+
+          <div class="signature-buttons">
+            <label>Pick Up Signature</label>
+            <button @click="clearSignature" class="btn btn-secondary">Clear</button>
+          </div>
+        </div>
+        <br />
+        <div class="col-lg-6 col-12">
+          <div class="signature-container">
+            <VueSignaturePad ref="deliverySignaturePad" />
+          </div>
+
+          <div class="signature-buttons">
+            <label>Drop Signature</label>
+            <button @click="clearDeliverySignature" class="btn btn-secondary">Clear</button>
+          </div>
+        </div>
       </div>
-
-
-
 
       <div class="row">
         <div class="col mt-5">
@@ -170,7 +174,6 @@
           <button class="btn btn-primary ml-2" @click.prevent="submitData">
             {{ $t("save") }}
           </button>
-          
         </div>
       </div>
     </form>
@@ -453,7 +456,7 @@ export default {
     afterSuccessFromGetEditData(response) {
       if (response) {
         this.formData = response.data;
-        console.log("Data: ", this.formData);
+        console.log("Response: ", this.formData);
         const signatureImg = `${window.location.origin}/signatures/${response.data.signature}`;
         const deliverySignatureImg = `${window.location.origin}/signatures/${response.data.delivery_signature}`;
         this.convertToBase64(signatureImg);
@@ -599,24 +602,24 @@ export default {
 }
 
 .signature-container {
-    max-height: 200px;
-    border: 2px solid #090909;
-    text-align: center;
-    padding: 10px;
-    margin: 10px;
-    width: 90%; /* Set the width to 90% of the container */
-    display: inline-block; /* Ensures the container doesn't take the full width */
-    box-sizing: border-box; /* Includes padding and border in the element's total width and height */
-    position: relative; /* Allows absolute positioning of the buttons */
-
+  max-height: 300px;
+  border: 2px solid #090909;
+  text-align: center;
+  padding: 10px;
+  margin: 10px;
+  height: 100%;
+  width: 90%; /* Set the width to 90% of the container */
+  display: inline-block; /* Ensures the container doesn't take the full width */
+  box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+  position: relative; /* Allows absolute positioning of the buttons */
 }
 
 .signature-container VueSignaturePad {
-    width: 100%; /* Set the width of the VueSignaturePad component to 100% */
-    height: 100%; /* Set the height of the VueSignaturePad component to 100% */
-    position: absolute; /* Allows the signature pad to be outside the box */
-    top: 0;
-    left: 0;
+  width: 100%; /* Set the width of the VueSignaturePad component to 100% */
+  height: 100%; /* Set the height of the VueSignaturePad component to 100% */
+  position: absolute; /* Allows the signature pad to be outside the box */
+  top: 0;
+  left: 0;
 }
 
 .accordion ul {
@@ -715,5 +718,21 @@ export default {
 
 .toggle:checked + .title:before {
   transform: rotate(90deg) !important;
+}
+
+@media only screen and (max-width: 767px) {
+  .signaatures {
+    display: block;
+  }
+
+  .signature-container {
+    margin: 0 auto;
+    width: 100%;
+    height: 300px;
+  }
+
+  .signature-buttons {
+    margin-top: 15px;
+  }
 }
 </style>

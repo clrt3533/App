@@ -390,11 +390,7 @@
             <thead>
                 <tr class="bg-dark text-light ">
                     <!-- Client name -->
-                    <th class="w-50 p-1 text-center bold">Receipt No. {{$receipt->id}} </th>
-                    <!-- Client contact -->
-                    <th class="w-50 p-1  text-center bold"> {{ "Date" }}: {{ \Carbon\Carbon::parse($receipt->date)->format('d/m/Y')}}</th>
-                    </th>
-
+                    <th class="w-50 p-1 text-center bold">Receipt</th>
                 </tr>
             </thead>
         </table>
@@ -405,14 +401,31 @@
             <tbody>
                 <tr><br></tr>
                 <tr>
-                    <td>
+                    <td class="w-50 p-1">
+                        <div class="invoice_container__item text-black px-5">
+                            <p class="cus-mt-3">
+                                <span class="bold"> Receipt No: </span>  {{$receipt->id}}
+                            </p>
+                        </div>
+                    </td> 
+                    <td class="w-50 p-1">
+                        <div class="invoice_container__item  text-black px-5">
+                            <p class="cus-mt-3  text-right">
+                                <span class="bold">{{ "Date" }}: </span> {{ \Carbon\Carbon::parse($receipt->date)->format('d/m/Y')}}
+                            </p>
+                        </div>
+                    </td> 
+                </tr>
+                <tr><br></tr>
+                <tr>
+                    <td class="w-50 p-1">
                         <div class="invoice_container__item text-black px-5">
                             <p class="cus-mt-3">
                                 <span class="bold"> Received From M/S: </span>  {{$receipt->client_name}}
                             </p>
                         </div>
                     </td> 
-                    <td>
+                    <td class="w-50 p-1">
                         <div class="invoice_container__item  text-black px-5">
                             <p class="cus-mt-3 ">
                                 <span class="bold"> Phone: </span> {{$receipt->client_phone}}
@@ -422,16 +435,16 @@
                 </tr>
                 <tr><br></tr>
                 <tr>
-                    <td>
+                    <td class="w-50 p-1">
                         <div class="invoice_container__item  text-black px-5">
                             <p class="cus-mt-3">
                                 <span class="bold"> From: </span> {{$receipt->from}}
                             </p>
                         </div>
                     </td> 
-                    <td>
+                    <td class="w-50 p-1">
                         <div class="invoice_container__item  text-black px-5">
-                            <p class="cus-mt-3 text-right">
+                            <p class="cus-mt-3  ">
                                 <span class="bold"> To: </span> {{$receipt->to}}
                             </p>
                         </div>
@@ -440,7 +453,7 @@
                 </tr>
                 <tr><br></tr>
                 <tr>
-                    <td>
+                    <td class="w-50 p-1">
                         <div class="invoice_container__item text-black px-5">
                             <p class="cus-mt-3">
                                 <span class="bold"> Paid In: </span>  {{$receipt->paymentMethod}}
@@ -452,7 +465,7 @@
                 <tr><br></tr>
 
                 <tr>    
-                    <td>
+                    <td class="w-50 p-1">
                         <div class="invoice_container__item  text-black px-5">
                             <p class="">
                                 <span class="bold"> Amount In Words: </span> {{$receipt->amount_words}}
@@ -465,7 +478,7 @@
                 <tr><br></tr>
 
                 <tr>    
-                    <td>
+                    <td class="w-50 p-1">
                         <div class="invoice_container__item text-black px-5">
                             <p class="cus-mt-3 currency-symbol ">
                                 <span class="bold "> Amount: </span> {{ number_with_currency_symbol($receipt->amount) }}

@@ -549,10 +549,10 @@
 
                       <tr>
                         <td>
-                          <span class="label" style="color: green;">
+                          <strong> <span class="label " style="color: green;">
                             <!-- {{ $t("received_amount") }}: -->
                             ADVANCE PAYMENT:
-                          </span>
+                          </span> </strong>
                         </td>
                         <td>
                           <app-input

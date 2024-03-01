@@ -16,6 +16,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Spatie\GoogleCalendar\Event;
 
 class InvoiceController extends Controller
@@ -45,10 +46,16 @@ class InvoiceController extends Controller
             ->orderBy('id', request()->get('orderBy'))
             ->paginate(request('per_page', 10));
     }
-// SMS functionality
 
     public function store(Request $request)
     {
+        $offsetHours = 0;
+        if (Config::get('app.env') === 'development') {
+            $offsetHours = 3;
+        } elseif (Config::get('app.env') === 'production') {
+            $offsetHours = 6;
+        }
+
         $invoice = $this->service
             ->setValidation()
             ->setAttributes($request->all())
@@ -61,7 +68,7 @@ class InvoiceController extends Controller
             ->setAttribute('file_path', 'public/pdf/invoice_' . $invoice->id . '.pdf')
             ->pdfGenerate($invoiceInfo);
 
-        // Send email to client about order confirmation
+        // Uncomment to send email to client about order confirmation
         // InvoiceAttachmentJob::dispatch($invoiceInfo)->onQueue('high');
 
         $date = Carbon::createFromFormat('Y-m-d H:i:s', $this->service->model->date)->format('d-m-y h:i A');
@@ -69,15 +76,20 @@ class InvoiceController extends Controller
         // Send SMS to client about order confirmation
         SendMessageJob::dispatch('book-confirmation-message', $this->service->model->client_number, $this->service->model->received_amount, $date);
 
+        // Apply the offset to startDateTime and endDateTime
+        $startDateTime = Carbon::parse($this->service->model->date)->subHours($offsetHours);
+        $endDateTime = Carbon::parse($this->service->model->date)->addHour()->subHours($offsetHours);
+
         $event = new Event();
-        $event->name = "Customer: " . $this->service->model->client_name;
-        $event->description = "Invoice No: ". $this->service->model->invoice_number. "\nPhone: " . $this->service->model->client_number;
-        $event->startDateTime = Carbon::parse($this->service->model->date);
-        $event->endDateTime = Carbon::parse($this->service->model->date)->addHour();
+        $event->name = "New invoice #" . $this->service->model->invoice_number;
+        $event->description = 'Client: ' . $this->service->model->client_name . "\nPhone: " . $this->service->model->client_number;
+        $event->startDateTime = $startDateTime;
+        $event->endDateTime = $endDateTime;
         $event->save();
 
         return created_responses('invoices');
     }
+
 
 
     public function show($id)
