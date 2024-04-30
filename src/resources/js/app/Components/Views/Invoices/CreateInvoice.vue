@@ -343,6 +343,7 @@
                       @input="calculateSubTotal"
                     />
                   </div>
+                  
                   <div class="mb-3">
                     <label>Local</label>
                     <app-input
@@ -366,16 +367,6 @@
                 </div>
                 <div class="col-6 col-md-3">
                   <div class="mb-3">
-                    <label>Transport</label>
-                    <app-input
-                      class="margin-right-8"
-                      v-model="formData.transport"
-                      :error-message="$errorMessage(errors, 'transport')"
-                      type="number"
-                      @input="calculateSubTotal"
-                    />
-                  </div>
-                  <div class="mb-3">
                     <label>Unpacking</label>
                     <app-input
                       class="margin-right-8"
@@ -385,6 +376,17 @@
                       @input="calculateSubTotal"
                     />
                   </div>
+                  <div class="mb-3">
+                    <label>Transport</label>
+                    <app-input
+                      class="margin-right-8"
+                      v-model="formData.transport"
+                      :error-message="$errorMessage(errors, 'transport')"
+                      type="number"
+                      @input="calculateSubTotal"
+                    />
+                  </div>
+                  
 
                   <div class="mb-3">
                     <label>Insurance</label>

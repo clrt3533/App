@@ -3,13 +3,14 @@ import './plugins';
 import Vue from 'vue';
 import Vuex from 'vuex';
 import vuexI18n from 'vuex-i18n';
-import VueSignaturePad from 'vue-signature-pad';
+import VueMobileDetection from "vue-mobile-detection";
+
 import './core/coreApp';
 import './app/AppComponents';
 import './app/Helpers/common/helpers'
 window.Vue = Vue;
 
-Vue.use(VueSignaturePad);
+Vue.use(VueMobileDetection);
 
 /**
  * vuex

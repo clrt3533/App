@@ -142,26 +142,46 @@
         </div>
       </div>
 
-      <div class="row signaatures">
+      <div class="row signatures">
         <div class="col-lg-6 col-12">
-          <div class="signature-container">
-            <VueSignaturePad ref="signaturePad" />
+          <div class="signature-container pick-up">
+            <vueSignature
+              id="pick-up-signature"
+              ref="signaturePad"
+              :h="'300px'"
+            />
           </div>
 
           <div class="signature-buttons">
-            <label>Pick Up Signature</label>
-            <button @click="clearSignature" class="btn btn-secondary">Clear</button>
+            <label>
+              {{
+                selectedUrl ? "Update Pick Up Signature" : "Pick Up Signature"
+              }}
+            </label>
+            <button @click="clearSignature" class="btn btn-secondary">
+              Clear
+            </button>
           </div>
         </div>
         <br />
         <div class="col-lg-6 col-12">
           <div class="signature-container">
-            <VueSignaturePad ref="deliverySignaturePad" />
+            <vueSignature
+              id="drop-off-signature"
+              ref="deliverySignaturePad"
+              :h="'300px'"
+            />
           </div>
 
           <div class="signature-buttons">
-            <label>Drop Signature</label>
-            <button @click="clearDeliverySignature" class="btn btn-secondary">Clear</button>
+            <label>
+              {{
+                selectedUrl ? "Update Drop Off Signature" : "Drop Off Signature"
+              }}
+            </label>
+            <button @click="clearDeliverySignature" class="btn btn-secondary">
+              Clear
+            </button>
           </div>
         </div>
       </div>
@@ -199,12 +219,16 @@
 </template>
 
 <script>
+import vueSignature from "vue-signature";
 import { SubmitFormMixins } from "../../../Mixins/billar/SubmitFormMixins";
 import { axiosGet, urlGenerator } from "../../../Helpers/AxiosHelper";
 import { INVENTORY, INVENTORY_LIST } from "../../../Config/BillarApiUrl";
 
 export default {
   name: "InventoryCreateEdit",
+  components: {
+    vueSignature,
+  },
   mixins: [SubmitFormMixins],
   data() {
     return {
@@ -405,11 +429,11 @@ export default {
     },
     clearSignature(e) {
       e.preventDefault();
-      this.$refs.signaturePad.undoSignature();
+      this.$refs.signaturePad.clear();
     },
     clearDeliverySignature(e) {
       e.preventDefault();
-      this.$refs.deliverySignaturePad.undoSignature();
+      this.$refs.deliverySignaturePad.clear();
     },
     dataURItoBlob(dataURI) {
       if (dataURI) {
@@ -457,10 +481,6 @@ export default {
       if (response) {
         this.formData = response.data;
         console.log("Response: ", this.formData);
-        const signatureImg = `${window.location.origin}/signatures/${response.data.signature}`;
-        const deliverySignatureImg = `${window.location.origin}/signatures/${response.data.delivery_signature}`;
-        this.convertToBase64(signatureImg);
-        this.deliveryConvertToBase64(deliverySignatureImg);
         const groupedProducts = response.data.inventory_details.reduce(
           (groups, item) => {
             const {
@@ -498,6 +518,22 @@ export default {
           packages: item.packages,
           condition: item.condition,
         }));
+
+        const signatureImg = `${window.location.origin}${
+          window.appEnv === "development" ? "/swapnil" : ""
+        }/signatures/${response.data.signature}`;
+        const deliverySignatureImg = `${window.location.origin}${
+          window.appEnv === "development" ? "/swapnil" : ""
+        }/signatures/${response.data.delivery_signature}`;
+
+        this.pickupSignatureImg = response.data.signature ? signatureImg : null;
+        this.deliverySignatureImg = response.data.delivery_signature
+          ? deliverySignatureImg
+          : null;
+
+        this.convertToBase64(signatureImg);
+        this.deliveryConvertToBase64(deliverySignatureImg);
+
         this.preloader = false;
       }
     },
@@ -515,9 +551,9 @@ export default {
         });
       }
 
-      const { data } = this.$refs.signaturePad.saveSignature();
-      const { data: deliveryData } =
-        this.$refs.deliverySignaturePad.saveSignature();
+      const data = this.$refs.signaturePad.save();
+      const deliveryData = this.$refs.deliverySignaturePad.save();
+
       const imageBlob = this.dataURItoBlob(data);
       const deliveryImageBlob = this.dataURItoBlob(deliveryData);
 
@@ -548,6 +584,8 @@ export default {
         } else {
           this.save(formData);
         }
+      } else {
+        alert("Pick up signature is required.");
       }
     },
     resetData() {
@@ -596,15 +634,10 @@ export default {
   }
 }
 
-.accordion {
-  // margin: 3em auto;
-  // max-width: 30em;
-}
-
 .signature-container {
-  max-height: 300px;
   border: 2px solid #090909;
   text-align: center;
+  max-height: 350px;
   padding: 10px;
   margin: 10px;
   height: 100%;
@@ -615,11 +648,11 @@ export default {
 }
 
 .signature-container VueSignaturePad {
-  width: 100%; /* Set the width of the VueSignaturePad component to 100% */
-  height: 100%; /* Set the height of the VueSignaturePad component to 100% */
   position: absolute; /* Allows the signature pad to be outside the box */
   top: 0;
   left: 0;
+  width: 100%; /* Set the width of the VueSignaturePad component to 100% */
+  height: 100%; /* Set the height of the VueSignaturePad component to 100% */
 }
 
 .accordion ul {
@@ -721,12 +754,25 @@ export default {
 }
 
 @media only screen and (max-width: 767px) {
-  .signaatures {
+  .signatures {
     display: block;
+  }
+
+  .signatures .signature-img-container {
+    margin-bottom: 15px;
+    text-align: center;
+    height: 300px;
+    width: 100%;
+  }
+
+  .signatures .signature-img-container img {
+    max-width: 100%;
+    max-height: 100%;
   }
 
   .signature-container {
     margin: 0 auto;
+    padding: 0;
     width: 100%;
     height: 300px;
   }

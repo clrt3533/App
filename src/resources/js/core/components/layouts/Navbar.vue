@@ -57,12 +57,7 @@
                     	  	  	  	  	  	  	  <h6 class="mb-0 font-weight-normal ml-3">{{ $t('add_invoice') }}</h6>
                 	 	 	 	 	 	 	 </div>
             							</a>
-            							<a class="dropdown-item" :href="AppFunction.getAppUrl('estimates/create/view')" v-if="$can('create_estimates')">
-                	 	 	 	 	 	 	 <div class="d-flex align-items-center justify-content-center">
-                    	  	  	  	  			  <app-icon class="size-15" :name="'book'"/>
-                    	  	  	  	  	  	  	  <h6 class="mb-0 font-weight-normal ml-3">{{ $t('add_estimate') }}</h6>
-                	 	 	 	 	 	 	 </div>
-            							</a>
+            							
         	  	  	  	  	  	  	  </div>
     	 	 	 	 	 	 	 </li>
                         <li class="nav-item">
