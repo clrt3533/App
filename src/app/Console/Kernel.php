@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Console\Commands\Billar\InvoiceRecurringCommand;
 use App\Console\Commands\Billar\PaymentReminder;
+use App\Console\Commands\HourlyProcessInvoiceRemindersCommand;
 use App\Jobs\SendReminderMessage;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -20,7 +21,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         PaymentReminder::class,
-        InvoiceRecurringCommand::class
+        InvoiceRecurringCommand::class,
+        HourlyProcessInvoiceRemindersCommand::class
     ];
 
     /**
@@ -39,6 +41,10 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('invoice:recurring')
             ->daily();
+
+        $schedule->command('hour:invoice_reminder')
+            ->everyMinute()
+            ->withoutOverlapping();
 
         $schedule->job(SendReminderMessage::class)->hourly();
     }
