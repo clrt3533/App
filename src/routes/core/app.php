@@ -9,7 +9,8 @@ use App\Http\Controllers\Core\{
     Setting\CornJobSettingController,
     Setting\DeliverySettingController,
     Setting\NotificationSettingController,
-    Setting\SettingController};
+    Setting\SettingController,
+    ReminderController};
 
 Route::group(['prefix' => 'app'], function () {
 
@@ -52,5 +53,7 @@ Route::group(['prefix' => 'app'], function () {
     Route::get('activity-logs', [ActivityLogController::class, 'index'])
         ->name('activity-logs.index');
 
-
+    //Process reminders
+    Route::get('manage-reminders', [ReminderController::class, 'index'])
+        ->name('auth.manage_reminders');
 });

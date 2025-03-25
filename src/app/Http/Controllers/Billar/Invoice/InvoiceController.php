@@ -50,7 +50,7 @@ class InvoiceController extends Controller
     public function store(Request $request)
     {
         $offsetHours = 0;
-        if (Config::get('app.env') === 'development') {
+        if (Config::get('app.env') === 'local') {
             $offsetHours = 3;
         } elseif (Config::get('app.env') === 'production') {
             $offsetHours = 6;

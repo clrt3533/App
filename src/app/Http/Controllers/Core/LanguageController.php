@@ -18,11 +18,14 @@ class LanguageController extends Controller
             $directories = new RecursiveDirectoryIterator(resource_path('lang'));
             while ($directories->valid()) {
                 if (! $directories->isDot()){
-                    array_push($data, [
-                        'title' => $this->findLanguage($directories->getBasename())['name'],
-                        'url' => route('language.change', ['lang' => $directories->getBasename()]),
-                        'key' => $directories->getBasename()
-                    ]);
+                    $languageData = $this->findLanguage($directories->getBasename());
+                    if (is_array($languageData) && array_key_exists('name', $languageData)) {
+                        array_push($data, [
+                            'title' => $languageData['name'],
+                            'url' => route('language.change', ['lang' => $directories->getBasename()]),
+                            'key' => $directories->getBasename()
+                        ]);
+                    }
                 }
                 $directories->next();
             }

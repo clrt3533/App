@@ -82,4 +82,4 @@ Route::group(['prefix' => 'auth/users/{user}'], function () {
         ->name('users.change-password');
 });
 
-Route::get('languages', [LanguageController::class, 'index'])->name('languages.index');
+// Route::get('languages', [LanguageController::class, 'index'])->name('languages.index');

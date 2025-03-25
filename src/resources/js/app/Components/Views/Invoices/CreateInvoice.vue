@@ -852,7 +852,7 @@ export default {
         }
         return category;
       });
-      console.log("updatedArray: ", updatedArray);
+      console.log("Updated array: ", updatedArray);
       return updatedArray;
     },
     handleSelectedProductsList(products) {
@@ -949,39 +949,40 @@ export default {
       const datetimeValue = `${year}-${month}-${day} ${formattedTime}`;
       return datetimeValue;
     },
-    submitData() {
-      let products = this.tempSelectedProducts.flatMap((obj) => obj.products);
-      if (this.selectedUrl) {
-        products = products.map((item) => {
-          const matchingItem = this.formData.invoice_details.find(
-            (a) => a.product_id === item.product_id
-          );
-          if (matchingItem) {
-            return { ...item, id: matchingItem.id };
-          }
-          return item;
-        });
-      }
-      const date = this.generateDateAndTime(this.formData.date, this.timeOnly);
-      const formData = {
-        ...this.formData,
-        date,
-        discount: this.formData.discount || 0,
-        sub_total: this.formData.sub_total,
-        total: this.totalAmount,
-        received_amount: this.formData.received_amount
-          ? this.formData.received_amount - this.returnAmount
-          : 0,
-        due_amount: this.deuAmount,
-        products,
-      };
-      formData.recurring_cycle_id = null;
-      delete formData.time;
-      console.log("Submit: ", this.formData.time, formData);
-      this.save(formData);
+    confirmDeleteInvoiceProduct() {
+      axiosPost(
+        this.deletedInvoiceProductContext.payload.url,
+        this.deletedInvoiceProductContext.payload.data
+      ).then((response) => {
+        this.deletedInvoiceProductContext.callBack();
+        this.$toastr.s(response.data.message);
+        this.deletedInvoiceProductContext = null;
+        this.closeInvoiceDeleteModal();
+      });
     },
-    resetData() {
-      window.location = urlGenerator(INVOICES_LIST);
+    closeInvoiceDeleteModal() {
+      $(`#invoice-product-delete-confirm-modal`).modal("hide");
+      this.invoiceProductDeleteModal = false;
+    },
+    closeCategoryProductsModal() {
+      this.isCategoryProductsModalActive = false;
+    },
+    closeProductModal() {
+      this.isProductModalActive = false;
+    },
+    getCategories() {
+      axiosGet("all-category?search=&page=1&per_page=10").then((response) => {
+        const categories = response.data.data;
+        const tempSelectedProducts = categories.map((category) => ({
+          name: category.name,
+          products: [],
+        }));
+        this.categoryData = categories;
+        this.tempSelectedProducts = this.updateCategoryProductsByName(
+          tempSelectedProducts,
+          this.groupedProducts
+        );
+      });
     },
     afterSuccess({ data }) {
       this.$toastr.s(data.message);
@@ -990,7 +991,9 @@ export default {
       });
     },
     afterSuccessFromGetEditData(response) {
+      console.log("After success from edit: ", response);
       if (response) {
+        console.log("Response loaded: ", response.data);
         this.formData = response.data;
         this.formData.country_code = "+91";
         console.log("Data: ", this.formData);
@@ -1032,46 +1035,45 @@ export default {
         this.preloader = false;
       }
     },
+    submitData() {
+      let products = this.tempSelectedProducts.flatMap((obj) => obj.products);
+      if (this.selectedUrl) {
+        products = products.map((item) => {
+          const matchingItem = this.formData.invoice_details.find(
+            (a) => a.product_id === item.product_id
+          );
+          if (matchingItem) {
+            return { ...item, id: matchingItem.id };
+          }
+          return item;
+        });
+      }
+      const date = this.generateDateAndTime(this.formData.date, this.timeOnly);
+      const formData = {
+        ...this.formData,
+        date,
+        discount: this.formData.discount || 0,
+        sub_total: this.formData.sub_total,
+        total: this.totalAmount,
+        received_amount: this.formData.received_amount
+          ? this.formData.received_amount - this.returnAmount
+          : 0,
+        due_amount: this.deuAmount,
+        products,
+      };
+      formData.recurring_cycle_id = null;
+      delete formData.time;
+      console.log("Submit: ", this.formData.time, formData);
+      this.save(formData);
+    },
+    resetData() {
+      window.location = urlGenerator(INVOICES_LIST);
+    },
     getInvoiceCount() {
       this.axiosGet("invoice-number").then((response) => {
         const invoice = response.data.id !== undefined ? response.data.id : 0;
         this.formData.invoice_number =
           Number(invoice) + Number(window.settings.invoice_starting_number);
-      });
-    },
-    confirmDeleteInvoiceProduct() {
-      axiosPost(
-        this.deletedInvoiceProductContext.payload.url,
-        this.deletedInvoiceProductContext.payload.data
-      ).then((response) => {
-        this.deletedInvoiceProductContext.callBack();
-        this.$toastr.s(response.data.message);
-        this.deletedInvoiceProductContext = null;
-        this.closeInvoiceDeleteModal();
-      });
-    },
-    closeInvoiceDeleteModal() {
-      $(`#invoice-product-delete-confirm-modal`).modal("hide");
-      this.invoiceProductDeleteModal = false;
-    },
-    closeCategoryProductsModal() {
-      this.isCategoryProductsModalActive = false;
-    },
-    closeProductModal() {
-      this.isProductModalActive = false;
-    },
-    getCategories() {
-      axiosGet("all-category?search=&page=1&per_page=10").then((response) => {
-        const categories = response.data.data;
-        const tempSelectedProducts = categories.map((category) => ({
-          name: category.name,
-          products: [],
-        }));
-        this.categoryData = categories;
-        this.tempSelectedProducts = this.updateCategoryProductsByName(
-          tempSelectedProducts,
-          this.groupedProducts
-        );
       });
     },
   },

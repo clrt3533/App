@@ -40,7 +40,7 @@ class PaymentReminderJob implements ShouldQueue
     {
         $invoiceInfo = $this->invoice->load(['invoiceDetails' => function ($query) {
             $query->with('product:id,name', 'tax:id,name,value');
-        }, 'client:id,first_name,last_name,email', 'createdBy:id,first_name,last_name']);
+        }, 'createdBy:id,first_name,last_name']);
 
         $invoiceInfo->totalTax = $invoiceInfo->invoiceDetails->map(function ($item) {
             $tax = $item->load('tax')->tax ? $item->load('tax')->tax->value : 0;
