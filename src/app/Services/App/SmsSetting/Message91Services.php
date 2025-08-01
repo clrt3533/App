@@ -24,7 +24,7 @@ class Message91Services
         $phone_number = Str::remove(' ', $phone_number);
         return $this->client->post('/', [
             "template_id" => "6040cb0ce9550e4c262b10ab",
-            "sender" => "SAIPKR",
+            "sender" => env('MSG91_SENDER_ID', 'SAIPKR'),
             "mobiles" => "$phone_number",
         ]);
     }
@@ -38,7 +38,7 @@ class Message91Services
         // Set the header parameters
         $headers = [
             'accept' => 'application/json',
-            'authkey' => '238708A7BIRMsept5ba3c275',
+            'authkey' => env('MSG91_AUTH_KEY', '238708A7BIRMsept5ba3c275'),
             'content-type' => 'application/json',
         ];
 
@@ -50,7 +50,7 @@ class Message91Services
         }
 
         $response = Http::withHeaders($headers)->post('https://control.msg91.com/api/v5/flow/', [
-            "sender" => "SAIPKR",
+            "sender" => env('MSG91_SENDER_ID', 'SAIPKR'),
             "template_id" => $template_id,
             "mobiles" => "$phone_number",
             "var" => "$date",
@@ -67,7 +67,7 @@ class Message91Services
         $phone_number = Str::remove(' ', $phone_number);
         return $this->client->post('/', [
             "template_id" => "6040ca63367591043f1a4183",
-            "sender" => "SAIPKR",
+            "sender" => env('MSG91_SENDER_ID', 'SAIPKR'),
             "mobiles" => "$phone_number",
             "var" => "$date",
         ]);
@@ -79,7 +79,7 @@ class Message91Services
         $phone_number = Str::remove(' ', $phone_number);
         return $this->client->post('/', [
             "template_id" => "6040bfedd6fc05609509b496",
-            "sender" => "SAIPKR",
+            "sender" => env('MSG91_SENDER_ID', 'SAIPKR'),
             "mobiles" => "$phone_number",
         ]);
     }

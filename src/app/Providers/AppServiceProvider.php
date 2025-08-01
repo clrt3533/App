@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(Message91Services::class,function (Application $app){
             $client = Http::withHeaders([
                 'accept' => 'application/json',
-                'authkey' => '238708A7BIRMsept5ba3c275',
+                'authkey' => env('MSG91_AUTH_KEY', '238708A7BIRMsept5ba3c275'),
                 'content-type' => 'application/json',
             ])->baseUrl('https://control.msg91.com/api/v5/flow');
 
