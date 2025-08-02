@@ -5,6 +5,9 @@ import { useSearchParams } from "next/navigation"
 import { DashboardLayout } from "@/components/dashboard/layout"
 import { Canvas3D } from "@/components/3d/Canvas3D"
 import { getPackageModel, BoxPackage, BagPackage, BottlePackage, CanPackage, PouchPackage } from "@/components/3d/PackagingModels"
+import { TextEditor, useTextEditor } from "@/components/editor/TextEditor"
+import { ExportSystem, exportUtils } from "@/components/editor/ExportSystem"
+import { UndoRedoSystem } from "@/components/editor/UndoRedoSystem"
 import { 
   ArrowLeft, 
   Save, 
@@ -40,6 +43,10 @@ export default function NewProjectPage() {
   const [packageColor, setPackageColor] = useState("#ffffff")
   const [autoRotate, setAutoRotate] = useState(true)
   const [showSettings, setShowSettings] = useState(false)
+  const [isExporting, setIsExporting] = useState(false)
+
+  // Text editor hook
+  const textEditor = useTextEditor()
 
   // Initialize with template if provided
   useEffect(() => {
@@ -60,6 +67,44 @@ export default function NewProjectPage() {
 
     const ModelComponent = getPackageModel(selectedTemplate.type)
     return <ModelComponent color={packageColor} autoRotate={autoRotate} />
+  }
+
+  // Export handler
+  const handleExport = async (options: any) => {
+    setIsExporting(true)
+    try {
+      // Simulate export process
+      await new Promise(resolve => setTimeout(resolve, 2000))
+      
+      // In a real implementation, this would capture the 3D canvas
+      // and export based on the selected options
+      console.log('Exporting with options:', options)
+      
+      // Example: Create a simple blob for download
+      const canvas = document.querySelector('canvas')
+      if (canvas && options.format === 'png') {
+        const blob = await exportUtils.exportToPNG(canvas, options)
+        exportUtils.downloadFile(blob, `${projectName || 'design'}.png`)
+      }
+    } finally {
+      setIsExporting(false)
+    }
+  }
+
+  // Current editor state for undo/redo
+  const currentEditorState = {
+    packageColor,
+    textElements: textEditor.textElements,
+    selectedTemplate,
+    projectName
+  }
+
+  // Handle state changes from undo/redo
+  const handleStateChange = (state: any) => {
+    setPackageColor(state.packageColor)
+    setSelectedTemplate(state.selectedTemplate)
+    setProjectName(state.projectName)
+    // Note: textElements would need to be handled through the textEditor hook
   }
 
   return (
@@ -86,10 +131,11 @@ export default function NewProjectPage() {
               <Save className="h-4 w-4 mr-2" />
               Save Draft
             </button>
-            <button className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700">
-              <Download className="h-4 w-4 mr-2" />
-              Export
-            </button>
+            <ExportSystem
+              onExport={handleExport}
+              isExporting={isExporting}
+              projectName={projectName || 'Untitled Project'}
+            />
           </div>
         </div>
 
@@ -218,7 +264,7 @@ export default function NewProjectPage() {
               </div>
 
               {/* 3D Canvas */}
-              <div className="aspect-video">
+              <div className="aspect-video relative">
                 <Canvas3D 
                   className="w-full h-full"
                   enableControls={true}
@@ -226,7 +272,23 @@ export default function NewProjectPage() {
                   enableZoom={true}
                 >
                   {renderPackageModel()}
+                  
+                  {/* Text Editor Integration */}
+                  <TextEditor
+                    textElements={textEditor.textElements}
+                    selectedTextId={textEditor.selectedTextId}
+                    onAddText={textEditor.addText}
+                    onUpdateText={textEditor.updateText}
+                    onSelectText={textEditor.selectText}
+                    onDeleteText={textEditor.deleteText}
+                  />
                 </Canvas3D>
+
+                {/* Undo/Redo System */}
+                <UndoRedoSystem
+                  currentState={currentEditorState}
+                  onStateChange={handleStateChange}
+                />
               </div>
 
               {/* Preview Info */}
