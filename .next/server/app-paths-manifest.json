@@ -1,16 +1,16 @@
 {
   "/_not-found": "app/_not-found.js",
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
-  "/api/health/route": "app/api/health/route.js",
-  "/api/templates/route": "app/api/templates/route.js",
   "/auth/signin/page": "app/auth/signin/page.js",
+  "/api/health/route": "app/api/health/route.js",
   "/auth/signup/page": "app/auth/signup/page.js",
   "/dashboard/ai/page": "app/dashboard/ai/page.js",
-  "/dashboard/page": "app/dashboard/page.js",
   "/dashboard/profile/page": "app/dashboard/profile/page.js",
+  "/api/templates/route": "app/api/templates/route.js",
+  "/dashboard/page": "app/dashboard/page.js",
   "/dashboard/projects/page": "app/dashboard/projects/page.js",
+  "/dashboard/templates/page": "app/dashboard/templates/page.js",
   "/dashboard/projects/new/page": "app/dashboard/projects/new/page.js",
   "/page": "app/page.js",
-  "/dashboard/templates/page": "app/dashboard/templates/page.js",
   "/templates/page": "app/templates/page.js"
 }
