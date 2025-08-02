@@ -47,7 +47,7 @@ This MVP includes everything you need to start building your packaging design bu
 
 ### **Core Features**
 - ✅ Professional landing page with hero section
-- ✅ Template gallery with 5 sample packaging templates
+- ✅ Template gallery with sample packaging templates
 - ✅ Dashboard interface for project management
 - ✅ Database with sample data (users, templates, projects)
 - ✅ RESTful API endpoints for data access
@@ -118,7 +118,7 @@ npm run db:seed      # Seed sample data
 ## 📁 **Project Structure**
 
 ```
-packagepro/
+package/
 ├── app/                    # Next.js 13+ App Router
 │   ├── api/               # API routes
 │   ├── dashboard/         # Dashboard pages
