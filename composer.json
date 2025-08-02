@@ -1,5 +1,0 @@
-{
-    "require": {
-        "spatie/laravel-google-calendar": "^3.6"
-    }
-}
