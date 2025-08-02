@@ -10,12 +10,10 @@
 
 ## 🚀 **Quick Start**
 
-### **Option 1: Local Development (Recommended)**
-
 ```bash
 # Clone the repository
-git clone <your-repo-url>
-cd packagepro
+git clone https://github.com/clrt3533/package.git
+cd package
 
 # Install dependencies
 npm install
@@ -31,26 +29,6 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### **Option 2: Docker Development**
-
-```bash
-# Build and run development environment
-docker-compose --profile dev up --build
-
-# Or run in detached mode
-docker-compose --profile dev up -d --build
-```
-
-### **Option 3: Docker Production**
-
-```bash
-# Build and run production environment
-docker-compose --profile prod up --build
-
-# With PostgreSQL (recommended for production)
-docker-compose --profile prod-postgres up --build
-```
-
 ## 🏗️ **Tech Stack**
 
 - **Frontend**: Next.js 14, React 18, TypeScript
@@ -60,34 +38,8 @@ docker-compose --profile prod-postgres up --build
 - **ORM**: Prisma
 - **3D Graphics**: Three.js, React Three Fiber
 - **State Management**: Zustand
-- **Forms**: React Hook Form + Zod validation
 - **Authentication**: NextAuth.js (ready)
 - **Deployment**: Docker, Vercel, Railway
-
-## 📁 **Project Structure**
-
-```
-packagepro/
-├── app/                    # Next.js 13+ App Router
-│   ├── api/               # API routes
-│   ├── dashboard/         # Dashboard pages
-│   ├── templates/         # Template gallery
-│   ├── globals.css        # Global styles
-│   ├── layout.tsx         # Root layout
-│   └── page.tsx          # Homepage
-├── components/            # React components
-│   ├── ui/               # Reusable UI components
-│   └── ...               # Feature components
-├── lib/                  # Utility functions
-├── prisma/               # Database schema & migrations
-│   ├── schema.prisma     # Database schema
-│   └── seed.ts          # Sample data
-├── public/               # Static assets
-├── types/                # TypeScript definitions
-├── docker-compose.yml    # Docker services
-├── Dockerfile           # Production container
-└── Dockerfile.dev      # Development container
-```
 
 ## ✅ **What's Included**
 
@@ -113,11 +65,78 @@ This MVP includes everything you need to start building your packaging design bu
 - ✅ Multiple deployment options (Vercel, Railway, etc.)
 - ✅ Environment configuration examples
 
-### **Security & Performance**
-- ✅ CSRF protection built-in
-- ✅ SQL injection prevention via Prisma
-- ✅ Performance monitoring ready
-- ✅ SEO optimized
+## 🐳 **Docker Support**
+
+### Development
+```bash
+# Build and run development environment
+docker-compose --profile dev up --build
+```
+
+### Production
+```bash
+# Build and run production environment
+docker-compose --profile prod up --build
+```
+
+## 🚀 **Deployment Options**
+
+### Vercel (Recommended)
+1. Connect this repository to Vercel
+2. Set environment variables
+3. Deploy automatically
+
+### Railway
+```bash
+npm install -g @railway/cli
+railway init
+railway up
+```
+
+## 🎯 **Market Opportunity**
+
+- **Market Size**: $1.1 trillion packaging industry
+- **Growth Rate**: 9.2% CAGR for packaging design software
+- **Target Users**: 4M+ designers, marketers, small businesses
+- **Revenue Model**: SaaS subscriptions ($9-99/month)
+
+## 🛠️ **Development Scripts**
+
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
+npm run type-check   # TypeScript type checking
+
+# Database
+npm run db:generate  # Generate Prisma client
+npm run db:push      # Push schema changes
+npm run db:seed      # Seed sample data
+```
+
+## 📁 **Project Structure**
+
+```
+packagepro/
+├── app/                    # Next.js 13+ App Router
+│   ├── api/               # API routes
+│   ├── dashboard/         # Dashboard pages
+│   ├── templates/         # Template gallery
+│   ├── globals.css        # Global styles
+│   ├── layout.tsx         # Root layout
+│   └── page.tsx          # Homepage
+├── components/            # React components
+│   ├── ui/               # Reusable UI components
+│   └── ...               # Feature components
+├── lib/                  # Utility functions
+├── prisma/               # Database schema & migrations
+├── public/               # Static assets
+├── types/                # TypeScript definitions
+├── docker-compose.yml    # Docker services
+├── Dockerfile           # Production container
+└── Dockerfile.dev      # Development container
+```
 
 ## 🚀 **Next Steps**
 
@@ -136,13 +155,6 @@ This MVP includes everything you need to start building your packaging design bu
    - User project management
    - Admin dashboard
    - Analytics and tracking
-
-## 🎯 **Market Opportunity**
-
-- **Market Size**: $1.1 trillion packaging industry
-- **Growth Rate**: 9.2% CAGR for packaging design software
-- **Target Users**: 4M+ designers, marketers, small businesses
-- **Revenue Model**: SaaS subscriptions ($9-99/month)
 
 ## 📞 **Support**
 
