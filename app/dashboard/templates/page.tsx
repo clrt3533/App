@@ -14,6 +14,8 @@ import {
   Grid3X3,
   List
 } from 'lucide-react'
+import { Canvas3D } from "@/components/3d/Canvas3D"
+import { getPackageModel } from "@/components/3d/PackagingModels"
 
 interface Template {
   id: string
@@ -126,11 +128,27 @@ export default function TemplatesPage() {
     return matchesCategory && matchesSearch
   })
 
-  const TemplateCard = ({ template }: { template: Template }) => (
-    <div className="bg-white rounded-lg border border-slate-200 shadow-sm hover:shadow-md transition-shadow group">
-      <div className="aspect-video bg-gradient-to-br from-slate-100 to-slate-200 rounded-t-lg relative overflow-hidden">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <Layout className="h-12 w-12 text-slate-400" />
+  const TemplateCard = ({ template }: { template: Template }) => {
+    const ModelComponent = getPackageModel(template.type)
+    
+    return (
+      <div className="bg-white rounded-lg border border-slate-200 shadow-sm hover:shadow-md transition-shadow group">
+        <div className="aspect-video rounded-t-lg relative overflow-hidden">
+          <Canvas3D 
+            className="w-full h-full"
+            enableControls={false}
+            autoRotate={false}
+            enableZoom={false}
+          >
+            <ModelComponent 
+              color={template.tags.includes('coffee') ? '#8B4513' : 
+                     template.tags.includes('energy') ? '#E74C3C' : 
+                     template.tags.includes('perfume') ? '#9B59B6' : 
+                     template.tags.includes('health') ? '#3498DB' : '#ffffff'}
+              autoRotate={true}
+              scale={0.8}
+            />
+          </Canvas3D>
         </div>
         {template.isPremium && (
           <div className="absolute top-3 left-3">
@@ -171,8 +189,8 @@ export default function TemplatesPage() {
           </span>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
 
   return (
     <DashboardLayout title="Templates">
