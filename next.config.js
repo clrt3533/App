@@ -13,6 +13,8 @@ const nextConfig = {
     };
     return config;
   },
+  // Enable standalone output for Docker
+  output: 'standalone',
 }
 
 module.exports = nextConfig
