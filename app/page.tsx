@@ -10,15 +10,21 @@ export default function Home() {
           <Box className="h-8 w-8 mr-2 text-blue-600" />
           <span className="font-bold text-xl text-slate-900">PackagePro</span>
         </Link>
-        <nav className="ml-auto flex gap-6">
+        <nav className="ml-auto flex gap-6 items-center">
           <Link className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors" href="#features">
             Features
           </Link>
           <Link className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors" href="/templates">
             Templates
           </Link>
-          <Link className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors" href="/dashboard">
-            Dashboard
+          <Link className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors" href="/auth/signin">
+            Sign In
+          </Link>
+          <Link 
+            href="/auth/signup"
+            className="inline-flex h-9 items-center justify-center rounded-md bg-blue-600 px-4 text-sm font-medium text-white shadow hover:bg-blue-700 transition-colors"
+          >
+            Sign Up
           </Link>
         </nav>
       </header>
@@ -42,7 +48,7 @@ export default function Home() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 mt-8">
                 <Link 
-                  href="/dashboard"
+                  href="/auth/signup"
                   className="inline-flex h-12 items-center justify-center rounded-md bg-blue-600 px-8 text-sm font-medium text-white shadow-lg hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blue-600 transition-all duration-200 hover:shadow-xl"
                 >
                   Start Creating

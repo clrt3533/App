@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { SessionProvider } from 'next-auth/react'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'PackagePro - AI-Powered Packaging Design',
-  description: 'Create professional packaging designs in minutes with our AI-powered design platform',
+  description: 'Create professional packaging designs in minutes',
 }
 
 export default function RootLayout({
@@ -17,9 +18,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="min-h-screen bg-background">
+        <SessionProvider>
           {children}
-        </div>
+        </SessionProvider>
       </body>
     </html>
   )
