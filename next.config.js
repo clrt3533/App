@@ -5,6 +5,9 @@ const nextConfig = {
     missingSuspenseWithCSRBailout: false,
   },
   
+  // Disable static optimization for auth pages
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
+  
   images: {
     remotePatterns: [
       {
@@ -88,6 +91,11 @@ const nextConfig = {
         permanent: false,
       },
     ]
+  },
+
+  // Generate build ID for cache busting
+  generateBuildId: async () => {
+    return `build-${Date.now()}`
   },
 }
 
