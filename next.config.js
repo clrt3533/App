@@ -1,14 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Force dynamic for pages with authentication
-  experimental: {
-    missingSuspenseWithCSRBailout: false,
-  },
-  
-  // Disable static optimization for auth pages
-  pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
-  
   images: {
+    domains: [
+      'localhost',
+      'vercel.app',
+      'avatars.githubusercontent.com',
+      'lh3.googleusercontent.com',
+      'images.unsplash.com'
+    ],
     remotePatterns: [
       {
         protocol: 'https',
@@ -17,23 +16,12 @@ const nextConfig = {
     ],
   },
   
-  // Webpack configuration for Three.js and GLSL shaders
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+  webpack: (config, { isServer }) => {
     // Handle Three.js
     config.resolve.alias = {
       ...config.resolve.alias,
       three: 'three',
     }
-
-    // Handle GLSL shaders
-    config.module.rules.push({
-      test: /\.(glsl|vs|fs|vert|frag)$/,
-      exclude: /node_modules/,
-      use: [
-        'raw-loader',
-        'glslify-loader'
-      ]
-    })
 
     // Optimize for client-side builds
     if (!isServer) {
@@ -48,36 +36,9 @@ const nextConfig = {
     return config
   },
 
-  // Enable SWC minification
   swcMinify: true,
-  
-  // Disable powered by header
   poweredByHeader: false,
 
-  // Security headers
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY',
-          },
-          {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block',
-          },
-        ],
-      },
-    ]
-  },
-
-  // Redirects for better UX
   async redirects() {
     return [
       {
@@ -91,11 +52,6 @@ const nextConfig = {
         permanent: false,
       },
     ]
-  },
-
-  // Generate build ID for cache busting
-  generateBuildId: async () => {
-    return `build-${Date.now()}`
   },
 }
 
