@@ -3,15 +3,15 @@ import { ArrowRight, Box, Sparkles, Zap, Shield } from 'lucide-react'
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #eff6ff 0%, #ffffff 50%, #faf5ff 100%)' }}>
       {/* Navigation */}
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+            <div className="w-8 h-8 gradient-blue-purple rounded-lg flex items-center justify-center">
               <Box className="h-5 w-5 text-white" />
             </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="text-2xl font-bold gradient-text">
               PackagePro
             </span>
           </div>
@@ -24,7 +24,7 @@ export default function HomePage() {
             </Link>
             <Link
               href="/auth/signup"
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+              className="btn btn-primary"
             >
               Get Started
             </Link>
@@ -37,7 +37,7 @@ export default function HomePage() {
         <div className="text-center max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
             Design Professional 
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="gradient-text">
               {" "}Packaging
             </span>
             <br />
@@ -47,17 +47,17 @@ export default function HomePage() {
             Create stunning 3D packaging designs with our AI-powered platform. 
             From concept to creation, bring your brand to life with professional packaging.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col md:flex-row gap-4 justify-center">
             <Link
               href="/auth/signup"
-              className="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors inline-flex items-center justify-center group"
+              className="btn btn-primary group"
             >
               Start Creating Free
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
               href="/templates"
-              className="border border-gray-300 text-gray-700 px-8 py-4 rounded-lg hover:bg-gray-50 transition-colors"
+              className="btn btn-secondary"
             >
               Browse Templates
             </Link>
@@ -118,7 +118,7 @@ export default function HomePage() {
           </p>
           <Link
             href="/auth/signup"
-            className="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors inline-flex items-center"
+            className="btn btn-primary inline-flex items-center"
           >
             Get Started for Free
             <ArrowRight className="ml-2 h-5 w-5" />
@@ -131,7 +131,7 @@ export default function HomePage() {
         <div className="container mx-auto px-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <div className="w-6 h-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded flex items-center justify-center">
+              <div className="w-6 h-6 gradient-blue-purple rounded flex items-center justify-center">
                 <Box className="h-4 w-4 text-white" />
               </div>
               <span className="font-semibold text-gray-900">PackagePro</span>
