@@ -1,5 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Force dynamic for pages with authentication
+  experimental: {
+    missingSuspenseWithCSRBailout: false,
+  },
+  
   images: {
     remotePatterns: [
       {
